@@ -22,7 +22,7 @@
                     foreach ($data['pegawai'] as $k) {
                       ?>
                       <input type="hidden" name="pegawai[]" value="<?= $k->nip; ?>">
-                      <li><?= $k->nama ?> (<?= $k->nip ?>) <a href="<?= URLROOT; ?>/jabatan/deleteJabatan/<?php echo $data['admin']->id.'-'.$k->nip ?>">Hapus</a></li>
+                      <li><?= $k->nama ?> (<?= $k->nip ?>) <a href="<?= URLROOT; ?>/jabatan/deleteJabatan/<?php echo $data['jabatan']->id.'-'.$k->nip ?>">Hapus</a></li>
                       <?php
                     }
                   ?>
