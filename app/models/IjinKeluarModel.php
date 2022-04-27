@@ -76,6 +76,14 @@ class IjinKeluarModel
 
     return $this->db->resultSet();
   }
+  public function getByAtasanNotValidate()
+  {
+    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pejabat_validasi=:nip_user AND ijin_keluar.validasi IS NULL ORDER BY ijin_keluar.tanggal_ijin DESC";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
   public function getPejabatValidasi()
   {
       $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pejabat_validasi WHERE ijin_keluar.pemohon=:nip_user ORDER BY ijin_keluar.tanggal_ijin DESC";

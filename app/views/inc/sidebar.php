@@ -103,7 +103,7 @@
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar">Input Ijin Keluar</a>
                 <?php if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator')){ ?>
-                    <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/listvalidasi">Validasi Ijin Keluar <span class="badge badge-danger badge-counter">2</span></a>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/listvalidasi">Validasi Ijin Keluar <span class="badge badge-danger badge-counter"><?php echo count($this->model('IjinKeluarModel')->getByAtasanNotValidate()) ?></span></a>
                 <?php } ?>
                 <?php if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/rekap">Rekap Ijin Keluar</a>
