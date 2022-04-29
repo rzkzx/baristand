@@ -48,6 +48,13 @@ class PegawaiModel
 
       return $this->db->single();
   }
+  public function getByNIP($nip){
+    $query = "SELECT * FROM ".$this->table." WHERE nip=:nip";
+    $this->db->query($query);
+    $this->db->bind('nip', $nip);
+
+    return $this->db->single();
+  }
   public function getAllNIP($nip_pegawai){
     $array= explode(',', $nip_pegawai);
     $array = implode("','",$array);

@@ -19,7 +19,7 @@
                                     <?php 
                                     foreach ($data['ijin_keluar'] as $row) {
                                     ?>
-                                    <tr>
+                                    <tr <?php if(!$row->validasi) echo 'style="background-color:#fff5f5;"'; ?>>
                                         <td>
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                             <?= '<p>'.$row->nama.'</p>'; ?>

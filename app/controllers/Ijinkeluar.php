@@ -9,6 +9,7 @@ class IjinKeluar extends Controller{
         //new model instance
         $this->ijinKeluarModel = $this->model('IjinKeluarModel');
         $this->jabatanModel = $this->model('JabatanModel');
+        $this->pegawaiModel = $this->model('PegawaiModel');
     }
 
     public function index(){
@@ -76,6 +77,14 @@ class IjinKeluar extends Controller{
                 return redirect('ijinkeluar/add');
             }else{
                 if($this->ijinKeluarModel->add($_POST)){
+                    //get atasan data
+                    $ats = $this->pegawaiModel->getByNIP($_POST['pejabat_validasi']);
+                    // send notification to whatsapp atasan
+                    $data['no_telp'] = $ats->no_telp;
+                    $data['isi_pesan'] = "[BRSBB:SIP-IjinKeluar] Harap Ditindaklanjuti";
+                    notifWA($data);
+
+                    //redirect and set notif flash
                     setFlash('Berhasil membuat permohonan ijin keluar.','success');
                     return redirect('ijinkeluar');
                 }else{
@@ -84,12 +93,13 @@ class IjinKeluar extends Controller{
                 }
             }
         }else{
-            // Atasan Langsung Koordinator dan Kasubag TU
+            // Atasan Langsung Koordinator,Kasubag TU dan Kepala Balai
+            $kepalabalai = $this->jabatanModel->getPegawai('kepala_balai');
             $kasubag_tu = $this->jabatanModel->getPegawai('kasubag_tu');
             $koordinator = $this->jabatanModel->getPegawai('koordinator');
 
             //data 
-            $data['atasan'] = array_merge($kasubag_tu,$koordinator);
+            $data['atasan'] = array_merge($kepalabalai,$kasubag_tu,$koordinator);
 
             //render view
             $this->view('ijin_keluar/add', $data);
