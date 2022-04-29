@@ -15,49 +15,49 @@
             <form action="<?= URLROOT; ?>/pegawai/edit" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $data['pegawai']->id; ?>">
                 <div class="form-group row">
-                    <label for="nip" class="col-lg-2 col-form-label">NIP :</label>
+                    <label for="nip" class="col-lg-2 col-form-label">NIP</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="nip" name="nip" value="<?= $data['pegawai']->nip ?>" placeholder="input NIP...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="username" class="col-lg-2 col-form-label">Username :</label>
+                    <label for="username" class="col-lg-2 col-form-label">Username</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="username" name="username" value="<?= $data['pegawai']->username ?>" placeholder="input username...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai :</label>
+                    <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="nama" name="nama" value="<?= $data['pegawai']->nama ?>" placeholder="input nama pegawai...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="golongan" class="col-lg-2 col-form-label">Golongan :</label>
+                    <label for="golongan" class="col-lg-2 col-form-label">Golongan</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="golongan" name="golongan" value="<?= $data['pegawai']->golongan ?>" placeholder="input golongan...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="jabatan" class="col-lg-2 col-form-label">Jabatan :</label>
+                    <label for="jabatan" class="col-lg-2 col-form-label">Jabatan</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= $data['pegawai']->jabatan ?>" placeholder="input jabatan...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="no_telp" class="col-lg-2 col-form-label">No. Telp :</label>
+                    <label for="no_telp" class="col-lg-2 col-form-label">No. Telp</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $data['pegawai']->no_telp ?>" placeholder="input no telp...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="email" class="col-lg-2 col-form-label">Email : </label>
+                    <label for="email" class="col-lg-2 col-form-label">Email</label>
                     <div class="col-sm-9">
                     <input type="email" class="form-control" id="email" name="email" value="<?= $data['pegawai']->email ?>" placeholder="input email...">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-lg-2 col-form-label">Password : </label>
+                    <label for="password" class="col-lg-2 col-form-label">Password</label>
                     <div class="col-sm-9">
                     <input type="password" class="form-control" id="password" name="password" placeholder="input password...">
                     </div>

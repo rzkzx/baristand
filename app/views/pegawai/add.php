@@ -14,7 +14,7 @@
             </div>
             <form action="<?= URLROOT; ?>/pegawai/add" method="POST" enctype="multipart/form-data">
                 <div class="form-group row">
-                    <label for="nip" class="col-lg-2 col-form-label">NIP :</label>
+                    <label for="nip" class="col-lg-2 col-form-label">NIP</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="nip" name="nip" placeholder="input NIP..." required>
                     </div>
@@ -26,19 +26,19 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai :</label>
+                    <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="nama" name="nama" placeholder="input nama pegawai..." required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="golongan" class="col-lg-2 col-form-label">Golongan :</label>
+                    <label for="golongan" class="col-lg-2 col-form-label">Golongan</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="golongan" name="golongan" placeholder="input golongan..." required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="jabatan" class="col-lg-2 col-form-label">Jabatan :</label>
+                    <label for="jabatan" class="col-lg-2 col-form-label">Jabatan</label>
                     <div class="col-sm-9">
                     <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="input jabatan..." required>
                     </div>

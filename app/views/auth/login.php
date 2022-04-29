@@ -24,7 +24,7 @@
 <!-- Login Content -->
 <div class="container-login">
 <div class="row justify-content-center">
-    <div class="col-xl-4 col-lg-8 col-md-8">
+    <div class="col-xl-3 col-lg-6 col-md-6">
     <div class="card shadow-sm my-5 login-card">
         <div class="card-body p-0">
         <div class="row">
