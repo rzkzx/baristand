@@ -112,17 +112,17 @@
             </div>
         </li>
 
-        <li class="nav-item <?php if(stripos($data['title'],'Ijin Lembur') !== FALSE) echo 'active'; ?>">
+        <li class="nav-item <?php if($data['menu'] == 'Ijin Lembur') echo 'active'; ?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIjinLembur" aria-expanded="true"
             aria-controls="collapseIjinLembur">
             <i class="fas fa-calendar"></i>
             <span>Ijin Lembur</span>
             </a>
-            <div id="collapseIjinLembur" class="collapse <?php if(stripos($data['title'],'Ijin Lembur') !== FALSE) echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div id="collapseIjinLembur" class="collapse <?php if($data['menu'] == 'Ijin Lembur') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur">Input Ijin Lembur</a>
-                <?php if($_SESSION['jabatan'] !== NULL || $_SESSION['role'] == 'ADMIN' ){ ?>
+                <?php if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur/rekap">Rekap Ijin Lembur</a>
                 <?php } ?>
             </div>
