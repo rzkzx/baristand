@@ -15,7 +15,6 @@
                             <!-- form start -->
                             <form role="form" action="<?= URLROOT; ?>/ijinkeluar/validasi/<?= $data['id'] ?>" method="POST" enctype="multipart/form-data">
                                 <div class="row mb-3">
-                                  <h4>Form Permohonan Ijin Keluar</h4>
                                 </div>
                                 <input type="hidden" name="id" value="<?= $data['id']; ?>">
                                 <div class="row mb-3">
