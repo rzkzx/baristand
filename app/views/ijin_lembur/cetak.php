@@ -77,7 +77,7 @@
     <center>
       <div class="row">
         <div class="gambar">
-          <img src="<?= base_url; ?>/dist/img/logo/baristand.png" alt="logo baristand">
+          <img src="<?= URLROOT; ?>/img/logo/baristand.png" alt="logo baristand">
         </div>
         <div class="title">
           <h5 style="margin-bottom:2px;font-weight:500;">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</h6>
@@ -92,11 +92,11 @@
 
       <div class="content" >
         <u>SURAT PERINTAH KERJA LEMBUR</u>
-        <p style="margin-top:10px">Nomor: <?= $data['ijinlembur']['nomor_surat'] ?></p>
+        <p style="margin-top:10px">Nomor: <?= $data['ijinlembur']->nomor_surat ?></p>
 
         <div class="text">
           <p>
-          Yang bertanda tangan dibawah ini, Kepala Baristand Industri Banjarbaru, memerintahkan kerja lembur kepada pegawai tersebut dibawah ini pada tanggal <?= $data['ijinlembur']['tanggal_ijin'] ?>, hari <?= $data['hari'] ?> selama <?= $data['ijinlembur']['lama_tugas'] ?> untuk pekerjaan yang penyelesaiannya tidak dapat ditangguhkan.
+          Yang bertanda tangan dibawah ini, Kepala Baristand Industri Banjarbaru, memerintahkan kerja lembur kepada pegawai tersebut dibawah ini pada tanggal <?= $data['ijinlembur']->tanggal_ijin ?>, hari <?= $data['hari'] ?> selama <?= $data['ijinlembur']->lama_tugas ?> untuk pekerjaan yang penyelesaiannya tidak dapat ditangguhkan.
           </p>
           <p>Demikian agar dilaksanakan dengan penuh tanggung jawab.</p>
         </div>
@@ -105,38 +105,52 @@
 
     <div class="sign">
       <div class="top">
-        <p>Banjarbaru, <?= $data['ijinlembur']['tanggal_ijin'] ?></p>
+        <p>Banjarbaru, <?= $data['ijinlembur']->tanggal_ijin ?></p>
         <p>Kepala Baristand Industri Banjarbaru</p>
       </div>
       <div class="ttd">
-        <img src="<?php echo Helper::qrcode('120',$data['ijinlembur']['sign']) ?>" alt="">
+        <img src="<?php echo qrcode('120',$data['sign']) ?>" alt="">
       </div>
       <div class="name">
-        <u><b><?= strtoupper($data['kepala_balai']['nama']) ?></b></u>
+        <u><b><?= strtoupper($data['kepala_balai']->nama) ?></b></u>
         <br>
-        NIP : <?= $data['kepala_balai']['nip'] ?>
+        NIP : <?= $data['kepala_balai']->nip ?>
       </div>
     </div>
 
     <div class="isi">
       <p>Daftar : Nama Pegawai yang melaksanakan kerja lembur</p>
       <table border="1" style="width: 100%">
-        <tr>
-            <td>No</td>
-            <td>Nama Pegawai</td>
-            <td>Jabatan</td>
-            <td>Golongan</td>
-            <td>Jenis Pekerjaan yang dilembur</td>
-            <td>Ket.</td>
+        <tr rowspan="5">
+          <td>No</th>
+          <td>Nama Pegawai</td>
+          <td>Jabatan</th>
+          <td>Golongan</th>
+          <td>Jenis Pekerjaan yang dilembur</td>
+          <td>Ket.</th>
         </tr>
+        <?php
+        $index = 1;
+        foreach ($data['pemohon'] as $k) {
+        ?>
         <tr>
-            <td>1</td>
-            <td><?= $data['ijinlembur']['nama'] ?></td>
-            <td><?= $data['ijinlembur']['jabatan_real'] ?></td>
-            <td><?= $data['ijinlembur']['golongan'] ?></td>
-            <td><?= $data['ijinlembur']['keperluan'] ?></td>
-            <td><?= $data['ijinlembur']['keterangan'] ?></td>
+          <td><?= $index ?></td>
+          <td><?= $k->nama ?></td>
+          <td><?= $k->jabatan ?></td>
+          <td><?= $k->golongan ?></td>
+          <?php
+          if($index == 1){
+            ?>
+          <td rowspan="<?= count($data['pemohon']) ?>"><?= $data['ijinlembur']->keperluan ?></td>
+          <td rowspan="<?= count($data['pemohon']) ?>"><?= $data['ijinlembur']->keterangan ?></td>
+            <?php
+          }
+          ?>
         </tr>
+        <?php
+        $index++;
+        }
+        ?>
     </table>
     </div>
     

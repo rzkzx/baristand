@@ -26,6 +26,28 @@ class JabatanModel
     return $this->db->single();
   }
 
+  public function getByJabatan($jbt){
+    $query = "SELECT * FROM ".$this->table." WHERE hak_akses=:jbt";
+    $this->db->query($query);
+    $this->db->bind('jbt', $jbt);
+
+    return $this->db->single();
+  }
+
+  public function getOnlyPegawai($hak_akses){
+    $query = "SELECT * FROM ".$this->table." WHERE hak_akses=:hak_akses";
+    $this->db->query($query);
+    $this->db->bind('hak_akses',$hak_akses);
+    $jabatan = $this->db->single();
+
+    $array = explode(',',$jabatan->nip_pegawai);
+    $query = "SELECT * FROM users WHERE nip=:nip";
+    $this->db->query($query);
+    $this->db->bind('nip',$array[0]);
+
+    return $this->db->single();
+  }
+
   public function getPegawai($hak_akses){
     $query = "SELECT * FROM ".$this->table." WHERE hak_akses=:hak_akses";
     $this->db->query($query);

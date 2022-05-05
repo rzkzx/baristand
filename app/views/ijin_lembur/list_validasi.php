@@ -3,9 +3,6 @@
     <div class="col-lg-12">
             <!-- Main content -->
                     <div class="card mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <a href="<?= URLROOT;?>/ijinlembur/add" class="btn float-right btn-xs btn btn-primary">Buat Ijin Lembur</a>
-                        </div>
                         <div class="card-body">
                             <?php flash(); ?>
                             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -27,7 +24,7 @@
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                             <br/>
                                             <?php foreach ($data['pemohon'][$index] as $k) {
-                                                echo $k->nama. PHP_EOL;
+                                                echo $k->nama. '<br/>';
                                             } ?>
                                         </td>
                                         <td>
@@ -42,7 +39,11 @@
                                             Atasan Langsung :
                                             <?php 
                                                 if(!$row->validasi_atasan_langsung){
+                                                    if($row->pejabat_validasi == $_SESSION['nip']){
+                                                        echo '<a href="'.URLROOT.'/ijinlembur/validasi_atasan/'.$row->id.'" class="btn btn-primary btn-sm">Validasi</a>';
+                                                    }else{
                                                         echo '<span style="color:#e67e22;">Menunggu divalidasi</span>';
+                                                    }
                                                 }else{
                                                     if($row->validasi_atasan_langsung == 'Ditolak'){
                                                         echo '<span class="text-danger">'.$row->validasi_atasan_langsung.'</span>, '.$row->waktu_validasi_atasan_langsung;
@@ -66,7 +67,11 @@
                                                             echo '</br>Alasan : '.$row->alasan_ditolak;
                                                         }
                                                     }else{
-                                                        echo '<span style="color:#e67e22;">Menunggu divalidasi</span>';
+                                                        if(Middleware::jabatan('kepala_balai')){
+                                                            echo '<a href="'.URLROOT.'/ijinlembur/validasi_kb/'.$row->id.'" class="btn btn-primary btn-sm">Validasi</a>';
+                                                        }else{
+                                                            echo '<span style="color:#e67e22;">Menunggu divalidasi</span>';
+                                                        }
                                                     }
                                                 }else{
                                                     echo '<span style="color:#e67e22;">Gagal Validasi</span>';
@@ -74,11 +79,23 @@
                                             ?>
                                             <?php 
                                                 if($row->diterbitkan == TRUE){
-                                                        echo '</br><b>Surat Izin Sudah Diterbitkan</b>';
+                                                    if(Middleware::admin('kepegawaian')){
+                                                        echo '</br><a href="'.URLROOT.'/ijinlembur/cetak/'.$row->id.'" target="_blank" class="btn btn-success btn-sm">Cetak</a>';
+                                                    }else{
+                                                        echo '</br><b>Surat Ijin Sudah Diterbitkan</b>';
+                                                    }
+                                                }else{
+                                                    if(Middleware::admin('kepegawaian')){
+                                                        if($row->validasi_atasan_langsung == 'Diterima' && $row->validasi_kepala_balai == 'Diterima'){
+                                                            echo '</br><a href="'.URLROOT.'/ijinlembur/terbitkan/'.$row->id.'" class="btn btn-primary btn-sm">Input Nomor Surat</a>';
+                                                        }
+                                                    }else{
+                                                        echo '</br><b class="text-danger">Surat ijin dalam proses...</b>';
+                                                    }
                                                 }
                                             ?>
                                         </td>
-                                    </tr>
+                                    </track>
                                     <?php 
                         $index++;
                     }

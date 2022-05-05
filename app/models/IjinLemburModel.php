@@ -50,7 +50,7 @@ class IjinLemburModel
       return $this->db->rowCount();
   }
 
-  public function validasiKepalaBalai($data)
+  public function validasiKB($data)
   {
       $waktu_validasi = date('Y-m-d').', '.date('H:i');
       $alasan_ditolak = $data['alasan_ditolak'];
@@ -104,7 +104,7 @@ class IjinLemburModel
 
   public function getAll()
   {
-      $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon ORDER BY id DESC";
+      $query = "SELECT * FROM ".$this->table." ORDER BY id DESC";
       $this->db->query($query);
 
       return $this->db->resultSet();
@@ -112,16 +112,50 @@ class IjinLemburModel
 
   public function getByUserLogin()
   {
-    $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE ijin_lembur.penginput=:nip_user ORDER BY id DESC";
+    $query = "SELECT * FROM ".$this->table." WHERE ijin_lembur.penginput=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$_SESSION['nip']);
 
     return $this->db->resultSet();
   }
 
+  public function getByAtasan()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE ijin_lembur.pejabat_validasi=:nip_user ORDER BY id DESC";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByAtasanNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE pejabat_validasi=:nip_user AND validasi_atasan_langsung IS NULL ORDER BY id DESC";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKBNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE validasi_atasan_langsung='DITERIMA' AND validasi_kepala_balai IS NULL ORDER BY id DESC";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByNomorNotInput()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE validasi_kepala_balai='DITERIMA' AND nomor_surat IS NULL ORDER BY id DESC";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
   public function rekapAll()
   {
-      $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE diterbitkan=:terbit ORDER BY id DESC";
+      $query = "SELECT * FROM ".$this->table." WHERE diterbitkan=:terbit ORDER BY id DESC";
       $this->db->query($query);
       $this->db->bind('terbit',TRUE);
 
@@ -131,7 +165,7 @@ class IjinLemburModel
   {
       $dateOne = date("Y-m-d", strtotime($date1));
       $dateTwo = date("Y-m-d", strtotime($date2));
-      $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE diterbitkan=:terbit AND ijin_lembur.tanggal_ijin BETWEEN :start_date AND :end_date ORDER BY id DESC";
+      $query = "SELECT * FROM ".$this->table." WHERE diterbitkan=:terbit AND ijin_lembur.tanggal_ijin BETWEEN :start_date AND :end_date ORDER BY id DESC";
       $this->db->query($query);
       $this->db->bind('terbit',TRUE);
       $this->db->bind('start_date',$dateOne);
@@ -142,7 +176,7 @@ class IjinLemburModel
 
   public function rekapByNIP()
   {
-    $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE diterbitkan=:terbit AND ijin_lembur.pejabat_validasi=:nip_user ORDER BY id DESC";
+    $query = "SELECT * FROM ".$this->table." WHERE diterbitkan=:terbit AND ijin_lembur.pejabat_validasi=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('terbit',TRUE);
     $this->db->bind('nip_user',$_SESSION['nip']);
@@ -153,7 +187,7 @@ class IjinLemburModel
   {
     $dateOne = date("Y-m-d", strtotime($date1));
     $dateTwo = date("Y-m-d", strtotime($date2));
-    $query = "SELECT ijin_lembur.*,users.nama,users.jabatan,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE diterbitkan=:terbit AND ijin_lembur.pejabat_validasi=:nip_user AND ijin_lembur.tanggal_ijin BETWEEN :start_date AND :end_date ORDER BY id DESC";
+    $query = "SELECT * FROM ".$this->table." WHERE diterbitkan=:terbit AND ijin_lembur.pejabat_validasi=:nip_user AND ijin_lembur.tanggal_ijin BETWEEN :start_date AND :end_date ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('terbit',TRUE);
     $this->db->bind('nip_user',$_SESSION['nip']);
@@ -164,7 +198,7 @@ class IjinLemburModel
   }
 
   public function getById($id){
-    $query = "SELECT ijin_lembur.*, users.nama,users.jabatan_real,users.golongan FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_lembur.pemohon WHERE ijin_lembur.id=:id";
+    $query = "SELECT * FROM ".$this->table." WHERE ijin_lembur.id=:id";
     $this->db->query($query);
     $this->db->bind('id', $id);
 

@@ -1,3 +1,4 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
 <section class="section">
     <div class="row">
         <div class="col-12">
@@ -8,55 +9,56 @@
 
                         <div class="card-body">
                             <div class="col-md-8">
-                                <?php Flasher::Message(); ?>
+                                <?php flash(); ?>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" action="<?= base_url; ?>/ijinlembur/updateValidasiKepalaBalai" method="POST" enctype="multipart/form-data">
-                                <div class="row mb-3">
-                                  <h4>Form Permohona Izin Keluar</h4>
-                                </div>
-                                <input type="hidden" name="id" value="<?= $data['ijinlembur']['id']; ?>">
+                            <form role="form" action="<?= URLROOT; ?>/ijinlembur/validasi_kb/<?= $data['id'] ?>" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="<?= $data['ijin_lembur']->id; ?>">
                                 <div class="row mb-3">
                                   <label for="pemohon" class="col-sm-2 col-form-label">Pemohon :</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="pemohon" required class="form-control" id="pemohon" value="<?= $data['ijinlembur']['nama'] ?>" readonly>
+                                    <ul style="padding: 0; margin: 0;">
+                                      <?php foreach ($data['pemohon'] as $k) {
+                                          echo '<li style="list-style-type:none;">'.$k->nama.' / '. $k->nip .'</li>';
+                                      } ?>
+                                    </ul>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="keperluan" class="col-sm-2 col-form-label">Keperluan :</label>
                                   <div class="col-sm-6">
-                                    <textarea type="text" name="keperluan" required class="form-control" id="keperluan" placeholder="Tulis keperluan..." readonly><?= $data['ijinlembur']['keperluan'] ?></textarea>
+                                    <textarea type="text" name="keperluan" required class="form-control" id="keperluan" placeholder="Tulis keperluan..." readonly><?= $data['ijin_lembur']->keperluan; ?></textarea>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="keterangan" class="col-sm-2 col-form-label">Keterangan :</label>
                                   <div class="col-sm-6">
-                                    <textarea type="text" name="keterangan" required class="form-control" id="keterangan" placeholder="-" readonly><?= $data['ijinlembur']['keterangan'] ?></textarea>
+                                    <textarea type="text" name="keterangan" required class="form-control" id="keterangan" placeholder="-" readonly><?= $data['ijin_lembur']->keterangan ?></textarea>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="tanggal_ijin" class="col-sm-2 col-form-label">Tanggal Ijin :</label>
                                   <div class="col-sm-6">
-                                    <input type="date" name="tanggal_ijin" required class="form-control" id="tanggal_ijin" readonly value="<?= $data['ijinlembur']['tanggal_ijin'] ?>">
+                                    <input type="date" name="tanggal_ijin" required class="form-control" id="tanggal_ijin" readonly value="<?= $data['ijin_lembur']->tanggal_ijin ?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="jam_mulai" class="col-sm-2 col-form-label">Jam Mulai :</label>
                                   <div class="col-sm-6">
-                                    <input type="time" name="jam_mulai" required class="form-control" id="jam_mulai" readonly value="<?= $data['ijinlembur']['jam_mulai'] ?>">
+                                    <input type="time" name="jam_mulai" required class="form-control" id="jam_mulai" readonly value="<?= $data['ijin_lembur']->jam_mulai ?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="jam_kembali" class="col-sm-2 col-form-label">Jam Berakhir :</label>
                                   <div class="col-sm-6">
-                                    <input type="time" name="jam_kembali" required class="form-control" id="jam_kembali" readonly value="<?= $data['ijinlembur']['jam_berakhir'] ?>">
+                                    <input type="time" name="jam_kembali" required class="form-control" id="jam_kembali" readonly value="<?= $data['ijin_lembur']->jam_berakhir ?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label for="jam_kembali" class="col-sm-2 col-form-label">Validasi Atasan :</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="validasi_atasan_langsung" required class="form-control" id="validasi_atasan_langsung" readonly value="<?= $data['ijinlembur']['validasi_atasan_langsung'].', '.$data['ijinlembur']['waktu_validasi_atasan_langsung'] ?>">
+                                    <input type="text" name="validasi_atasan_langsung" required class="form-control" id="validasi_atasan_langsung" readonly value="<?= $data['ijin_lembur']->validasi_atasan_langsung.', '.$data['ijin_lembur']->waktu_validasi_atasan_langsung ?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
@@ -85,7 +87,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Simpan</button>
-                                    <a href="<?= base_url; ?>/ijinlembur" class="btn btn-danger">Kembali</a>
+                                    <a href="<?= URLROOT; ?>/ijinlembur" class="btn btn-danger">Kembali</a>
                                 </div>
                             </form>
                         </div>
@@ -97,6 +99,7 @@
         </div>
     </div>
 </section>
+<?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
   function showAlasan(){
     document.getElementById("alasan_ditolak").readOnly = false;

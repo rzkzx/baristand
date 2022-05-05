@@ -9,32 +9,51 @@ class IjinLembur extends Controller{
         //new model instance
         $this->ijinLemburModel = $this->model('IjinLemburModel');
         $this->jabatanModel = $this->model('JabatanModel');
+        $this->adminModel = $this->model('AdminModel');
         $this->pegawaiModel = $this->model('PegawaiModel');
     }
 
     public function index(){
         $ijin_lembur = $this->ijinLemburModel->getByUserLogin();
+        $index = 0;
+        $pemohon = [];
+        foreach ($ijin_lembur as $k) {
+            $pemohon[$index] = $this->pegawaiModel->getAllNIP($k->pemohon);
+            $index++;
+        }
         $data = [
             'title' => 'Input Ijin Lembur',
             'menu' => 'Ijin Lembur',
             'ijin_lembur' => $ijin_lembur,
+            'pemohon' => $pemohon
         ];
 
         $this->view('ijin_lembur/index', $data);
     }
 
     public function listvalidasi(){
-        if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator')){
-            $ijin_keluar = $this->ijinKeluarModel->getByAtasan();
+        if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai') || Middleware::admin('kepegawaian')){
+            if(Middleware::jabatan('kepala_balai') || Middleware::admin('kepegawaian')){
+                $ijin_lembur = $this->ijinLemburModel->getAll();
+            }else{
+                $ijin_lembur = $this->ijinLemburModel->getByAtasan();
+            }
+            $index = 0;
+            $pemohon = [];
+            foreach ($ijin_lembur as $k) {
+                $pemohon[$index] = $this->pegawaiModel->getAllNIP($k->pemohon);
+                $index++;
+            }
             $data = [
-                'title' => 'Daftar Validasi Ijin Keluar',
-                'menu' => 'Ijin Keluar',
-                'ijin_keluar' => $ijin_keluar,
+                'title' => 'Daftar Validasi Ijin Lembur',
+                'menu' => 'Ijin Lembur',
+                'ijin_lembur' => $ijin_lembur,
+                'pemohon' => $pemohon
             ];
 
-            $this->view('ijin_keluar/list_validasi', $data);
+            $this->view('ijin_lembur/list_validasi', $data);
         }else{
-            return redirect('ijinkeluar');
+            return redirect('ijin_lembur');
         }
     }
 
@@ -61,6 +80,28 @@ class IjinLembur extends Controller{
         }
     }
 
+    public function cetak($id = ''){
+        $ijn = $this->ijinLemburModel->getById($id);
+        if($ijn && $ijn->diterbitkan && Middleware::admin('kepegawaian')){
+            $pemohon = $this->pegawaiModel->getAllNIP($ijn->pemohon);
+            $data = [
+                'ijinlembur' => $ijn,
+                'pemohon' => $pemohon
+            ];
+            $data['kepala_balai'] = $this->jabatanModel->getOnlyPegawai('kepala_balai');
+            
+            $nomor = explode('/',$ijn->nomor_surat);
+            $data['sign'] = $nomor[0].'/'.$ijn->tanggal_ijin.'/'.$data['kepala_balai']->nama;
+
+            $data['ijinlembur']->tanggal_ijin = dateID($data['ijinlembur']->tanggal_ijin);
+            $data['hari'] = dayID($data['ijinlembur']->tanggal_ijin);
+            
+            $this->view('ijin_lembur/cetak', $data);
+        }else{
+        return redirect('ijinlembur');
+        }
+    }
+
     //add new jp
     public function add(){
         $data['title'] = 'Form Input Ijin Lembur';
@@ -76,7 +117,7 @@ class IjinLembur extends Controller{
                 return redirect('ijinlembur/add');
             }else{
                 if($this->ijinLemburModel->add($_POST)){
-                    //get atasan data
+                    // get atasan data
                     $ats = $this->pegawaiModel->getByNIP($_POST['pejabat_validasi']);
                     // send notification to whatsapp atasan
                     $data['no_telp'] = $ats->no_telp;
@@ -106,10 +147,10 @@ class IjinLembur extends Controller{
         }
     }
 
-     // validasi control
-     public function validasi($id = ''){
-        $data['title'] = 'Validasi Ijiin Keluar';
-        $data['menu'] = 'Ijin Keluar';
+     // validasi atasan controller
+    public function validasi_atasan($id = ''){
+        $data['title'] = 'Validasi Atasan Ijin Lembur';
+        $data['menu'] = 'Ijin Lembur';
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
@@ -117,41 +158,153 @@ class IjinLembur extends Controller{
             if(empty($_POST['validasi'])){
                 //load view with error
                 setFlash('Form input tidak boleh kosong','danger');
-                return redirect('ijinkeluar/validasi/'.$_POST['id']);
+                return redirect('ijinlembur/validasi_atasan/'.$_POST['id']);
             }else{
-                $ijk = $this->ijinKeluarModel->getById($_POST['id']);
-                if($ijk && !$ijk->validasi && $ijk->pejabat_validasi == $_SESSION['nip']){
-                    if($this->ijinKeluarModel->update($_POST)){
-                        // send notification to whatsapp pegawai
-                        // // '%0a' new line in whatsapp
-                        $data['no_telp'] = $ijk->no_telp;
-                        $data['isi_pesan'] = 
-                        "*Izin Keluar Disetujui*%0aNama : ".$ijk->nama."%0aJam Keluar : ".timeID($ijk->jam_keluar)."%0aJam Kembali : ".timeID($ijk->jam_kembali)."%0aTanggal Izin : ".dayID($ijk->tanggal_ijin).", ".dateID($ijk->tanggal_ijin)."%0aKeperluan : ".$ijk->keperluan;
-                        notifWA($data);
-
+                $ijk = $this->ijinLemburModel->getById($_POST['id']);
+                if($ijk && !$ijk->validasi_atasan_langsung && $ijk->pejabat_validasi == $_SESSION['nip']){
+                    if($this->ijinLemburModel->validasiAtasan($_POST)){
+                        if($_POST['validasi'] == 'Diterima'){
+                            //get atasan data
+                            $kb = $this->jabatanModel->getPegawai('kepala_balai');
+                            // send notification to whatsapp atasan
+                            $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Harap Ditindaklanjuti";
+                            foreach ($kb as $k) {
+                                $data['no_telp'] = $k->no_telp;
+                                notifWA($data);
+                            }
+                        }
+                        
                         // redirect after success validate
-                        setFlash('Berhasil validasi ijin keluar.','success');
-                        return redirect('ijinkeluar/listvalidasi');
+                        setFlash('Berhasil validasi Ijin Lembur.','success');
+                        return redirect('ijinlembur/listvalidasi');
                     }else{
-                        setFlash('Gagal validasi ijin keluar','danger');
-                        return redirect('ijinkeluar/listvalidasi');
+                        setFlash('Gagal validasi Ijin Lembur','danger');
+                        return redirect('ijinlembur/listvalidasi');
                     }
                 }else{
-                    setFlash('Gagal validasi ijin keluar','danger');
-                    return redirect('ijinkeluar/listvalidasi');
+                    setFlash('Gagal validasi Ijin Lembur','danger');
+                    return redirect('ijinlembur/listvalidasi');
                 }
             }
         }else{
-            $ijin_keluar = $this->ijinKeluarModel->getById($id);
-            if($ijin_keluar && !$ijin_keluar->validasi && $ijin_keluar->pejabat_validasi == $_SESSION['nip']){
+            $ijin_lembur = $this->ijinLemburModel->getById($id);
+
+            if($ijin_lembur && !$ijin_lembur->validasi_atasan_langsung && $ijin_lembur->pejabat_validasi == $_SESSION['nip']){
                 $data['id'] = $id;
-                $data['ijin_keluar'] = $ijin_keluar;
+                $data['ijin_lembur'] = $ijin_lembur;
+                $data['pemohon'] = $this->pegawaiModel->getAllNIP($ijin_lembur->pemohon);
                 
-                $this->view('ijin_keluar/validasi', $data);
+                $this->view('ijin_lembur/validasi_atasan', $data);
             }else{
-                return redirect('ijinkeluar/listvalidasi');
+                return redirect('ijinlembur/listvalidasi');
             }
         }
     }
+
+    // validasi kepala balai controller
+    public function validasi_kb($id = ''){
+        $data['title'] = 'Validasi Kepala Balai Ijin Lembur';
+        $data['menu'] = 'Ijin Lembur';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+            //validate error free
+            if(empty($_POST['validasi'])){
+                //load view with error
+                setFlash('Form input tidak boleh kosong','danger');
+                return redirect('ijinlembur/validasi_kb/'.$_POST['id']);
+            }else{
+                $ijk = $this->ijinLemburModel->getById($_POST['id']);
+                if($ijk && $ijk->validasi_atasan_langsung && !$ijk->validasi_kepala_balai && Middleware::jabatan('kepala_balai')){
+                    if($this->ijinLemburModel->validasiKB($_POST)){
+                        if($_POST['validasi'] == 'Diterima'){
+                            //get atasan data
+                            $kb = $this->adminModel->getPegawai('kepegawaian');
+                            // send notification to whatsapp atasan
+                            $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Harap Ditindaklanjuti";
+                            foreach ($kb as $k) {
+                                $data['no_telp'] = $k->no_telp;
+                                notifWA($data);
+                            }
+                        }
+
+                        // redirect after success validate
+                        setFlash('Berhasil validasi Ijin Lembur.','success');
+                        return redirect('ijinlembur/listvalidasi');
+                    }else{
+                        setFlash('Gagal validasi Ijin Lembur','danger');
+                        return redirect('ijinlembur/listvalidasi');
+                    }
+                }else{
+                    setFlash('Gagal validasi Ijin Lembur','danger');
+                    return redirect('ijinlembur/listvalidasi');
+                }
+            }
+        }else{
+            $ijin_lembur = $this->ijinLemburModel->getById($id);
+
+            if($ijin_lembur && $ijin_lembur->validasi_atasan_langsung && !$ijin_lembur->validasi_kepala_balai && Middleware::jabatan('kepala_balai')){
+                $data['id'] = $id;
+                $data['ijin_lembur'] = $ijin_lembur;
+                $data['pemohon'] = $this->pegawaiModel->getAllNIP($ijin_lembur->pemohon);
+                
+                $this->view('ijin_lembur/validasi_kb', $data);
+            }else{
+                return redirect('ijinlembur/listvalidasi');
+            }
+        }
+    }
+
+    // terbitkan surat ijin controller
+    public function terbitkan($id = ''){
+        $data['title'] = 'Terbitkan Ijin Lembur';
+        $data['menu'] = 'Ijin Lembur';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+            //validate error free
+            foreach($_POST['nomor_surat'] as $value) if(empty($value)) $_POST['nomor_surat'] = '';
+            if(empty($_POST['nomor_surat'])){
+                //load view with error
+                setFlash('Form input tidak boleh kosong','danger');
+                return redirect('ijinlembur/terbitkan/'.$_POST['id']);
+            }else{
+                $ijn = $this->ijinLemburModel->getById($_POST['id']);
+                if($ijn && $ijn->validasi_kepala_balai && !$ijn->nomor_surat && Middleware::admin('kepegawaian')){
+                    if($this->ijinLemburModel->terbitkan($_POST)){
+                        //get atasan data
+                        $ats = $this->pegawaiModel->getByNIP($_POST['penginput']);
+                        // send notification to whatsapp atasan
+                        $data['no_telp'] = $ats->no_telp;
+                        $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Surat Izin Telah Diterbitkan";
+                        notifWA($data);
+
+                        // redirect after success validate
+                        setFlash('Berhasil terbitkan Ijin Lembur.','success');
+                        return redirect('ijinlembur/listvalidasi');
+                    }else{
+                        setFlash('Gagal terbitkan Ijin Lembur','danger');
+                        return redirect('ijinlembur/listvalidasi');
+                    }
+                }else{
+                    setFlash('Gagal terbitkan Ijin Lembur','danger');
+                    return redirect('ijinlembur/listvalidasi');
+                }
+            }
+        }else{
+            $ijn = $this->ijinLemburModel->getById($id);
+
+            if($ijn && $ijn->validasi_kepala_balai && !$ijn->nomor_surat && Middleware::admin('kepegawaian')){
+                $data['id'] = $id;
+                $data['ijin_lembur'] = $ijn;
+                $data['pemohon'] = $this->pegawaiModel->getAllNIP($ijn->pemohon);
+                
+                $this->view('ijin_lembur/terbitkan', $data);
+            }else{
+                return redirect('ijinlembur/listvalidasi');
+            }
+        }
+    }
+
 }                            
                         

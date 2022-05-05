@@ -103,7 +103,7 @@
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar">Input Ijin Keluar</a>
                 <?php if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator')){ ?>
-                    <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/listvalidasi">Validasi Ijin Keluar <span class="badge badge-danger badge-counter"><?php echo count($this->model('IjinKeluarModel')->getByAtasanNotValidate()) ?></span></a>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/listvalidasi">Validasi Ijin Keluar <span class="badge badge-danger badge-counter"><?php if($ijin_keluar = $this->model('IjinKeluarModel')->getByAtasanNotValidate()) echo count($ijin_keluar) ?></span></a>
                 <?php } ?>
                 <?php if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/rekap">Rekap Ijin Keluar</a>
@@ -122,6 +122,25 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur">Input Ijin Lembur</a>
+                <?php if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai') || Middleware::admin('kepegawaian')){ ?>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur/listvalidasi">
+                    Validasi Ijin Lembur 
+                        <?php  
+                        $kb = 0; $atasan = 0; $Nmr = 0;
+                        $atasan = count($this->model('IjinLemburModel')->getByAtasanNotValidate());
+                        if(Middleware::jabatan('kepala_balai')){
+                            $kb = count($this->model('IjinLemburModel')->getByKBNotValidate());
+                        }
+                        if(Middleware::admin('kepegawaian')){
+                            $nmr = count($this->model('IjinLemburModel')->getByNomorNotInput());
+                        }
+                        $total = $atasan + $kb + $nmr;
+                        if($total > 0){
+                            echo '<span class="badge badge-danger badge-counter">'.$total.'</span>';
+                        }
+                        ?>
+                    </a>
+                <?php } ?>
                 <?php if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur/rekap">Rekap Ijin Lembur</a>
                 <?php } ?>
