@@ -53,30 +53,36 @@ class IjinLembur extends Controller{
 
             $this->view('ijin_lembur/list_validasi', $data);
         }else{
-            return redirect('ijin_lembur');
+            return redirect('ijinlembur');
         }
     }
 
     public function rekap(){
         if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){
             if(ISSET($_POST['search'])){
-                $ijin_keluar = $this->ijinKeluarModel->getAllByDate($_POST['date1'],$_POST['date2']);
-                $pejabatvalidasi = $this->ijinKeluarModel->getAllPejabatValidasiByDate($_POST['date1'],$_POST['date2']);
+                $ijin_lembur = $this->ijinLemburModel->rekapAllByDate($_POST['date1'],$_POST['date2']);
             }else{
-                $ijin_keluar = $this->ijinKeluarModel->get();
-                $pejabatvalidasi = $this->ijinKeluarModel->getAllPejabatValidasi();
+                $ijin_lembur = $this->ijinLemburModel->rekapAll();
+            }
+
+            //pemohon
+            $index = 0;
+            $pemohon = [];
+            foreach ($ijin_lembur as $k) {
+                $pemohon[$index] = $this->pegawaiModel->getAllNIP($k->pemohon);
+                $index++;
             }
 
             $data = [
-                'title' => 'Rekap Ijin Keluar',
-                'menu' => 'Ijin Keluar',
-                'ijin_keluar' => $ijin_keluar,
-                'pejabatvalidasi' => $pejabatvalidasi
+                'title' => 'Rekap Ijin Lembur',
+                'menu' => 'Ijin Lembur',
+                'ijin_lembur' => $ijin_lembur,
+                'pemohon' => $pemohon
             ];
 
-            $this->view('ijin_keluar/rekap', $data);
+            $this->view('ijin_lembur/rekap', $data);
         }else{
-            return redirect('ijinkeluar');
+            return redirect('ijinlembur');
         }
     }
 
