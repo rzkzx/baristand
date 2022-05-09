@@ -126,7 +126,7 @@
                     <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur/listvalidasi">
                     Validasi Ijin Lembur 
                         <?php  
-                        $kb = 0; $atasan = 0; $Nmr = 0;
+                        $kb = 0; $atasan = 0; $nmr = 0;
                         $atasan = count($this->model('IjinLemburModel')->getByAtasanNotValidate());
                         if(Middleware::jabatan('kepala_balai')){
                             $kb = count($this->model('IjinLemburModel')->getByKBNotValidate());
@@ -196,26 +196,12 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider">
-        <div class="sidebar-heading">
-            Examples
-        </div>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-            aria-controls="collapsePage">
-            <i class="fas fa-fw fa-columns"></i>
-            <span>Pages</span>
-            </a>
-            <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Example Pages</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div>
-            </div>
+        <li class="nav-item <?php if($data['title'] == 'E-Files') echo 'active'; ?>">
+        <a class="nav-link" href="<?= URLROOT; ?>/efiles">
+            <i class="fa fa-file"></i>
+            <span>&nbsp;E-Files</span></a>
         </li>
+        
         <hr class="sidebar-divider">
         <div class="version">BSPJI - VERSION <?= APPVERSION; ?></div>
         </ul>
