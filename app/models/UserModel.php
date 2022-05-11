@@ -59,4 +59,59 @@ class UserModel {
 
         return $row;
     }
+
+    public function getByLogin()
+    {
+        $query = "SELECT * FROM users WHERE nip = :nip";
+        $this->db->query($query);
+        $this->db->bind(':nip', $_SESSION['nip']);
+
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function changePassword($data)
+    {
+        $query = "SELECT * FROM users WHERE nip = :nip";
+        $this->db->query($query);
+        $this->db->bind(':nip', $_SESSION['nip']);
+        
+        $user = $this->db->single();
+        if($user){
+            if (password_verify($data['password'], $user->password)) {
+                $query = "UPDATE users SET password=:password WHERE nip=:nip";
+                $this->db->query($query);
+                $this->db->bind(':nip', $_SESSION['nip']);
+                $this->db->bind(':password', password_hash($data['password_baru'],PASSWORD_DEFAULT));
+            
+                $this->db->execute();
+                return $this->db->rowCount();
+            }else{
+                return 0;
+            }
+        }else{
+            return 0;
+        }
+    }
+
+    public function changeProfile($data)
+    {
+        $query = "UPDATE users SET username=:username,nama=:nama,no_telp=:no_telp,email=:email,golongan=:golongan,jabatan=:jabatan WHERE nip=:nip";
+        $this->db->query($query);
+        $this->db->bind(':nip', $_SESSION['nip']);
+        $this->db->bind(':username', $data['username']);
+        $this->db->bind(':nama', $data['nama']);
+        $this->db->bind(':no_telp', $data['no_telp']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':golongan', $data['golongan']);
+        $this->db->bind(':jabatan', $data['jabatan']);
+    
+        $this->db->execute();
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['nama'] = $data['nama'];
+        $_SESSION['email'] = $data['email'];
+        $_SESSION['jabatan'] = $data['jabatan'];
+        return $this->db->rowCount();
+    }
 }

@@ -4,7 +4,7 @@
             <!-- Main content -->
                     <div class="card mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <a href="<?= URLROOT;?>/ijinlembur/add" class="btn float-right btn-xs btn btn-primary">Buat Ijin Lembur</a>
+                            <a href="<?= URLROOT;?>/ijinlembur/add" class="btn float-right btn-xs btn btn-primary"><i class="fa fa-plus-square"></i> Buat Ijin Lembur</a>
                         </div>
                         <div class="card-body">
                             <?php flash(); ?>
