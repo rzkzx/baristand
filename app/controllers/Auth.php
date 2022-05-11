@@ -146,7 +146,7 @@ class Auth extends Controller{
         $_SESSION['nip'] = $user->nip;
         $_SESSION['nama'] = $user->nama;
         $_SESSION['email'] = $user->email;
-        $_SESSION['jabatan'] = $user->jabatan_fungsi;
+        $_SESSION['jabatan'] = $user->jabatan;
         $_SESSION['role'] = $user->role;
         $_SESSION['waktu_login'] = date('Y-m-d H:i:s');
         return redirect('dashboard');

@@ -179,18 +179,18 @@
             </div>
         </li>
 
-        <li class="nav-item <?php if(stripos($data['title'],'Perbaikan') !== FALSE) echo 'active'; ?>">
+        <li class="nav-item <?php if($data['menu'] == 'Perbaikan') echo 'active'; ?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerbaikan" aria-expanded="true"
             aria-controls="collapsePerbaikan">
             <i class="fa fa-wrench"></i>
             <span>Perbaikan</span>
             </a>
-            <div id="collapsePerbaikan" class="collapse <?php if(stripos($data['title'],'Perbaikan') !== FALSE) echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div id="collapsePerbaikan" class="collapse <?php if($data['menu'] == 'Perbaikan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
-                <a class="collapse-item <?php if(stripos($data['title'],'Daftar Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">Input Perbaikan</a>
-                <?php if($_SESSION['jabatan'] == 'pejabat_pembuat_komitmen' || $_SESSION['jabatan'] == 'kasubag_tata_usaha' || $_SESSION['role'] == 'ADMIN'){ ?>
-                <a class="collapse-item <?php if(stripos($data['title'],'Rekap Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan/rekap">Rekap Perbaikan</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Input Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">Input Perbaikan</a>
+                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){ ?>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Rekap Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan/rekap">Rekap Perbaikan</a>
                 <?php } ?>
             </div>
             </div>
