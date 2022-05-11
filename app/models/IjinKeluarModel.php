@@ -19,24 +19,6 @@ class IjinKeluarModel
 
       return $this->db->resultSet();
   }
-  public function getAllCountPercent()
-  {
-        $query = "SELECT * FROM ".$this->table." WHERE MONTH(tanggal_ijin)=:month";
-        $this->db->query($query);
-        $this->db->bind('month', date('m'));
-        $now = $this->db->resultSet();
-
-        $query2 = "SELECT * FROM ".$this->table." WHERE MONTH(tanggal_ijin)=:month";
-        $this->db->query($query2);
-        $this->db->bind('month', date('m')-1);
-        $before = $this->db->resultSet();
-
-        $now = count($now);
-        $before = count($before);
-        $diff = $now - $before;
-        $percent = ($diff/$before) * 100;
-        return round($percent,2);
-  }
 
   // get model group
   public function get()

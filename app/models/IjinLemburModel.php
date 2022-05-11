@@ -10,6 +10,16 @@ class IjinLemburModel
     $this->db = new Database;
   }
 
+  //for count in dashboard
+  public function getAllCountByMonth()
+  {
+      $query = "SELECT * FROM ".$this->table." WHERE MONTH(tanggal_ijin)=:month";
+      $this->db->query($query);
+      $this->db->bind('month', date('m'));
+
+      return $this->db->resultSet();
+  }
+
   public function add($data)
   {
       $tanggal = date('Y-m-d');

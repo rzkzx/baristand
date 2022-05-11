@@ -9,22 +9,22 @@ class Dashboard extends Controller{
         //new model instance
         $this->pegawaiModel = $this->model('PegawaiModel');
         $this->ijinKeluarModel = $this->model('IjinKeluarModel');
+        $this->ijinLemburModel = $this->model('IjinLemburModel');
     }
 
     public function index(){
         $user = $this->pegawaiModel->get();
-        $user_percent = $this->pegawaiModel->getAllCountPercent();
 
         $ijin_keluar = $this->ijinKeluarModel->getAllCountByMonth();
-        $ijinkeluar_percent = $this->ijinKeluarModel->getAllCountPercent();
+
+        $ijin_lembur = $this->ijinLemburModel->getAllCountByMonth();
 
         // send data
         $data = [
             'title' => 'Dashboard',
             'user' => $user,
-            'user_percent' => $user_percent,
             'ijin_keluar' => $ijin_keluar,
-            'ijinkeluar_percent' => $ijinkeluar_percent
+            'ijin_lembur' => $ijin_lembur,
         ];
 
         $this->view('dashboard/index', $data);
