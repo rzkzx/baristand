@@ -77,6 +77,10 @@ $(document).ready(function () {
         placeholder: "Pilih Pengusul",
         allowClear: true
     }); 
+    $('.select2-penanggung').select2({
+        placeholder: "Pilih Penanggung Jawab",
+        allowClear: true
+    });
     $('.select2-ppk').select2({
         placeholder: "Pilih PPK",
         allowClear: true

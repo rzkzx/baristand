@@ -30,9 +30,9 @@ class AdminModel
     $query = "SELECT * FROM ".$this->table." WHERE hak_akses=:hak_akses";
     $this->db->query($query);
     $this->db->bind('hak_akses',$hak_akses);
-    $jabatan = $this->db->single();
+    $admin = $this->db->single();
 
-    $array = explode(',',$jabatan['nip_pegawai']);
+    $array = explode(',',$admin->nip_pegawai);
     $nip_pegawai = implode("','",$array);
     $query = "SELECT * FROM users WHERE nip IN ('".$nip_pegawai."')";
     $this->db->query($query);
