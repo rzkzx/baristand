@@ -89,7 +89,7 @@
 
     .isi table th,
     .isi table td {
-      border-style: ridge;
+      border-style: hidden;
       text-align: center;
     }
   </style>
