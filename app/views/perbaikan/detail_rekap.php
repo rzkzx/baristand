@@ -26,7 +26,7 @@
               <!-- form start -->
               <form role="form" action="<?= URLROOT; ?>/perbaikan/accDisposisi" method="POST" enctype="multipart/form-data">
                 <div>
-                  <a href="<?= URLROOT; ?>/perbaikan/cetak/<?= $data['perbaikan']->serial_number ?>" class="btn float-right btn-xs btn btn-success">Cetak</a>
+                  <a href="<?= URLROOT; ?>/perbaikan/cetak/<?= $data['perbaikan']->serial_number ?>" target="_blank" class="btn float-right btn-xs btn btn-success">Cetak</a>
                 </div>
                 </br>
                 </br>

@@ -134,19 +134,17 @@ class Perbaikan extends Controller
   }
   
 
-  public function cetak($serial_number)
+  public function cetak($serial_number = '')
   {
     $data['title'] = 'Cetak Surat Ijin Lembur';
-    $data['perbaikan'] = $this->model('PerbaikanModel')->getBySerial($serial_number);
-    $data['kepala_balai'] = $this->model('JabatanModel')->getKepalaBalai();
-    $data['kasubag'] = $this->model('JabatanModel')->getKasubag();
-    $data['perbaikan'] = $this->model('PerbaikanModel')->getBySerial($serial_number);
-    $data['atasan'] = $this->model('PerbaikanModel')->getBySerialAtasan($serial_number);
-    $data['penanggung'] = $this->model('PerbaikanModel')->getBySerialPenanggung($serial_number);
-    $data['barang'] = $this->model('PerbaikanModel')->getBarangBySerial($serial_number);
-
+    $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
+    $data['kepala_balai'] = $this->jabatanModel->getPegawai('kepala_balai');
+    $data['kasubag'] = $this->jabatanModel->getPegawai('kasubag_tu');
+    $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
+    $data['atasan'] = $this->perbaikanModel->getBySerialAtasan($serial_number);
+    $data['penanggung'] = $this->perbaikanModel->getBySerialPenanggung($serial_number);
+    $data['barang'] = $this->perbaikanModel->getBarangBySerial($serial_number);
     
-
     $this->view('perbaikan/cetak', $data);
   }
 
