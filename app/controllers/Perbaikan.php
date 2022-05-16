@@ -365,7 +365,7 @@ class Perbaikan extends Controller
         setFlash('Tolong pilih petugas dan deadline', 'danger');
         return redirect('/perbaikan/penugasan/'.$_POST['seri_perbaikan']);
         }  
-      if ($this->perbaikanModel->tambahanPetugas($_POST) &  $this->perbaikanModel->tambahanPetugasPerbaikan($_POST) > 0) {
+      if ($this->perbaikanModel->tambahanPetugas($_POST) &  $this->perbaikanModel->tambahanPetugasPerbaikan($_POST)) {
         setFlash('Petugas berhasil ditambahkan.', 'success');
         return redirect('/perbaikan/penugasan/'.$_POST['seri_perbaikan']);
       }else{
@@ -377,7 +377,7 @@ class Perbaikan extends Controller
     }
   }
 
-public function konfirmasiPenugasan($serial_number){
+public function konfirmasiPenugasan($serial_number = ''){
   $data['title'] = 'Konfirmasi Perbaikan';
   $data['menu'] = 'Perbaikan';
 
@@ -421,7 +421,7 @@ public function konfirmasiPenugasan($serial_number){
     }
   }
 
-  public function hasil($serial_number){
+  public function hasil($serial_number = ''){
     $data['title'] = 'Konfirmasi hasil Perbaikan';
     $data['menu'] = 'Perbaikan';
 
@@ -440,7 +440,7 @@ public function konfirmasiPenugasan($serial_number){
 
   public function accKonfirmasiHasil(){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-      if ($this->model('perbaikanModel')->tambahanHasil($_POST)) {
+      if ($this->perbaikanModel->tambahanHasil($_POST)) {
           setFlash('Konfirmasi diterima', 'success');
           return redirect('perbaikan/hasil/'.$_POST['seri_perbaikan']);
       }else{
@@ -466,7 +466,7 @@ public function konfirmasiPenugasan($serial_number){
         setFlash('Pastikan semua barang telah dikonfirmasi', 'danger');
         return redirect('perbaikan/hasil/'.$_POST['serial_number']);
       }else{
-        if($this->model('perbaikanModel')->tambahanHasilAkhir($_POST)) {
+        if($this->perbaikanModel->tambahanHasilAkhir($_POST)) {
           setFlash('Konfirmasi diterima', 'success');
           return redirect('perbaikan');
         }else{
@@ -497,7 +497,7 @@ public function konfirmasiPenugasan($serial_number){
     }
   }
 
-  public function deleteBarang($id){
+  public function deleteBarang($id = ''){
     if ($this->tBarangModel->delete($id)) {
       setFlash('Perbaikan deleted successfully', 'success');
       return redirect('perbaikan/add');
@@ -508,7 +508,7 @@ public function konfirmasiPenugasan($serial_number){
   }
 
   public function deleteSemuaBarang(){
-    if ($this->model('TBarangModel')->deleteAll() > 0) {
+    if ($this->tBarangModel->deleteAll()) {
       setFlash('Perbaikan deleted successfully', 'success');
       return redirect('perbaikan/add');
     }else{
