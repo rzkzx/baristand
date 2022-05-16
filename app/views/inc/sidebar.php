@@ -148,17 +148,17 @@
             </div>
         </li>
 
-        <li class="nav-item <?php if(stripos($data['title'],'Surat Tugas') !== FALSE) echo 'active'; ?>">
+        <li class="nav-item <?php if($data['menu'] == 'Surat Tugas') echo 'active'; ?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSuratTugas" aria-expanded="true"
             aria-controls="collapseSuratTugas">
             <i class="fa fa-envelope"></i>
             <span>Surat Tugas</span>
             </a>
-            <div id="collapseSuratTugas" class="collapse <?php if(stripos($data['title'],'Surat Tugas') !== FALSE) echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div id="collapseSuratTugas" class="collapse <?php if($data['menu'] == 'Surat Tugas') echo  'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
-                <a class="collapse-item <?php if(stripos($data['title'],'Permohonan Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas">Pengajuan Surat Tugas</a>
-                <?php if($_SESSION['jabatan'] !== NULL || $_SESSION['role'] == 'ADMIN'){ ?>
+                <a class="collapse-item <?php if(stripos($data['title'],'Pengajuan Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas">Pengajuan Surat Tugas</a>
+                <?php if($_SESSION['role'] == 'ADMIN' || Middleware::admin('surat_tugas') || Middleware::admin('sekretariat') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas/rekap">Rekap Surat Tugas</a>
                 <?php } ?>
             </div>
