@@ -165,16 +165,19 @@
             </div>
         </li>
 
-        <li class="nav-item <?php if(stripos($data['title'],'Pengadaan') !== FALSE) echo 'active'; ?>">
+        <li class="nav-item <?php if($data['menu'] == 'Pengadaan') echo 'active'; ?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengadaan" aria-expanded="true"
             aria-controls="collapsePengadaan">
             <i class="fa fa-archive"></i>
             <span>Pengadaan</span>
             </a>
-            <div id="collapsePengadaan" class="collapse <?php if(stripos($data['title'],'Pengadaan') !== FALSE) echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div id="collapsePengadaan" class="collapse <?php if($data['menu'] == 'Pengadaan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
-                <a class="collapse-item <?php if(stripos($data['title'],'Input Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan">Input Pengadaan</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Daftar Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan">Input Pengadaan</a>
+                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('pengadaan') || $_SESSION['role'] == 'ADMIN'){ ?>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Rekap Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan/rekap">Rekap Pengadaan</a>
+                <?php } ?>
             </div>
             </div>
         </li>
