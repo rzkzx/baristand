@@ -261,7 +261,7 @@ class Perbaikan extends Controller
 
                     // redirect after success validate
                     setFlash('Berhasil disposisi perbaikan.','success');
-                    return redirect('perbaikan');
+                    return redirect('perbaikan/validasikasubag/'.$_POST['serial_number']);
                 }else{
                     setFlash('Gagal disposisi perbaikan','danger');
                     return redirect('perbaikan');
