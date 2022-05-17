@@ -83,7 +83,7 @@
 
     .teks table th,
     .teks table td {
-      border-style: solid;
+      border: 1px solid black;
       text-align: center;
     }
 
@@ -105,12 +105,12 @@
           <p></p> Panglima Batur Barat No.2 Banjarbaru
           <p></p> Telp (0511)4774861, 4772461 Fax. 4772115
         </td>
-        <td><?= $data['pengadaan']['serial_number'] ?></td>
+        <td><?= $data['pengadaan']->serial_number ?></td>
       </tr>
       <tr>
         <td>
           <p>
-            Banjarbaru, <?= $data['pengadaan']['tanggal']; ?>
+            Banjarbaru, <?= $data['pengadaan']->tanggal; ?>
           </p>
         </td>
       </tr>
@@ -150,12 +150,12 @@
       foreach ($data['bahan'] as $b) : ?>
         <tr>
           <td><?= $no ?></td>
-          <td><?= $b['nbahan']; ?></td>
-          <td><?= $b['jumlah']; ?></td>
-          <td><?= $b['keterangan']; ?></td>
-          <td><?= $b['petugas_pengadaan']; ?></td>
-          <td><?= $b['deadline']; ?></td>
-          <td><?= $b['waktu_selesai']; ?></td>
+          <td><?= $b->nbahan; ?></td>
+          <td><?= $b->jumlah; ?></td>
+          <td><?= $b->keterangan; ?></td>
+          <td><?= $b->petugas_pengadaan; ?></td>
+          <td><?= $b->deadline; ?></td>
+          <td><?= $b->waktu_selesai; ?></td>
         <?php endforeach;
       $no++; ?>
         </tr>
@@ -175,42 +175,42 @@
     <table style="width: 100%">
       <tr>
         <td>
-          <P>Atasan langsung : <?= $data['atasan']['nama'] . ' / ' . $data['pengadaan']['waktu_validasi1'] ?></P>
+          <P>Atasan langsung : <?= $data['atasan']->nama. ' / ' . $data['pengadaan']->waktu_validasi1?></P>
         </td>
         <td>
-          <P>Pemohon : <?= $data['pengadaan']['nama'] . ' / ' . $data['pengadaan']['tanggal'] . ' ' . $data['pengadaan']['jam'] ?></P>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <P>Kepala Balai : <?= $data['kepala_balai']['nama'] . ' / ' . $data['pengadaan']['waktu_disposisi'] ?></P>
-        </td>
-        <td>
-        <P>Catatan kepala balai : <?= $data['pengadaan']['validasi2'] ?></P>
+          <P>Pemohon : <?= $data['pengadaan']->nama. ' / ' . $data['pengadaan']->tanggal. ' ' . $data['pengadaan']->jam?></P>
         </td>
       </tr>
       <tr>
         <td>
-          <P>PPK : <?= $data['ppk']['nama'] . ' / ' . $data['pengadaan']['waktu_disposisi'] ?></P>
+          <P>Kepala Balai : <?= $data['kepala_balai'][0]->nama. ' / ' . $data['pengadaan']->waktu_disposisi?></P>
         </td>
         <td>
-        <P>Disposisi : <?= $data['pengadaan']['disposisi'] ?></P>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <P>Penanggung jawab : <?= $data['penanggung']['nama'] . ' / ' . $data['pengadaan']['waktu_penugasan'] ?></P>
-        </td>
-        <td>
-        <P>Catatan penugasan : <?= $data['pengadaan']['penugasan'] ?></P>
+        <P>Catatan kepala balai : <?= $data['pengadaan']->validasi2?></P>
         </td>
       </tr>
       <tr>
         <td>
-          <P>Penyelesaian pekerjaan : <?= $data['pengadaan']['waktu_selesai'] ?></P>
+          <P>PPK : <?= $data['ppk'][0]->nama. ' / ' . $data['pengadaan']->waktu_disposisi?></P>
         </td>
         <td>
-        <P>Terima hasil pekerjaan : <?= $data['pengadaan']['waktu_hasil'] ?></P>
+        <P>Disposisi : <?= $data['pengadaan']->disposisi?></P>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <P>Penanggung jawab : <?= $data['penanggung']->nama. ' / ' . $data['pengadaan']->waktu_penugasan?></P>
+        </td>
+        <td>
+        <P>Catatan penugasan : <?= $data['pengadaan']->penugasan?></P>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <P>Penyelesaian pekerjaan : <?= $data['pengadaan']->waktu_selesai?></P>
+        </td>
+        <td>
+        <P>Terima hasil pekerjaan : <?= $data['pengadaan']->waktu_hasil?></P>
         </td>
       </tr>
     </table>

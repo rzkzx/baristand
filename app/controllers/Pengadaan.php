@@ -57,15 +57,15 @@ class Pengadaan extends Controller
     }
   }
 
-  public function cetak($serial_number)
+  public function cetak($serial_number = '')
   {
     $data['title'] = 'Cetak Surat Pengadaan';
-    $data['pengadaan'] = $this->model('PengadaanModel')->getBySerial($serial_number);
-    $data['kepala_balai'] = $this->model('JabatanModel')->getKepalaBalai();
-    $data['ppk'] = $this->model('JabatanModel')->getPpk();
-    $data['atasan'] = $this->model('PengadaanModel')->getBySerialAtasan($serial_number);
-    $data['penanggung'] = $this->model('PengadaanModel')->getBySerialPenanggung($serial_number);
-    $data['bahan'] = $this->model('PengadaanModel')->getBahanBySerial($serial_number);    
+    $data['pengadaan'] = $this->pengadaanModel->getBySerial($serial_number);
+    $data['kepala_balai'] = $this->jabatanModel->getPegawai('kepala_balai');
+    $data['ppk'] = $this->jabatanModel->getPegawai('ppk');
+    $data['atasan'] = $this->pengadaanModel->getBySerialAtasan($serial_number);
+    $data['penanggung'] = $this->pengadaanModel->getBySerialPenanggung($serial_number);
+    $data['bahan'] = $this->pengadaanModel->getBahanBySerial($serial_number);    
 
     $this->view('pengadaan/cetak', $data);
   }
@@ -410,31 +410,44 @@ public function penugasan($serial = ''){
     }
   }
 
-public function informasi($serial_number){
-  $data['title'] = 'Informasi P engadaan';
-  $data['pengadaan'] = $this->model('PengadaanModel')->getBySerial($serial_number);
-  $data['atasan'] = $this->model('PengadaanModel')->getBySerialAtasan($serial_number);
-  $data['penanggung'] = $this->model('PengadaanModel')->getBySerialPenanggung($serial_number);
-  $data['bahan'] = $this->model('PengadaanModel')->getBahanBySerial($serial_number);
+  public function informasi($serial_number = ''){
+    $data = [
+      'title' => 'Informasi Pengadaan',
+      'menu' => 'Pengadaan',
+    ];
 
-  $this->view('templates/header', $data);
-  $this->view('templates/sidebar', $data);
-  $this->view('pengadaan/informasi', $data);
-  $this->view('templates/footer');
-}
+    $data['pengadaan'] = $this->pengadaanModel->getBySerial($serial_number);
+    $data['atasan'] = $this->pengadaanModel->getBySerialAtasan($serial_number);
+    $data['penanggung'] = $this->pengadaanModel->getBySerialPenanggung($serial_number);
+    $data['bahan'] = $this->pengadaanModel->getBahanBySerial($serial_number);
 
-public function detail_rekap($serial_number){
-  $data['title'] = 'Detail Rekap Pengadaan';
-  $data['atasan'] = $this->model('PengadaanModel')->getBySerialAtasan($serial_number);
-  $data['pengadaan'] = $this->model('PengadaanModel')->getBySerial($serial_number);
-  $data['penanggung'] = $this->model('PengadaanModel')->getBySerialPenanggung($serial_number);
-  $data['bahan'] = $this->model('PengadaanModel')->getBahanBySerial($serial_number);
+    $this->view('pengadaan/informasi', $data);
+  }
 
-  $this->view('templates/header', $data);
-  $this->view('templates/sidebar', $data);
-  $this->view('pengadaan/detail_rekap', $data);
-  $this->view('templates/footer');
-}
+  public function detail_rekap($serial_number = ''){
+    if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('kepala_balai') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){
+      $data = [
+        'title' => 'Detail Rekap Pengadaan',
+        'menu' => 'Pengadaan',
+      ];
+
+      $pb = $this->pengadaanModel->getBySerial($serial_number);
+
+      if($pb && $pb->hasil){
+        $data['pengadaan'] = $pb;
+        $data['atasan'] = $this->pengadaanModel->getBySerialAtasan($serial_number);
+        $data['penanggung'] = $this->pengadaanModel->getBySerialPenanggung($serial_number);
+        $data['bahan'] = $this->pengadaanModel->getBahanBySerial($serial_number);
+      
+        $this->view('pengadaan/detail_rekap', $data);
+      }else{
+        return redirect('pengadaan');
+      }
+    }else{
+      return redirect('pengadaan');
+    }
+  }
+
   public function add(){
     $data['title'] = 'Buat Permohonan Pengadaan';
     $data['menu'] = 'Pengadaan';

@@ -175,7 +175,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Daftar Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan">Input Pengadaan</a>
-                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('pengadaan') || $_SESSION['role'] == 'ADMIN'){ ?>
+                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('pengadaan') || $_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan/rekap">Rekap Pengadaan</a>
                 <?php } ?>
             </div>
@@ -192,7 +192,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Daftar Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">Input Perbaikan</a>
-                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){ ?>
+                <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan/rekap">Rekap Perbaikan</a>
                 <?php } ?>
             </div>
