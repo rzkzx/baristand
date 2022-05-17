@@ -101,25 +101,31 @@ class Perbaikan extends Controller
     }
   }
 
-  public function detail_rekap($serial_number){
-    if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){
+  public function detail_rekap($serial_number = ''){
+    if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('kepala_balai') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){
       $data = [
         'title' => 'Detail Rekap Perbaikan',
         'menu' => 'Perbaikan',
       ];
 
-      $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
-      $data['atasan'] = $this->perbaikanModel->getBySerialAtasan($serial_number);
-      $data['penanggung'] = $this->perbaikanModel->getBySerialPenanggung($serial_number);
-      $data['barang'] = $this->perbaikanModel->getBarangBySerial($serial_number);
-    
-      $this->view('perbaikan/detail_rekap', $data);
+      $pb = $this->perbaikanModel->getBySerial($serial_number);
+
+      if($pb && $pb->hasil){
+        $data['perbaikan'] = $pb;
+        $data['atasan'] = $this->perbaikanModel->getBySerialAtasan($serial_number);
+        $data['penanggung'] = $this->perbaikanModel->getBySerialPenanggung($serial_number);
+        $data['barang'] = $this->perbaikanModel->getBarangBySerial($serial_number);
+      
+        $this->view('perbaikan/detail_rekap', $data);
+      }else{
+        return redirect('perbaikan');
+      }
     }else{
       return redirect('perbaikan');
     }
   }
 
-  public function informasi($serial_number){
+  public function informasi($serial_number = ''){
     $data = [
       'title' => 'Informasi Perbaikan',
       'menu' => 'Perbaikan',
@@ -139,7 +145,7 @@ class Perbaikan extends Controller
     $data['title'] = 'Cetak Surat Ijin Lembur';
     $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
     $data['kepala_balai'] = $this->jabatanModel->getPegawai('kepala_balai');
-    $data['kasubag'] = $this->jabatanModel->getPegawai('kasubag_tu');
+    $data['kasubag'] = $this->jabatanModel->getPegawai('kepala_balai');
     $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
     $data['atasan'] = $this->perbaikanModel->getBySerialAtasan($serial_number);
     $data['penanggung'] = $this->perbaikanModel->getBySerialPenanggung($serial_number);
