@@ -16,43 +16,76 @@
                 <div class="form-group row">
                     <label for="nip" class="col-lg-2 col-form-label">NIP</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nip" name="nip" placeholder="input NIP..." required>
+                    <input type="text" class="form-control" id="nip" name="nip" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="username" class="col-lg-2 col-form-label">Username</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="input username..." required>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="input nama pegawai..." required>
+                    <input type="text" class="form-control" id="nama" name="nama" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="golongan" class="col-lg-2 col-form-label">Golongan</label>
+                    <label for="tgl_lahir" class="col-lg-2 col-form-label">Tanggal Lahir</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="golongan" name="golongan" placeholder="input golongan..." required>
+                    <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="" required>
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin :</legend>
+                        <div class="col-sm-6 d-flex">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="pria" name="jenis_kel" value="Laki-Laki" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="pria">Laki-Laki</label>
+                            </div>
+                            <div class="custom-control custom-radio ml-4">
+                                <input type="radio" id="wanita" name="jenis_kel" value="Perempuan" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="wanita">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <label for="golongan" class="col-lg-2 col-form-label">Golongan / Ruang</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="golongan" name="golongan" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pangkat" class="col-lg-2 col-form-label">Pangkat</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="pangkat" name="pangkat" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="jabatan" class="col-lg-2 col-form-label">Jabatan</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="input jabatan..." required>
+                    <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pendidikan" class="col-lg-2 col-form-label">Pendidikan</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="pendidikan" name="pendidikan" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="no_telp" class="col-lg-2 col-form-label">No. Telp</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="input no telp..." required>
+                    <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-lg-2 col-form-label">Email</label>
                     <div class="col-sm-9">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="input email..." required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="" required>
                     </div>
                 </div>
             <div class="pb-4"></div>

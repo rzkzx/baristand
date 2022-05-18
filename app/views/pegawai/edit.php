@@ -17,43 +17,76 @@
                 <div class="form-group row">
                     <label for="nip" class="col-lg-2 col-form-label">NIP</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nip" name="nip" value="<?= $data['pegawai']->nip ?>" placeholder="input NIP...">
+                    <input type="text" class="form-control" id="nip" name="nip" value="<?= $data['pegawai']->nip ?>" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="username" class="col-lg-2 col-form-label">Username</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="username" name="username" value="<?= $data['pegawai']->username ?>" placeholder="input username...">
+                    <input type="text" class="form-control" id="username" name="username" value="<?= $data['pegawai']->username ?>" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nama" class="col-lg-2 col-form-label">Nama Pegawai</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $data['pegawai']->nama ?>" placeholder="input nama pegawai...">
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?= $data['pegawai']->nama ?>" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="golongan" class="col-lg-2 col-form-label">Golongan</label>
+                    <label for="tgl_lahir" class="col-lg-2 col-form-label">Tanggal Lahir</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="golongan" name="golongan" value="<?= $data['pegawai']->golongan ?>" placeholder="input golongan...">
+                    <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="" value="<?= $data['pegawai']->tgl_lahir ?>" required>
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin :</legend>
+                        <div class="col-sm-6 d-flex">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="pria" name="jenis_kel" value="Laki-Laki" class="custom-control-input" <?php if($data['pegawai']->jenis_kel == 'Laki-Laki') echo 'checked'; ?>>
+                                <label class="custom-control-label" for="pria">Laki-Laki</label>
+                            </div>
+                            <div class="custom-control custom-radio ml-4">
+                                <input type="radio" id="wanita" name="jenis_kel" value="Perempuan" class="custom-control-input" <?php if($data['pegawai']->jenis_kel == 'Perempuan') echo 'checked'; ?>>
+                                <label class="custom-control-label" for="wanita">Perempuan</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <label for="golongan" class="col-lg-2 col-form-label">Golongan / Ruang</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="golongan" name="golongan" value="<?= $data['pegawai']->golongan ?>" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pangkat" class="col-lg-2 col-form-label">Pangkat</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="pangkat" name="pangkat" value="<?= $data['pegawai']->pangkat ?>" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="jabatan" class="col-lg-2 col-form-label">Jabatan</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= $data['pegawai']->jabatan ?>" placeholder="input jabatan...">
+                    <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= $data['pegawai']->jabatan ?>" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pendidikan" class="col-lg-2 col-form-label">Pendidikan</label>
+                    <div class="col-sm-9">
+                    <input type="text" class="form-control" id="pendidikan" name="pendidikan" value="<?= $data['pegawai']->pendidikan ?>" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="no_telp" class="col-lg-2 col-form-label">No. Telp</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $data['pegawai']->no_telp ?>" placeholder="input no telp...">
+                    <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $data['pegawai']->no_telp ?>" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-lg-2 col-form-label">Email</label>
                     <div class="col-sm-9">
-                    <input type="email" class="form-control" id="email" name="email" value="<?= $data['pegawai']->email ?>" placeholder="input email...">
+                    <input type="email" class="form-control" id="email" name="email" value="<?= $data['pegawai']->email ?>" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">

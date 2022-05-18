@@ -53,7 +53,7 @@ class PegawaiModel
     if($checkUser){
       return false;
     }else{
-      $query = "INSERT INTO ".$this->table." (nip,nama,golongan,jabatan,username,password,no_telp,email,role,created_at) VALUES (:nip,:nama,:golongan,:jabatan,:username,:password,:no_telp,:email,:role,:created_at)";
+      $query = "INSERT INTO ".$this->table." (nip,nama,golongan,jabatan,username,password,no_telp,email,role,created_at,tgl_lahir,jenis_kel,pangkat,pendidikan) VALUES (:nip,:nama,:golongan,:jabatan,:username,:password,:no_telp,:email,:role,:created_at,:tgl_lahir,:jenis_kel,:pangkat,:pendidikan)";
       $this->db->query($query);
       $this->db->bind('nip',$data['nip']);
       $this->db->bind('nama',$data['nama']);
@@ -65,6 +65,10 @@ class PegawaiModel
       $this->db->bind('email',$data['email']);
       $this->db->bind('role','PEGAWAI');
       $this->db->bind('created_at', date('Y-m-d'));
+      $this->db->bind('tgl_lahir',$data['tgl_lahir']);
+      $this->db->bind('jenis_kel',$data['jenis_kel']);
+      $this->db->bind('pangkat',$data['pangkat']);
+      $this->db->bind('pendidikan',$data['pendidikan']);
 
       //execute 
       if($this->db->execute()){
@@ -83,7 +87,7 @@ class PegawaiModel
         $added = ',password=:password';
       }
       
-      $query = "UPDATE ".$this->table." SET nip=:nip,nama=:nama,golongan=:golongan,jabatan=:jabatan,username=:username,no_telp=:no_telp,email=:email".$added." WHERE id=:id";
+      $query = "UPDATE ".$this->table." SET nip=:nip,nama=:nama,golongan=:golongan,jabatan=:jabatan,username=:username,no_telp=:no_telp,email=:email,tgl_lahir=:tgl_lahir,jenis_kel=:jenis_kel,pangkat=:pangkat,pendidikan=:pendidikan".$added." WHERE id=:id";
       $this->db->query($query);
       $this->db->bind('id',$data['id']);
       $this->db->bind('nip',$data['nip']);
@@ -93,6 +97,10 @@ class PegawaiModel
       $this->db->bind('username',$data['username']);
       $this->db->bind('no_telp',$data['no_telp']);
       $this->db->bind('email',$data['email']);
+      $this->db->bind('tgl_lahir',$data['tgl_lahir']);
+      $this->db->bind('jenis_kel',$data['jenis_kel']);
+      $this->db->bind('pangkat',$data['pangkat']);
+      $this->db->bind('pendidikan',$data['pendidikan']);
       if($data['password']) {
         $this->db->bind('password',password_hash($data['password'], PASSWORD_DEFAULT));
       }
