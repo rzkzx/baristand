@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="shortcut icon" href="<?= URLROOT; ?>/img/logo/logo.png" type="image/x-icon">
-<title>BARISTAND - Login</title>
+<title>BSPJI - Login</title>
 <link href="<?= URLROOT; ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<?= URLROOT; ?>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="<?= URLROOT; ?>/css/ruang-admin.min.css" rel="stylesheet">
