@@ -15,7 +15,7 @@
   // App Root
   define('APPROOT', dirname(dirname(__FILE__)));
   // Site Name
-  define('SITENAME', 'BARISTAND');
+  define('SITENAME', 'BSPJI BANJARBARU');
   // App Version
   define('APPVERSION', '1.5.0');
   // API Key Whatsapp Sender Device
