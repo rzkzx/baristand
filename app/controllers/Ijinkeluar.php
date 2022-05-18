@@ -108,7 +108,7 @@ class IjinKeluar extends Controller{
 
      // validasi control
      public function validasi($id = ''){
-        $data['title'] = 'Validasi Ijiin Keluar';
+        $data['title'] = 'Validasi Ijin Keluar';
         $data['menu'] = 'Ijin Keluar';
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
