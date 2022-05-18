@@ -198,12 +198,6 @@
             </div>
             </div>
         </li>
-
-        <li class="nav-item <?php if($data['title'] == 'E-Files') echo 'active'; ?>">
-        <a class="nav-link" href="<?= URLROOT; ?>/efiles">
-            <i class="fa fa-file"></i>
-            <span>&nbsp;E-Files</span></a>
-        </li>
         
         <hr class="sidebar-divider">
         <div class="version">BSPJI - VERSION <?= APPVERSION; ?></div>
