@@ -105,7 +105,7 @@
           <p></p> Panglima Batur Barat No.2 Banjarbaru
           <p></p> Telp (0511)4774861, 4772461 Fax. 4772115
         </td>
-        <td><?= $data['perbaikan']->serial_number ?></td>
+        <td><?= $data['form']->kode ?> - <?= $data['form']->nama ?></td>
       </tr>
       <tr>
         <td>

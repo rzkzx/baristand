@@ -14,6 +14,7 @@ class Perbaikan extends Controller
     $this->pegawaiModel = $this->model('PegawaiModel');
     $this->jabatanModel = $this->model('JabatanModel');
     $this->adminModel = $this->model('AdminModel');
+    $this->formulirModel = $this->model('FormulirModel');
   }
 
   public function index(){
@@ -142,6 +143,7 @@ class Perbaikan extends Controller
 
   public function cetak($serial_number = '')
   {
+    $data['form'] = $this->formulirModel->getByName('PPR');
     $data['title'] = 'Cetak Surat Ijin Lembur';
     $data['perbaikan'] = $this->perbaikanModel->getBySerial($serial_number);
     $data['kepala_balai'] = $this->jabatanModel->getPegawai('kepala_balai');

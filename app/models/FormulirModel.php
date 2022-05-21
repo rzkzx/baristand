@@ -26,6 +26,14 @@ class FormulirModel
     return $this->db->single();
   }
 
+  public function getByName($nama){
+    $query = "SELECT * FROM ".$this->table." WHERE nama=:nama";
+    $this->db->query($query);
+    $this->db->bind('nama', $nama);
+
+    return $this->db->single();
+  }
+
   public function update($data)
   {
       $query = "UPDATE ".$this->table." SET nama=:nama,kode=:kode WHERE id=:id";
