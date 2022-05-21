@@ -275,7 +275,7 @@
             }
         }
 
-        public function nomorsurat($id){
+        public function nomorsurat($id = ''){
             $data = [
                 'title' => 'Surat Tugas - Input Nomor Surat Tugas',
                 'menu' => 'Surat Tugas',
@@ -327,7 +327,7 @@
             }
         }
 
-    public function delete($id){
+    public function delete($id=''){
         $row = $this->model('SuratTugasModel')->getById($id);
         if($row && $row->pemohon == $_SESSION['nip'] && !$row->nomor_surat && !$row->disahkan){
             if ($this->suratTugasModel->deleteLaporan($id)) {

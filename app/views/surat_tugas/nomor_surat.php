@@ -14,12 +14,22 @@
                             <!-- /.card-header -->
                             <!-- form start -->
                             <form role="form" action="<?= URLROOT; ?>/surattugas/nomorsurat/<?= $data['laporan']->id; ?>" method="POST" enctype="multipart/form-data">
-                                <div class="form-group row">
-                                    <label for="nomor_surat" class="col-sm-2 col-form-label">Nomor Surat </label>
-                                    <div class="col-sm-6">
-                                      <input type="text" name="nomor_surat" required class="form-control" id="nomor_surat" value="" placeholder="Masukkan nomor surat tugas">
-                                    </div>
-                                  </div>
+                                <input type="hidden" value="<?= $data['laporan']->id ?>" name="id">
+                                  <div class="form-group row">
+                                <label for="nomor_surat" class="col-sm-2 col-form-label">Nomor Surat<span class="text-danger">*</span> :</label>
+                                <div class="col-sm-1">
+                                <input type="text" name="nomor_surat[]" required class="form-control" id="nomor_surat">
+                                </div>
+                                <div class="col-sm-3">
+                                <input type="text" name="nomor_surat[]" required class="form-control" value="/BSKJI/BSPJI-BANJARBARU/KU/" readonly>
+                                </div>
+                                <div class="col-sm-2">
+                                <input type="text" name="nomor_surat[]" required class="form-control" placeholder="ex: III" id="nomor_surat">
+                                </div>
+                                <div class="col-sm-2">
+                               <input type="text" name="nomor_surat[]" required class="form-control" readonly value="/<?= date('Y') ?>">
+                              </div>
+                              </div>
                                 <?php if($data['laporan']->is_biaya){ ?>
                                   <div class="form-group row">
                                     <label for="file" class="col-sm-2 col-form-label">Surat Tugas :</label>
@@ -137,7 +147,7 @@
                                 <div class="form-group row">
                                   <label for="anggaran" class="col-sm-2 col-form-label">Anggaran :</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="anggaran" required class="form-control" id="anggaran" value="<?= rupiah($data['laporan']->anggaran) ?>" readonly>
+                                    <input type="text" name="anggaran" required class="form-control" id="anggaran" value="<?=($data['laporan']->anggaran) ?>" readonly>
                                   </div>
                                 </div>
                               <?php } ?>

@@ -177,10 +177,12 @@ class SuratTugasModel
         $nama_file_spd = $file_spd['name'];
       }
 
+      $nomor_surat = join('',$data['nomor_surat']);
+
       $query = "UPDATE ".$this->table." SET nomor_surat=:nomor_surat,disahkan=:disahkan,file_st=:file_st,file_spd=:file_spd WHERE id=:id";
       $this->db->query($query);
       $this->db->bind('id',$data['id']);
-      $this->db->bind('nomor_surat',$data['nomor_surat']);
+      $this->db->bind('nomor_surat',$nomor_surat);
       $this->db->bind('disahkan',TRUE);
       $this->db->bind('file_st',$nama_file_st);
       $this->db->bind('file_spd',$nama_file_spd);

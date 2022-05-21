@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Surat Perintah Kerja Lembur - Baristand Banjarbaru</title>
+    <title>Surat Tugas - Baristand Banjarbaru</title>
     <style>
       *{
         font-family: sans-serif;
@@ -189,7 +189,7 @@
     <div class="sign">
       <div class="top">
         <p>Banjarbaru, <?= dateID($data['surattugas']->tanggal_permohonan); ?></p>
-        <p>Kepala Baristand Industri Banjarbaru</p>
+        <p>Kepala </p>
       </div>
       <div class="ttd">
         <img src="<?php echo qrcode('120',$data['sign']) ?>" alt="">

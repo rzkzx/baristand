@@ -114,7 +114,7 @@
                               <div class="form-group row">
                                 <label for="anggaran" class="col-sm-2 col-form-label">Anggaran :</label>
                                 <div class="col-sm-6">
-                                  <input type="text" name="anggaran" required class="form-control" id="anggaran" value="<?= rupiah($data['laporan']->anggaran) ?>" readonly>
+                                  <input type="text" name="anggaran" required class="form-control" id="anggaran" value="<?= $data['laporan']->anggaran ?>" readonly>
                                 </div>
                               </div>
                               <div class="mb-3 text-center bg-primary text-white">

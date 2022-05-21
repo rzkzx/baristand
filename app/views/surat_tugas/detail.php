@@ -111,7 +111,7 @@
                     <tr>
                       <th scope="row">Anggaran</th>
                       <th scope="row">:</th>
-                      <td><?= rupiah($data['laporan']->anggaran); ?></td>
+                      <td><?= $data['laporan']->anggaran; ?></td>
                     </tr>
                   <?php } ?>
                   <?php if($data['laporan']->file_st){ ?>
