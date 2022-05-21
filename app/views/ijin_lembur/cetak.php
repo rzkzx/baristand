@@ -81,7 +81,7 @@
         </div>
         <div class="title">
           <h5 style="margin-bottom:2px;font-weight:500;">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</h6>
-          <h3>BALAI RISET DAN STANDARDISASI INDUSTRI</h3>
+          <h4>BALAI STANDARDISASI DAN PELAYANAN JASA INDUSTRI</h3>
           <h3>BANJARBARU</h3>
           <p>Jl. Panglima Batur Barat No. 2 Banjarbaru 70711, Banjarbaru</p>
           <p>Telp. (0511) 4772461, 4772115, 4774861 Fax. (0511) 4772115</p>
@@ -104,9 +104,9 @@
     </center>
 
     <div class="sign">
-      <div class="top">
+      <div class="top" style="text-align: left;">
         <p>Banjarbaru, <?= $data['ijinlembur']->tanggal_ijin ?></p>
-        <p>Kepala Baristand Industri Banjarbaru</p>
+        <p>Kepala</p>
       </div>
       <div class="ttd">
         <img src="<?php echo qrcode('120',$data['sign']) ?>" alt="">

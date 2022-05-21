@@ -64,7 +64,7 @@
       }
 
       .sign{
-        float: right;
+        float: left;
         margin-top: 30px;
         text-align: center;
         font-size: 0.9rem;
@@ -87,7 +87,7 @@
         </div>
         <div class="title">
           <h5 style="margin-bottom:2px;font-weight:500;">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</h6>
-          <h3>BALAI RISET DAN STANDARDISASI INDUSTRI</h3>
+          <h4>BALAI STANDARDISASI DAN PELAYANAN JASA INDUSTRI</h4>
           <h3>BANJARBARU</h3>
           <p>Jl. Panglima Batur Barat No. 2 Banjarbaru 70711, Banjarbaru</p>
           <p>Telp. (0511) 4772461, 4772115, 4774861 Fax. (0511) 4772115</p>
@@ -100,7 +100,7 @@
         <u>SURAT TUGAS</u>
         <p style="margin-top:10px">Nomor: <?= $data['surattugas']->nomor_surat ?></p>
         <div class="text">
-        <b>KEPALA BALAI RISET DAN STANDARDISASI INDUSTRI BANJARBARU</b>
+        <b>KEPALA BALAI STANDARDISASI DAN PELAYANAN JASA INDUSTRI</b>
         </div>
         <div class="text">
           <p>
