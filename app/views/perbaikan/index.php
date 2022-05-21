@@ -36,11 +36,20 @@
                                             if(!$row->waktu_validasi1){
                                                 echo '<span class="text-success">Permohonan dibuat '.$row->tanggal.'</span>';
                                             }
+                                            elseif(!$row->waktu_validasi2 && $row->alasan1){
+                                                echo '<span class="text-danger">Ditolak atasan langsung '.$row->waktu_validasi1.'</span>';
+                                            }
                                             elseif(!$row->waktu_validasi2){
                                                     echo '<span class="text-success">Disetujui atasan langsung '.$row->waktu_validasi1.'</span>';
                                                 }
+                                            elseif(!$row->disposisi && $row->alasan2){
+                                                    echo '<span class="text-danger">Ditolak kepala balai'.$row->waktu_validasi2.'</span>';
+                                                }
                                             elseif(!$row->disposisi){
                                                     echo '<span class="text-success">Disetujui kepala balai'.$row->waktu_validasi2.'</span>';
+                                                }
+                                            elseif(!$row->penugasan && $row->alasan_dispo){
+                                                    echo '<span class="text-danger">Ditolak kasubag TU '.$row->waktu_disposisi.'</span>';
                                                 }
                                             elseif(!$row->penugasan){
                                                     echo '<span class="text-success">Didisposisikan kasubag TU '.$row->waktu_disposisi.'</span>';
@@ -64,45 +73,49 @@
                                                 if(!$row->waktu_validasi1){
                                                     if($row->nip_atasan == $_SESSION['nip']){
                                                         echo '<br/>Validasi AL : <u><a href="'.URLROOT.'/perbaikan/validasi1/'.$row->serial_number.'">Validasi</a></u>';
+                                                    }else{
+                                                        echo '<br/>Validasi AL : <span class="text-warning">Menunggu validasi</span>';
                                                     }
 
                                                 }else{
                                                     if($row->alasan1){
-                                                        echo '<br/>Alasan : <span class="text-danger">Ditolak</span> karena '.$row->alasan1.'  <span style="color:#2980b9;">'.$row->tanggal_val1." ".timeFilter($row->jam_val1).'</span>';
+                                                        echo '<br/>Validasi AL : <span class="text-danger">Ditolak</span> karena '.$row->alasan1.'  <span>'.$row->waktu_validasi1.'</span>';
+                                                    }else{
+                                                        echo '<br/>Validasi AL : <span class="text-succes">Diterima</span>';
                                                     }
 
                                                 }
                                         //
                                                 if(!$row->waktu_validasi1){
-                                                    
+                                                    echo '<br/>Validasi Kepala Balai : <span class="text-warning">Menunggu validasi</span>';
                                                 }else{
                                                     if($row->waktu_validasi2){
                                                         if(!$row->alasan2){
-                                                            
+                                                            echo '<br/>Validasi Kepala Balai : <span class="text-success">Diterima</span>';
                                                         }else{
-                                                            echo '<br/>Alasan : <span class="text-danger">Ditolak</span> karena '.$row->alasan2.' <span style="color:#2980b9;">'.$row->tanggal_val2." ".timeFilter($row->jam_val2).'</span>';
+                                                            echo '<br/>Validasi Kepala Balai : <span class="text-danger">Ditolak</span> karena '.$row->alasan2.' <span style="color:#2980b9;">'.$row->waktu_validasi2.'</span>';
                                                         }
                                                     }else{
-                                                        if(Middleware::jabatan('kepala_balai')){
+                                                        if(Middleware::jabatan('kepala_balai') && !$row->alasan1){
                                                             echo '<br/>Validasi Kepala Balai : <u><a href="'.URLROOT.'/perbaikan/validasi2/'.$row->serial_number.'">Validasi</a></u>';
                                                         }else{
-                                                            
+                                                            echo '<br/>Validasi Kepala Balai : <span class="text-warning">Menunggu validasi</span>';
                                                         }
                                                     }
                                                 }
                                     //
                                                 if(!$row->validasi2){
-                                                    
+                                                    echo '<br/>Validasi Kasubag : <span class="text-warning">Menunggu validasi</span>';
                                                 }else{
                                                     if($row->alasan_dispo){
-                                                        echo '<br/>Alasan : <span class="text-danger">Ditolak</span> karena '.$row->alasan_dispo.' <span style="color:#2980b9;">'.$row->waktu_disposisi." ".timeFilter($row->jam_dispo).'</span>';
+                                                        echo '<br/>Validasi Kasubag : <span class="text-danger">Ditolak</span> karena '.$row->alasan_dispo.' <span>'.$row->waktu_disposisi.'</span>';
                                                     }elseif($row->disposisi){
-                                                        
+                                                        echo '<br/>Validasi Kasubag : <span class="text-success">Diterima</span>';
                                                     }else{
-                                                        if(Middleware::jabatan('kasubag_tu')){
+                                                        if(Middleware::jabatan('kasubag_tu') && !$row->alasan2){
                                                             echo '<br/>Disposisi Kesubag TU : <u><a href="'.URLROOT.'/perbaikan/validasikasubag/'.$row->serial_number.'">Disposisikan</a></u>';
                                                         }else{
-                                                            
+                                                            echo '<br/>Validasi Kasubag : <span class="text-warning">Menunggu validasi</span>';
                                                         }
                                                     }
                                                 }
@@ -136,14 +149,16 @@
                                 //      
                                         if($row->penugasan){
                                             if($row->hasil){
-                                            
+                                              echo '<br/>Validasi Hasil : <span class="text-success">Diterima</span>';
                                             }else{
                                                 if($row->nip_pemohon == $_SESSION['nip']){
                                                     echo '<br/>Validasi hasil diterima : <u><a href="'.URLROOT.'/perbaikan/hasil/'.$row->serial_number.'">Validasi</a></u>';
+                                                }else{
+                                                    echo '<br/>Validasi hasil : <span class="text-warning">Menunggu validasi</span>';
                                                 }
                                             }
                                         }else{
-
+                                            echo '<br/>Validasi hasil : <span class="text-warning">Menunggu validasi</span>';
                                         }
                                     ?>
                                         </td>

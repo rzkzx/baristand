@@ -208,7 +208,7 @@ class Perbaikan extends Controller
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
         //validate error free
-        if(empty($_POST['status']) || empty($_POST['validasi2'])){
+        if(empty($_POST['status']) || empty($_POST['validasi2']) && empty($_POST['alasan1'])){
             //load view with error
             setFlash('Form input tidak boleh kosong','danger');
             return redirect('perbaikan/validasi2/'.$_POST['serial_number']);
@@ -256,7 +256,7 @@ class Perbaikan extends Controller
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
         //validate error free
-        if(empty($_POST['status']) || empty($_POST['validasi2'])){
+        if(empty($_POST['status']) && empty($_POST['alasan_dispo'])){
             //load view with error
             setFlash('Form input tidak boleh kosong','danger');
             return redirect('perbaikan/validasikasubag/'.$_POST['serial_number']);
@@ -283,11 +283,15 @@ class Perbaikan extends Controller
             $data['serial'] = $serial_number;
             $data['perbaikan'] = $pb;
             
-            if($pb->waktu_disposisi){
+            if($pb->waktu_disposisi && !$pb->alasan_dispo){
               $data['penanggung'] = $this->adminModel->getPegawai('perbaikan');
               $this->view('perbaikan/disposisi', $data);
             }else{
-              $this->view('perbaikan/validasikasubag', $data);
+              if(!$pb->alasan_dispo){
+                $this->view('perbaikan/validasikasubag', $data);
+              }else{
+                return redirect('perbaikan');
+              }
             }
         }else{
             return redirect('perbaikan');
