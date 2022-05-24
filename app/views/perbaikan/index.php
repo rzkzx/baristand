@@ -37,34 +37,34 @@
                                                 echo '<span class="text-success">Permohonan dibuat '.$row->tanggal.'</span>';
                                             }
                                             elseif(!$row->waktu_validasi2 && $row->alasan1){
-                                                echo '<span class="text-danger">Ditolak atasan langsung '.$row->waktu_validasi1.'</span>';
+                                                echo '<span class="text-danger">Ditolak Atasan langsung '.$row->waktu_validasi1.'</span>';
                                             }
                                             elseif(!$row->waktu_validasi2){
-                                                    echo '<span class="text-success">Disetujui atasan langsung '.$row->waktu_validasi1.'</span>';
+                                                    echo '<span class="text-success">Disetujui Atasan langsung '.$row->waktu_validasi1.'</span>';
                                                 }
                                             elseif(!$row->disposisi && $row->alasan2){
-                                                    echo '<span class="text-danger">Ditolak kepala balai'.$row->waktu_validasi2.'</span>';
+                                                    echo '<span class="text-danger">Ditolak Kepala balai'.$row->waktu_validasi2.'</span>';
                                                 }
-                                            elseif(!$row->disposisi){
-                                                    echo '<span class="text-success">Disetujui kepala balai'.$row->waktu_validasi2.'</span>';
+                                            elseif(!$row->disposisi && !$row->alasan_dispo){
+                                                    echo '<span class="text-success">Disetujui Kepala balai'.$row->waktu_validasi2.'</span>';
                                                 }
                                             elseif(!$row->penugasan && $row->alasan_dispo){
-                                                    echo '<span class="text-danger">Ditolak kasubag TU '.$row->waktu_disposisi.'</span>';
+                                                    echo '<span class="text-danger">Ditolak Kasubag TU '.$row->waktu_disposisi.'</span>';
                                                 }
                                             elseif(!$row->penugasan){
-                                                    echo '<span class="text-success">Didisposisikan kasubag TU '.$row->waktu_disposisi.'</span>';
+                                                    echo '<span class="text-success">Didisposisikan Kasubag TU '.$row->waktu_disposisi.'</span>';
                                                 }
                                                 elseif(!$row->waktu_diterima){
                                                     echo '<span class="text-success">Perbaikan telah ditugaskan Penanggung Jawab '.($row->waktu_penugasan).'</span>';
                                                 }
                                             elseif(!$row->verifikasi_selesai){
-                                                    echo '<span class="text-success">Sebagian perbaikan telah diterima petugas '.$row->waktu_diterima.'</span>';
+                                                    echo '<span class="text-success">Sebagian perbaikan telah diterima Petugas '.$row->waktu_diterima.'</span>';
                                                 }
                                             elseif(!$row->hasil){
                                                     echo '<span class="text-success">Sebagian perbaikan telah selesai diperbaiki '.$row->waktu_selesai.'</span>';
                                                 }
                                                 else{
-                                                    echo '<span class="text-success">Hasil diterima pemohon '.$row->waktu_hasil.'</span>';
+                                                    echo '<span class="text-success">Hasil diterima Pemohon '.$row->waktu_hasil.'</span>';
                                                 }
                                             ?>
                                         <?= "<br/>";
@@ -108,7 +108,7 @@
                                                     echo '<br/>Validasi Kasubag : <span class="text-warning">Menunggu validasi</span>';
                                                 }else{
                                                     if($row->alasan_dispo){
-                                                        echo '<br/>Validasi Kasubag : <span class="text-danger">Ditolak</span> karena '.$row->alasan_dispo.' <span>'.$row->waktu_disposisi.'</span>';
+                                                        echo '<br/>Validasi Kasubag : <span class="text-danger">Ditolak</span> karena '.$row->alasan_dispo.' <span style="color:#2980b9;">'.$row->waktu_disposisi.'</span>';
                                                     }elseif($row->disposisi){
                                                         echo '<br/>Validasi Kasubag : <span class="text-success">Diterima</span>';
                                                     }else{
