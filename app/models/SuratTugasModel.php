@@ -10,6 +10,16 @@ class SuratTugasModel
       $this->db = new Database;
   }
 
+  //for count in dashboard
+  public function getAllCountByMonth()
+  {
+      $query = "SELECT * FROM ".$this->table." WHERE MONTH(tanggal_permohonan)=:month";
+      $this->db->query($query);
+      $this->db->bind('month', date('m'));
+
+      return $this->db->resultSet();
+  }
+
   public function getAll()
   {
       $query = "SELECT surat_tugas.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=surat_tugas.pemohon";

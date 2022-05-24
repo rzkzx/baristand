@@ -55,7 +55,7 @@
                 <div class="row align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-uppercase mb-1">Surat Tugas (<?php echo dateID(date('-m-')) ?>)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($data['ijin_keluar']) ?></div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($data['surat_tugas']) ?></div>
                 </div>
                 <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-primary"></i>
