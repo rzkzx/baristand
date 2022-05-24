@@ -26,49 +26,57 @@
               <!-- form start -->
               <form role="form" action="<?= URLROOT; ?>/pengadaan/accDisposisi" method="POST" enctype="multipart/form-data">
                 <div>
-                  <a href="<?= URLROOT; ?>/pengadaan/cetak/<?= $data['pengadaan']->serial_number?>" target="_blank" class="btn float-right btn-xs btn btn-success">Cetak</a>
+                  <a href="<?= URLROOT; ?>/pengadaan/cetak/<?= $data['pengadaan']->serial_number ?>" target="_blank" class="btn float-right btn-xs btn btn-success">Cetak</a>
                 </div>
                 </br>
                 </br>
                 <div class="row mb-3">
                   <label for="nama_petugas" class="col-sm-2 col-form-label">Pemohon</label>
                   <div class="col-sm-10">
-                    <input type="text" name="pemohon" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->nama?>">
+                    <input type="text" name="pemohon" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->nama ?>">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="waktu" class="col-sm-2 col-form-label">Waktu Permohonan</label>
                   <div class="col-sm-10">
-                    <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->tanggal, ' ', $data['pengadaan']->jam?>">
+                    <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->tanggal, ' ', $data['pengadaan']->jam ?>">
                   </div>
                 </div>
-                <?php if ($data['pengadaan']->waktu_validasi1) { ?>
+                <?php if ($data['pengadaan']->validasi1) { ?>
                   <div class="row mb-3">
                     <label for="waktu" class="col-sm-2 col-form-label">Validasi atasan</label>
                     <div class="col-sm-10">
-                      <input type="text" name="atasan" required class="form-control" id="deadline" readonly value="<?= $data['atasan']->nama. ' / ' . $data['pengadaan']->waktu_validasi1?>">
+                      <input type="text" name="atasan" required class="form-control" id="deadline" readonly value="<?= $data['atasan']->nama . ' / ' . $data['pengadaan']->validasi1 ?>">
+                    </div>
+                  </div>
+                  <?php }
+                if ($data['pengadaan']->waktu_validasi2) { ?>
+                  <div class="row mb-3">
+                    <label for="waktu" class="col-sm-2 col-form-label">Validasi Kasubag TU</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="kasubag" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi2 ?>">
                     </div>
                   </div>
                 <?php }
-                if ($data['pengadaan']->waktu_validasi2) { ?>
+                if ($data['pengadaan']->waktu_validasi3) { ?>
                   <div class="row mb-3">
                     <label for="waktu" class="col-sm-2 col-form-label">Validasi kepala balai</label>
                     <div class="col-sm-10">
-                      <input type="text" name="kasubag" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi2?>">
+                      <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi3 ?>">
                     </div>
                   </div>
                 <?php }
                 if ($data['pengadaan']->disposisi) { ?>
                   <div class="row mb-3">
-                    <label for="waktu" class="col-sm-2 col-form-label">Validasi kasubag</label>
+                    <label for="waktu" class="col-sm-2 col-form-label">Validasi PPK</label>
                     <div class="col-sm-10">
-                      <input type="text" name="kasubag" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_disposisi?>">
+                      <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_disposisi ?>">
                     </div>
                   </div>
                   <div class="row mb-3">
                     <label for="waktu" class="col-sm-2 col-form-label">Penugasan penanggung jawab</label>
                     <div class="col-sm-10">
-                      <input type="text" name="penugasan" required class="form-control" id="deadline" readonly value="<?= $data['penanggung']->nama. ' / ' . $data['pengadaan']->waktu_penugasan?>">
+                      <input type="text" name="penugasan" required class="form-control" id="deadline" readonly value="<?= $data['penanggung']->nama . ' / ' . $data['pengadaan']->waktu_penugasan ?>">
                     </div>
                   </div>
                 <?php }
@@ -114,7 +122,7 @@
                           <tr>
                             <td>
                               <?= $b->nbahan; ?>
-                            </td>
+                              </td>
                             <td><?= $b->jumlah; ?></td>
                             <td><?= $b->keterangan; ?></td>
                             <td><?php
@@ -208,7 +216,7 @@
                               <?= $b->nbahan; ?>
                             </td>
                             <td><?= $b->jumlah; ?></td>
-                            <td><?= $b->keterangan; ?></td>
+                            <td><?= $b->$keterangan; ?></td>
                             <td><?php
                                 if (!$b->nip_petugas) {
                                   echo '<span class="text-danger">Belum dipilih</span>';
@@ -237,7 +245,7 @@
                               if (!$b->penerimaan) {
                                 echo '<span class="text-danger">Belum selesasi</span>';
                               } else {
-                                echo '<span class="text-success">' . $b->waktu_selesai . '</span>';
+                                echo '<span class="text-success">' . $b->waktu_selesai. '</span>';
                               }
                               ?>
                             </td>

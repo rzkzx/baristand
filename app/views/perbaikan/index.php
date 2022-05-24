@@ -81,7 +81,7 @@
                                                     if($row->alasan1){
                                                         echo '<br/>Validasi AL : <span class="text-danger">Ditolak</span> karena '.$row->alasan1.'  <span>'.$row->waktu_validasi1.'</span>';
                                                     }else{
-                                                        echo '<br/>Validasi AL : <span class="text-succes">Diterima</span>';
+                                                        echo '<br/>Validasi AL : <span class="text-success">Diterima</span>';
                                                     }
 
                                                 }

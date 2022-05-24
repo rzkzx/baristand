@@ -70,13 +70,13 @@
                                   <label for="validasi" class="col-sm-2 col-form-label">Validasi</label>
                                   <div class="col-sm-6">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" id="validasih" value="Disetujui" onchange="hideAlasanCatatan()" checked>
+                                      <input class="form-check-input" type="radio" name="status" id="status" value="Disetujui kasubag tu" onchange="hideAlasanCatatan()" checked>
                                       <label class="form-check-label" for="validasih">
                                         Diterima
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" value="Ditolak" id="validasis" onchange="showAlasanCatatan()">
+                                      <input class="form-check-input" type="radio" name="status" value="Ditolak kasubag tu" id="status" onchange="showAlasanCatatan()">
                                       <label class="form-check-label" for="validasis">
                                         Ditolak
                                       </label>
@@ -107,16 +107,13 @@
         </div>
     </div>
 </section>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
   function showAlasanCatatan(){
-    document.getElementById("validasi2").readOnly = true;
-    document.getElementById("validasi2").value = "";
     document.getElementById("alasan2").readOnly = false;
   }
   function hideAlasanCatatan(){
-    document.getElementById("validasi2").readOnly = false;
     document.getElementById("alasan2").readOnly = true;
     document.getElementById("alasan2").value = "";
   }
 </script>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

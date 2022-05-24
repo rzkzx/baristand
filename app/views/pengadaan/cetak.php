@@ -105,7 +105,7 @@
           <p></p> Panglima Batur Barat No.2 Banjarbaru
           <p></p> Telp (0511)4774861, 4772461 Fax. 4772115
         </td>
-        <td><?= $data['pengadaan']->serial_number ?></td>
+        <td><?= $data['form']->kode ?> - <?= $data['form']->nama ?></td>
       </tr>
       <tr>
         <td>
@@ -156,8 +156,10 @@
           <td><?= $b->petugas_pengadaan; ?></td>
           <td><?= $b->deadline; ?></td>
           <td><?= $b->waktu_selesai; ?></td>
-        <?php endforeach;
-      $no++; ?>
+        <?php 
+      $no++;   
+      endforeach;
+      ?>
         </tr>
     </table>
   </div>
@@ -199,7 +201,7 @@
       </tr>
       <tr>
         <td>
-          <P>Penanggung jawab : <?= $data['penanggung']->nama. ' / ' . $data['pengadaan']->waktu_penugasan?></P>
+          <P>Pejabat pengadaan : <?= $data['penanggung']->nama. ' / ' . $data['pengadaan']->waktu_penugasan?></P>
         </td>
         <td>
         <P>Catatan penugasan : <?= $data['pengadaan']->penugasan?></P>

@@ -24,7 +24,7 @@
                             <!-- /.card-header -->
                             <!-- form start -->
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-1 col-form-label">Seri pengadaan</label>
+                                  <label for="waktu" class="col-sm-1 col-form-label">Seri Pengadaan</label>
                                   <div class="col-sm-11">
                                     <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->serial_number?>">
                                   </div>

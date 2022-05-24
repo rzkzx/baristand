@@ -120,7 +120,7 @@
         </td>
         <td rowspan="2">
           <p>Kepada</p>
-          <p>Yth. Bapak Kepala Barisstand Banjarbaru</p>
+          <p>Yth. Bapak Kepala Baristand Banjarbaru</p>
           <p>Di</p>
           <p style="padding-left: 1em">Banjarbaru</p>
         </td>
@@ -156,8 +156,10 @@
           <td><?= $b->petugas_perbaikan; ?></td>
           <td><?= $b->deadline; ?></td>
           <td><?= $b->waktu_selesai; ?></td>
-        <?php endforeach;
-      $no++; ?>
+        <?php 
+      $no++;   
+      endforeach;
+      ?>
         </tr>
     </table>
   </div>

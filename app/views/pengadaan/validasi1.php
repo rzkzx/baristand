@@ -58,14 +58,14 @@
                                   <label for="validasi" class="col-sm-2 col-form-label">Validasi</label>
                                   <div class="col-sm-6">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" id="validasi2" value="Disetujui" onchange="hideAlasanCatatan()" checked>
-                                      <label class="form-check-label" for="validasi2">
+                                      <input class="form-check-input" type="radio" name="status" id="status" value="Disetujui atasan langsung" onchange="hideAlasanCatatan()" checked>
+                                      <label class="form-check-label" for="validasih">
                                         Diterima
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" value="Ditolak" id="validasi1" onchange="showAlasanCatatan()">
-                                      <label class="form-check-label" for="validasi1">
+                                      <input class="form-check-input" type="radio" name="status" value="Ditolak atasan langsung" id="status" onchange="showAlasanCatatan()">
+                                      <label class="form-check-label" for="validasis">
                                         Ditolak
                                       </label>
                                     </div>

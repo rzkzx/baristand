@@ -70,20 +70,19 @@
                                   <label for="validasi" class="col-sm-2 col-form-label">Validasi</label>
                                   <div class="col-sm-6">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" id="validasih" value="Disetujui" onchange="hideAlasanCatatan()" checked>
+                                      <input class="form-check-input" type="radio" name="status" id="status" value="Disetujui kepala balai" onchange="hideAlasanCatatan()" checked>
                                       <label class="form-check-label" for="validasih">
                                         Diterima
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" value="Ditolak" id="validasis" onchange="showAlasanCatatan()">
+                                      <input class="form-check-input" type="radio" name="status" value="Ditolak kepala balai" id="status" onchange="showAlasanCatatan()">
                                       <label class="form-check-label" for="validasis">
                                         Ditolak
                                       </label>
                                     </div>
                                   </div>
                                 </div>
-            
                                 <div class="row mb-3">
                                   <label for="alasan_ditolak" class="col-sm-2 col-form-label">Alasan Ditolak</label>
                                   <div class="col-sm-6">
@@ -108,16 +107,13 @@
         </div>
     </div>
 </section>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
   function showAlasanCatatan(){
-    document.getElementById("validasi3").readOnly = true;
-    document.getElementById("validasi3").value = "";
     document.getElementById("alasan3").readOnly = false;
   }
   function hideAlasanCatatan(){
-    document.getElementById("validasi3").readOnly = false;
     document.getElementById("alasan3").readOnly = true;
     document.getElementById("alasan3").value = "";
   }
 </script>
+<?php require APPROOT . '/views/inc/footer.php'; ?>

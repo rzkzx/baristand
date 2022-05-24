@@ -24,7 +24,7 @@
                                 <div class="row mb-3">
                                   <label for="waktu" class="col-sm-2 col-form-label">Waktu Validasi Kepala Balai</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="tanggal" required class="form-control" id="tanggal" readonly value="<?= $data['pengadaan']->waktu_validasi2?>">
+                                    <input type="text" name="tanggal" required class="form-control" id="tanggal" readonly value="<?= $data['pengadaan']->waktu_validasi3?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">

@@ -14,6 +14,7 @@ class Pengadaan extends Controller
     $this->pegawaiModel = $this->model('PegawaiModel');
     $this->jabatanModel = $this->model('JabatanModel');
     $this->adminModel = $this->model('AdminModel');
+    $this->formulirModel = $this->model('FormulirModel');
   }
 
   public function index(){
@@ -59,6 +60,7 @@ class Pengadaan extends Controller
 
   public function cetak($serial_number = '')
   {
+    $data['form'] = $this->formulirModel->getByName('PPR');
     $data['title'] = 'Cetak Surat Pengadaan';
     $data['pengadaan'] = $this->pengadaanModel->getBySerial($serial_number);
     $data['kepala_balai'] = $this->jabatanModel->getPegawai('kepala_balai');
@@ -275,11 +277,15 @@ class Pengadaan extends Controller
             $data['serial'] = $serial;
             $data['atasan'] = $this->pengadaanModel->getBySerialAtasan($serial);
 
-            if($png->waktu_disposisi){
+            if($png->waktu_disposisi && !$png->alasan_dispo){
               $data['penanggung'] = $this->adminModel->getPegawai('pengadaan');
               $this->view('pengadaan/disposisi', $data);
             }else{
-              $this->view('pengadaan/validasippk', $data);
+              if(!$png->alasan_dispo){
+                $this->view('pengadaan/validasippk', $data);
+              }else{
+                return redirect('pengadaan');
+              }
             }
         }else{
             return redirect('pengadaan');

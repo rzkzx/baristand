@@ -37,34 +37,34 @@
                                     <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['pengadaan']->tanggal , ' ' , $data['pengadaan']->jam?>">
                                   </div>
                                 </div>
-                                <?php if($data['pengadaan']->waktu_validasi1){ ?>
+                                <?php if($data['pengadaan']->validasi1){ ?>
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi atasan</label>
+                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi Atasan</label>
                                   <div class="col-sm-10">
                                     <input type="text" name="atasan" required class="form-control" id="deadline" readonly value="<?= $data['atasan']->nama.' / '.$data['pengadaan']->waktu_validasi1?>">
                                   </div>
                                 </div>
                                 <?php } 
-                                if($data['pengadaan']->waktu_validasi3){ ?>
+                                if($data['pengadaan']->waktu_validasi2){ ?>
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi Kesubag TU</label>
+                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi Kasubag TU</label>
                                   <div class="col-sm-10">
-                                    <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi3?>">
+                                    <input type="text" name="kasubag_tu" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi2?>">
                                   </div>
                                 </div>
                                 <?php } 
-                                if($data['pengadaan']->waktu_validasi2){ ?>
+                                if($data['pengadaan']->waktu_validasi3){ ?>
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi kepala balai</label>
+                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi Kepala Balai</label>
                                   <div class="col-sm-10">
-                                    <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi2?>">
+                                    <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_validasi3?>">
                                   </div>
                                 </div>
 
                                 <?php } 
                                 if($data['pengadaan']->disposisi){ ?>
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi ppk</label>
+                                  <label for="waktu" class="col-sm-2 col-form-label">Validasi PPK</label>
                                   <div class="col-sm-10">
                                     <input type="text" name="ppk" required class="form-control" id="deadline" readonly value="<?= $data['pengadaan']->waktu_disposisi?>">
                                   </div>
@@ -112,7 +112,7 @@
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
                                     <th>Petugas</th>
-                                    <th>Dealine</th>
+                                    <th>Deadline</th>
                                   </tr>
                                   </thead>
                                   <?php foreach($data['bahan'] as $b):?>
@@ -153,7 +153,7 @@
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
                                     <th>Petugas</th>
-                                    <th>Dealine</th>
+                                    <th>Deadline</th>
                                     <th>Penugasan</th>
                                   </tr>
                                   </thead>
@@ -204,7 +204,7 @@
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
                                     <th>Petugas</th>
-                                    <th>Dealine</th>
+                                    <th>deadline</th>
                                     <th>Penugasan</th>
                                     <th>Tugas Diterima</th>
                                   </tr>
@@ -265,7 +265,7 @@
                                     <th>Jumlah</th>
                                     <th>Keterangan</th>
                                     <th>Petugas</th>
-                                    <th>Dealine</th>
+                                    <th>deadline</th>
                                     <th>Penugasan</th>
                                     <th>Tugas Diterima</th>
                                     <th>Hasil</th>

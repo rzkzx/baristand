@@ -64,13 +64,13 @@
                                   <label for="validasi" class="col-sm-2 col-form-label">Validasi</label>
                                   <div class="col-sm-6">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" id="validasih" value="Disetujui" onchange="hideAlasanCatatan()" checked>
+                                      <input class="form-check-input" type="radio" name="status" id="status" value="Disetujui" onchange="hideAlasanCatatan()" checked>
                                       <label class="form-check-label" for="validasih">
                                         Diterima
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="status" value="Ditolak" id="validasis" onchange="showAlasanCatatan()">
+                                      <input class="form-check-input" type="radio" name="status" value="Ditolak" id="status" onchange="showAlasanCatatan()">
                                       <label class="form-check-label" for="validasis">
                                         Ditolak
                                       </label>
