@@ -81,6 +81,7 @@
                                                 if($row->diterbitkan == TRUE){
                                                     if(Middleware::admin('kepegawaian')){
                                                         echo '</br><a href="'.URLROOT.'/ijinlembur/cetak/'.$row->id.'" target="_blank" class="btn btn-success btn-sm">Cetak</a>';
+                                                        echo '<a href="'.URLROOT.'/ijinlembur/terbitkan/'.$row->id.'" class="ml-2 btn btn-primary btn-sm">Ubah Nomor Surat</a>';
                                                     }else{
                                                         echo '</br><b>Surat Ijin Sudah Diterbitkan</b>';
                                                     }

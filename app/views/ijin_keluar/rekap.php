@@ -44,8 +44,8 @@
                                         </td>
                                         <td>
                                             <?php
-                                            $timeout = timeFilter($row->jam_kembali);
-                                            $timein = timeFilter($row->jam_keluar);
+                                            $timeout = timeFilter($row->jam_keluar);
+                                            $timein = timeFilter($row->jam_kembali);
                                             echo $timeout." s/d ".$timein 
                                             ?>
                                         </td>

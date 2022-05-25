@@ -276,7 +276,7 @@ class IjinLembur extends Controller{
                 return redirect('ijinlembur/terbitkan/'.$_POST['id']);
             }else{
                 $ijn = $this->ijinLemburModel->getById($_POST['id']);
-                if($ijn && $ijn->validasi_kepala_balai && !$ijn->nomor_surat && Middleware::admin('kepegawaian')){
+                if($ijn && $ijn->validasi_kepala_balai && Middleware::admin('kepegawaian')){
                     if($this->ijinLemburModel->terbitkan($_POST)){
                         //get atasan data
                         $ats = $this->pegawaiModel->getByNIP($_POST['penginput']);
@@ -300,10 +300,14 @@ class IjinLembur extends Controller{
         }else{
             $ijn = $this->ijinLemburModel->getById($id);
 
-            if($ijn && $ijn->validasi_kepala_balai && !$ijn->nomor_surat && Middleware::admin('kepegawaian')){
+            if($ijn && $ijn->validasi_kepala_balai && Middleware::admin('kepegawaian')){
                 $data['id'] = $id;
                 $data['ijin_lembur'] = $ijn;
+                $data['nomor'] = [];
                 $data['pemohon'] = $this->pegawaiModel->getAllNIP($ijn->pemohon);
+                if($ijn->nomor_surat){
+                    $data['nomor'] = explode('/',$ijn->nomor_surat);
+                }
                 
                 $this->view('ijin_lembur/terbitkan', $data);
             }else{

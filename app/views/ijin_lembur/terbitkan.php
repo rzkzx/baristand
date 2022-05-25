@@ -22,13 +22,13 @@
             <div class="form-group row">
               <label for="nomor_surat" class="col-sm-2 col-form-label">Nomor Surat<span class="text-danger">*</span> :</label>
               <div class="col-sm-1">
-                <input type="text" name="nomor_surat[]" required class="form-control" id="nomor_surat">
+                <input type="text" name="nomor_surat[]" required class="form-control" id="nomor_surat" value="<?php if($data['nomor']) echo $data['nomor'][0] ?>">
               </div>
               <div class="col-sm-3">
                 <input type="text" name="nomor_surat[]" required class="form-control" value="/BSKJI/BSPJI-BANJARBARU/KP/" readonly>
               </div>
               <div class="col-sm-2">
-                <input type="text" name="nomor_surat[]" required class="form-control" placeholder="ex: III" id="nomor_surat">
+                <input type="text" name="nomor_surat[]" required class="form-control" placeholder="ex: III" value="<?php if($data['nomor']) echo $data['nomor'][4] ?>" id="nomor_surat">
               </div>
               <div class="col-sm-2">
                 <input type="text" name="nomor_surat[]" required class="form-control" readonly value="/<?= date('Y') ?>">
@@ -37,7 +37,7 @@
             <div class="form-group row">
               <label for="tanggal_surat" class="col-sm-2 col-form-label">Tanggal Surat<span class="text-danger">*</span> :</label>
               <div class="col-sm-8">
-                <input type="text" name="tanggal_surat" class="form-control" id="tanggal_surat" placeholder="" value="" required>
+                <input type="text" name="tanggal_surat" class="form-control" id="tanggal_surat" placeholder="" value="<?php if($data['ijin_lembur']->tanggal_surat) echo $data['ijin_lembur']->tanggal_surat; ?>" required>
               </div>
             </div>
             <div class="form-group row">
