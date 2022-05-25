@@ -74,7 +74,7 @@
             <div class="form-group row">
                 <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Terbitkan</button>
-                <a href="<?= URLROOT; ?>/ijinlembur" class="btn btn-danger">Kembali</a>
+                <a href="<?= URLROOT; ?>/ijinlembur/listvalidasi" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
             </form>
