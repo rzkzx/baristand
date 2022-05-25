@@ -423,7 +423,7 @@ public function konfirmasiPenugasan($serial_number = ''){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if ($this->perbaikanModel->konfirmasiSelesai($_POST)) {
           setFlash('Perbaikan selesai dikerjakan', 'success');
-          return redirect('perbaikan');
+          return redirect('perbaikan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
       }else{
           setFlash('Konfirmasi gagal', 'danger');
           return redirect('perbaikan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
