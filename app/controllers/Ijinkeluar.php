@@ -26,7 +26,7 @@ class IjinKeluar extends Controller{
     }
 
     public function listvalidasi(){
-        if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator')){
+        if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai')){
             $ijin_keluar = $this->ijinKeluarModel->getByAtasan();
             $data = [
                 'title' => 'Daftar Validasi Ijin Keluar',
@@ -41,7 +41,7 @@ class IjinKeluar extends Controller{
     }
 
     public function rekap(){
-        if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian')){
+        if($_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kasubag_tu') || Middleware::admin('kepegawaian') || Middleware::jabatan('kepala_balai')){
             if(ISSET($_POST['search'])){
                 $ijin_keluar = $this->ijinKeluarModel->getAllByDate($_POST['date1'],$_POST['date2']);
                 $pejabatvalidasi = $this->ijinKeluarModel->getAllPejabatValidasiByDate($_POST['date1'],$_POST['date2']);

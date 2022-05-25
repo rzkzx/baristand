@@ -96,7 +96,7 @@
 
         <div class="text">
           <p>
-          Yang bertanda tangan dibawah ini, Kepala Baristand Industri Banjarbaru, memerintahkan kerja lembur kepada pegawai tersebut dibawah ini pada tanggal <?= $data['ijinlembur']->tanggal_ijin ?>, hari <?= $data['hari'] ?> selama <?= $data['ijinlembur']->lama_tugas ?> untuk pekerjaan yang penyelesaiannya tidak dapat ditangguhkan.
+          Yang bertanda tangan dibawah ini, Kepala Balai Standardisasi Dan Pelayanan Jasa Industri, memerintahkan kerja lembur kepada pegawai tersebut dibawah ini pada tanggal <?= $data['ijinlembur']->tanggal_ijin ?>, hari <?= $data['hari'] ?> selama <?= $data['ijinlembur']->lama_tugas ?> untuk pekerjaan yang penyelesaiannya tidak dapat ditangguhkan.
           </p>
           <p>Demikian agar dilaksanakan dengan penuh tanggung jawab.</p>
         </div>
