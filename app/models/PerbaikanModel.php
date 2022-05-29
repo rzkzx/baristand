@@ -425,7 +425,7 @@ public function getBySerialPenanggung($serial_number){
   }
   public function getByTSNotValidate()
   {
-    $query = "SELECT * FROM ".$this->table." WHERE nip_petugas_perbaikan IS NOT NULL AND verifikasi_selesai IS NULL";
+    $query = "SELECT * FROM ".$this->table." WHERE nip_petugas_perbaikan IS NOT NULL AND verifikasi_selesai IS NULL AND waktu_hasil IS NULL";
     $this->db->query($query);
     $data = $this->db->resultSet();
 
