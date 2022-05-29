@@ -74,7 +74,7 @@
                                             ?>
                                             <?php 
                                                 if($row->diterbitkan == TRUE){
-                                                        echo '</br><b>Surat Izin Sudah Diterbitkan</b>';
+                                                        echo '</br><b>Surat Ijin Sudah Diterbitkan</b>';
                                                 }
                                             ?>
                                         </td>

@@ -126,7 +126,7 @@ class IjinKeluar extends Controller{
                         // // '%0a' new line in whatsapp
                         $data['no_telp'] = $ijk->no_telp;
                         $data['isi_pesan'] = 
-                        "*Izin Keluar Disetujui*%0aNama : ".$ijk->nama."%0aJam Keluar : ".timeID($ijk->jam_keluar)."%0aJam Kembali : ".timeID($ijk->jam_kembali)."%0aTanggal Izin : ".dayID($ijk->tanggal_ijin).", ".dateID($ijk->tanggal_ijin)."%0aKeperluan : ".$ijk->keperluan;
+                        "*Ijin Keluar Disetujui*%0aNama : ".$ijk->nama."%0aJam Keluar : ".timeID($ijk->jam_keluar)."%0aJam Kembali : ".timeID($ijk->jam_kembali)."%0aTanggal Ijin : ".dayID($ijk->tanggal_ijin).", ".dateID($ijk->tanggal_ijin)."%0aKeperluan : ".$ijk->keperluan;
                         notifWA($data);
 
                         // redirect after success validate
