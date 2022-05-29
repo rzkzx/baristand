@@ -19,7 +19,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Tanggal Ijin / Pemohon</th>
-                                        <th>Jam Izin</th>
+                                        <th>Jam Ijin</th>
                                         <th>Keperluan</th>
                                         <th class="col-4">Detail / Atasan</th>
                                     </tr>
@@ -27,7 +27,7 @@
                                 <tfoot class="thead-light">
                                     <tr>
                                         <th>Tanggal Ijin / Pemohon</th>
-                                        <th>Jam Izin</th>
+                                        <th>Jam Ijin</th>
                                         <th>Keperluan</th>
                                         <th class="col-4">Detail / Atasan</th>
                                     </tr>

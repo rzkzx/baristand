@@ -282,7 +282,7 @@ class IjinLembur extends Controller{
                         $ats = $this->pegawaiModel->getByNIP($_POST['penginput']);
                         // send notification to whatsapp atasan
                         $data['no_telp'] = $ats->no_telp;
-                        $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Surat Izin Telah Diterbitkan";
+                        $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Surat Ijin Telah Diterbitkan";
                         notifWA($data);
 
                         // redirect after success validate
