@@ -541,10 +541,10 @@ public function penugasan($serial = ''){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if ($this->pengadaanModel->konfirmasiDiterima($_POST)) {
           setFlash('Tugas diterima', 'success');
-          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
+          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }else{
           setFlash('Konfirmasi gagal', 'danger');
-          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
+          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }
     }else{
       return redirect('pengadaan');
@@ -555,10 +555,10 @@ public function penugasan($serial = ''){
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if ($this->pengadaanModel->konfirmasiSelesai($_POST)) {
           setFlash('Pengadaan selesai dikerjakan', 'success');
-          return redirect('pengadaan');
+          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }else{
           setFlash('Konfirmasi gagal', 'danger');
-          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
+          return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }
     }else{
       return redirect('pengadaan');
