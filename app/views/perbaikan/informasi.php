@@ -27,6 +27,12 @@
               <form role="form" action="<?= URLROOT; ?>/perbaikan/accDisposisi" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $data['perbaikan']->id; ?>">
                 <div class="row mb-3">
+                <label for="waktu" class="col-sm-2 col-form-label">Seri Perbaikan</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['perbaikan']->serial_number?>">
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="nama_petugas" class="col-sm-2 col-form-label">Pemohon</label>
                   <div class="col-sm-10">
                     <input type="text" name="pemohon" required class="form-control" id="waktu" readonly value="<?= $data['perbaikan']->nama ?>">

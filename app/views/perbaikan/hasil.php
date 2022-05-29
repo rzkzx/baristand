@@ -24,7 +24,7 @@
                             <!-- /.card-header -->
                             <!-- form start -->
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-1 col-form-label">Seri perbaikan</label>
+                                  <label for="waktu" class="col-sm-1 col-form-label">No. Seri</label>
                                   <div class="col-sm-11">
                                     <input type="text" name="waktu" required class="form-control" id="waktu" readonly value="<?= $data['perbaikan']->serial_number?>">
                                   </div>
@@ -69,7 +69,7 @@
                                   <td>
                                   <?php
                                   if(!$b->penerimaan){
-                                    echo '<span class="text-success">Menunggu tugas diterima</span>';
+                                    echo '<span class="text-warning">Menunggu tugas diterima</span>';
                                   }else{
                                     if(!$b->verifikasi_selesai){
                                       echo '<span class="text-danger">Belum selesai</span>';

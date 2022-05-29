@@ -191,7 +191,30 @@
             <div id="collapsePerbaikan" class="collapse <?php if($data['menu'] == 'Perbaikan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
-                <a class="collapse-item <?php if(stripos($data['title'],'Daftar Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">Input Perbaikan</a>
+                <?php if($_SESSION){ ?>
+                <a class="collapse-item <?php if(stripos($data['title'],'Daftar Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">
+                Input Perbaikan
+                <?php  
+                        $atasan = 0; $kb = 0; $ks = 0; $p = 0; $ts = 0; $h = 0;
+                        $atasan = count($this->model('PerbaikanModel')->getByAtasanNotValidate());
+                        if(Middleware::jabatan('kepala_balai')){
+                            $kb = count($this->model('PerbaikanModel')->getByKBNotValidate());
+                        }
+                        if(Middleware::jabatan('kasubag_tu')){
+                            $ks = count($this->model('PerbaikanModel')->getByKSNotValidate());
+                        }
+                        if(Middleware::admin('perbaikan')){
+                            $p = count($this->model('PerbaikanModel')->getByPNotValidate());
+                        }
+                        $ts = $this->model('PerbaikanModel')->getByTSNotValidate();
+                        $h = count($this->model('PerbaikanModel')->getByHNotValidate());
+                        $total = $atasan + $kb + $ks + $p + $ts + $h;
+                        if($total > 0){
+                            echo '<span class="badge badge-danger badge-counter">'.$total.'</span>';
+                        }
+                        ?>
+            </a>
+                <?php } ?>
                 <?php if(Middleware::jabatan('ppk') || Middleware::jabatan('kasubag_tu') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN' || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan/rekap">Rekap Perbaikan</a>
                 <?php } ?>

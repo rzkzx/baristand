@@ -210,7 +210,7 @@ class Perbaikan extends Controller
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
         //validate error free
-        if(empty($_POST['status']) || empty($_POST['validasi2']) && empty($_POST['alasan1'])){
+        if(empty($_POST['status'])){
             //load view with error
             setFlash('Form input tidak boleh kosong','danger');
             return redirect('perbaikan/validasi2/'.$_POST['serial_number']);

@@ -390,6 +390,65 @@ public function getBySerialPenanggung($serial_number){
 
     return $this->db->rowCount();
   }
+
+  public function getByAtasanNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_atasan=:nip_user AND waktu_validasi1 IS NULL";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKBNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE waktu_validasi1 IS NOT NULL AND waktu_validasi2 IS NULL AND alasan1 IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKSNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE waktu_validasi2 IS NOT NULL AND waktu_disposisi IS NULL AND alasan2 IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByPNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE disposisi IS NOT NULL AND penugasan IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+  public function getByTSNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_petugas_perbaikan IS NOT NULL AND verifikasi_selesai IS NULL";
+    $this->db->query($query);
+    $data = $this->db->resultSet();
+
+    $total = 0;
+
+    foreach ($data as $k) {
+      $nip_petugas = explode(',',$k->nip_petugas_perbaikan);
+      if(in_array($_SESSION['nip'],$nip_petugas,TRUE)){
+        $total++;
+      }
+    }
+
+    return $total;
+  }
+
+  public function getByHNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_pemohon=:nip_user AND verifikasi_selesai='Perbaikan selesai' AND hasil IS NULL ORDER BY id DESC";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
 }
 
 ?>

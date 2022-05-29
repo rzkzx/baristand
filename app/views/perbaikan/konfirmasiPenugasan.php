@@ -3,11 +3,11 @@
   .table th{
       text-align: center;
       vertical-align: middle;
-      }
+  }
   .table td{
       text-align: center;
       vertical-align: middle;
-      }
+  }
 </style>
 <section class="section">
     <div class="row">
@@ -36,7 +36,8 @@
                                   </div>
                                 </div>
                                 <div class="row mb-3">
-                                  <div class="col-sm-12">
+                                <label for="isi" class="col-sm-2 col-form-label">Penugasan</label>
+                                  <div class="col-sm-10">
                                   <table class="table">
                                   <thead class="thead-light">
                                   <tr>
