@@ -11,11 +11,11 @@
       $apikey= API_WA;
       $tujuan= $data['no_telp'];
       $pesan= $data['isi_pesan'];
-
+    
       $curl = curl_init();
-
+    
       curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://starsender.online/api/sendText?message='.rawurlencode($pesan).'&tujuan='.rawurlencode($tujuan.'@s.whatsapp.net'),
+        CURLOPT_URL => 'https://app.ruangwa.id/api/send_message',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -23,13 +23,11 @@
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_HTTPHEADER => array(
-          'apikey: '.$apikey
-        ),
+        CURLOPT_POSTFIELDS => 'token='.$apikey.'&number='.$tujuan.'&message='.$pesan,
       ));
-
+    
       $response = curl_exec($curl);
-
+    
       curl_close($curl);
       echo $response;
   }
