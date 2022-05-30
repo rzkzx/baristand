@@ -22,9 +22,9 @@
                                   </div>
                                 </div>
                                 <div class="row mb-3">
-                                  <label for="waktu" class="col-sm-2 col-form-label">Waktu Validasi AL</label>
+                                  <label for="waktu" class="col-sm-2 col-form-label">Waktu Kasubag TU</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="tanggal" required class="form-control" id="tanggal" readonly value="<?= $data['pengadaan']->waktu_validasi1?>">
+                                    <input type="text" name="tanggal" required class="form-control" id="tanggal" readonly value="<?= $data['pengadaan']->waktu_validasi2?>">
                                   </div>
                                 </div>
                                 <div class="row mb-3">

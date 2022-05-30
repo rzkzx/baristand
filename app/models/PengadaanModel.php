@@ -69,7 +69,7 @@ public function cek()
   }
 
 public function getBySerial($serial_number){
-  $query = "SELECT pengadaan.*, users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.serial_number=:serial_number";
+  $query = "SELECT pengadaan.*, users.nama, users.no_telp FROM ".$this->table." LEFT JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.serial_number=:serial_number";
   $this->db->query($query);
   $this->db->bind('serial_number', $serial_number);
 
@@ -431,6 +431,73 @@ public function getBySerialPenanggung($serial_number){
     $this->db->execute();
 
     return $this->db->rowCount();
+  }
+
+  public function getByAtasanNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_atasan=:nip_user AND waktu_validasi1 IS NULL";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKSNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE waktu_validasi1 IS NOT NULL AND validasi2 IS NULL AND alasan2 IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKBNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE waktu_validasi2 IS NOT NULL AND validasi3 IS NULL AND alasan3 IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByPKNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE waktu_validasi3 IS NOT NULL AND disposisi IS NULL AND alasan_dispo IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByPNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE disposisi IS NOT NULL AND penugasan IS NULL";
+    $this->db->query($query);
+
+    return $this->db->resultSet();
+  }
+  public function getByTSNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_petugas_pengadaan IS NOT NULL AND verifikasi_selesai IS NULL AND waktu_hasil IS NULL";
+    $this->db->query($query);
+    $data = $this->db->resultSet();
+
+    $total = 0;
+
+    foreach ($data as $k) {
+      $nip_petugas = explode(',',$k->nip_petugas_pengadaan);
+      if(in_array($_SESSION['nip'],$nip_petugas,TRUE)){
+        $total++;
+      }
+    }
+
+    return $total;
+  }
+
+  public function getByHNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_pemohon=:nip_user AND verifikasi_selesai='Pengadaan selesai' AND hasil IS NULL ORDER BY id DESC";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
   }
 
 

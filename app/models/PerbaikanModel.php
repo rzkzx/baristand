@@ -69,7 +69,7 @@ public function cek()
   }
 
 public function getBySerial($serial_number){
-  $query = "SELECT perbaikan.*, users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.serial_number=:serial_number";
+  $query = "SELECT perbaikan.*, users.nama, users.no_telp FROM ".$this->table." LEFT JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.serial_number=:serial_number";
   $this->db->query($query);
   $this->db->bind('serial_number', $serial_number);
 

@@ -90,15 +90,15 @@ class Pengadaan extends Controller
             $png = $this->pengadaanModel->getBySerial($_POST['serial']);
             if($png && !$png->waktu_validasi1 && $png->nip_atasan == $_SESSION['nip']){
                 if($this->pengadaanModel->tambahan1($_POST)){
-                    if($_POST['validasi'] == 'Disetujui'){
-                        //get atasan data
-                        $kb = $this->jabatanModel->getPegawai('kasubag_tu');
-                        // send notification to whatsapp atasan
-                        $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Harap Ditindaklanjuti";
-                        foreach ($kb as $k) {
-                            $data['no_telp'] = $k->no_telp;
-                            notifWA($data);
-                        }
+                  if($_POST['status'] == 'Disetujui atasan langsung'){
+                    //get atasan data
+                    $ks = $this->jabatanModel->getPegawai('kasubag_tu');
+                    // send notification to whatsapp atasan
+                    $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Validasi Kasubag - Harap Ditindaklanjuti";
+                    foreach ($ks as $k) {
+                        $data['no_telp'] = $k->no_telp;
+                        notifWA($data);
+                      }
                     }
                     
                     // redirect after success validate
@@ -145,15 +145,15 @@ class Pengadaan extends Controller
             $png = $this->pengadaanModel->getBySerial($_POST['serial']);
             if($png && $png->waktu_validasi1 && !$png->waktu_validasi2 && Middleware::jabatan('kasubag_tu')){
                 if($this->pengadaanModel->tambahan2($_POST)){
-                    if($_POST['validasi'] == 'Disetujui'){
-                        //get atasan data
-                        $kb = $this->jabatanModel->getPegawai('kepala_balai');
-                        // send notification to whatsapp atasan
-                        $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Harap Ditindaklanjuti";
-                        foreach ($kb as $k) {
-                            $data['no_telp'] = $k->no_telp;
-                            notifWA($data);
-                        }
+                  if($_POST['status'] == 'Disetujui kasubag tu'){
+                    //get atasan data
+                    $kb = $this->jabatanModel->getPegawai('kepala_balai');
+                    // send notification to whatsapp atasan
+                    $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Validasi Kepala Balai - Harap Ditindaklanjuti";
+                    foreach ($kb as $k) {
+                        $data['no_telp'] = $k->no_telp;
+                        notifWA($data);
+                    }
                     }
                     
                     // redirect after success validate
@@ -201,11 +201,11 @@ class Pengadaan extends Controller
             $png = $this->pengadaanModel->getBySerial($_POST['serial']);
             if($png && $png->waktu_validasi2 && !$png->waktu_validasi3 && Middleware::jabatan('kepala_balai')){
                 if($this->pengadaanModel->tambahan3($_POST)){
-                    if($_POST['validasi'] == 'Disetujui'){
+                    if($_POST['status'] == 'Disetujui kepala balai'){
                         //get atasan data
                         $kb = $this->jabatanModel->getPegawai('ppk');
                         // send notification to whatsapp atasan
-                        $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Harap Ditindaklanjuti";
+                        $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Validasi PPK - Harap Ditindaklanjuti";
                         foreach ($kb as $k) {
                             $data['no_telp'] = $k->no_telp;
                             notifWA($data);
@@ -302,6 +302,11 @@ public function accDisposisi(){
       return redirect('pengadaan/disposisi/'.$_POST['serial']);
     }  
     if ($this->pengadaanModel->tambahandispo($_POST)) {
+      $png = $this->pegawaiModel->getByNIP($_POST['nip_penanggung']);
+      // send notification to whatsapp atasan
+      $data['no_telp'] = $png->no_telp;
+      $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Penugasan Petugas - Harap Ditindaklanjuti";
+      notifWA($data);
         setFlash('Pejabat Pengadaan Dipilih.', 'success');
         return redirect('pengadaan');
     }else{
@@ -373,6 +378,11 @@ public function penugasan($serial = ''){
         return redirect('pengadaan/penugasan/'.$_POST['seri_pengadaan']);
       }  
       if ($this->pengadaanModel->tambahanPetugas($_POST) &  $this->pengadaanModel->tambahanPetugasPengadaan($_POST)) {
+        $ptg = $this->pegawaiModel->getByNIP(end($_POST['nip_petugas']));
+        // send notification to whatsapp
+        $data['no_telp'] = $ptg->no_telp;
+        $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Penugasan Pengadaan - Harap Ditindaklanjuti";
+        notifWA($data);
           setFlash('Petugas ditambahkan.', 'success');
           return redirect('pengadaan/penugasan/'.$_POST['seri_pengadaan']);
       }else{
@@ -543,7 +553,7 @@ public function penugasan($serial = ''){
           setFlash('Tugas diterima', 'success');
           return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }else{
-          setFlash('Konfirmasi gagal', 'danger');
+          setFlash('Konfirmasi diterima', 'success');
           return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }
     }else{
@@ -554,10 +564,16 @@ public function penugasan($serial = ''){
   public function accKonfirmasiSelesai(){ 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
       if ($this->pengadaanModel->konfirmasiSelesai($_POST)) {
+          $data['no_telp'] = $_POST['no_telp'];
+          $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Pengadaan Selesasi - Harap Ditindaklanjuti";
+          notifWA($data);
           setFlash('Pengadaan selesai dikerjakan', 'success');
           return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }else{
-          setFlash('Konfirmasi gagal', 'danger');
+          $data['no_telp'] = $_POST['no_telp'];
+          $data['isi_pesan'] = "[BRSBB:SIP-Pengadaan] Pengadaan Selesasi - Harap Ditindaklanjuti";
+          notifWA($data);
+          setFlash('Pengadaan selesai dikerjakan ', 'success');
           return redirect('pengadaan/konfirmasiPenugasan/'.$_POST['seri_pengadaan']);
       }
     }else{

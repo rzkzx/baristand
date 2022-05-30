@@ -94,7 +94,7 @@
                                 </div>
                                 </div>
                                 <!-- /.card-body -->
-                              <a href="<?= URLROOT; ?>/perbaikan" class="btn btn-danger">Kembali</a>
+                              <a href="<?= URLROOT; ?>/pengadaan" class="btn btn-danger">Kembali</a>
                         </div>
                     </div>
                 </section>

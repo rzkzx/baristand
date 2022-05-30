@@ -78,6 +78,7 @@
                                       <input type="hidden" name="id" value="<?= $b->id ?>">
                                       <input type="hidden" name="seri_perbaikan" value="<?= $b->seri_perbaikan ?>">
                                       <input type="hidden" name="verifikasi_selesai" value="Perbaikan selesai">
+                                      <input type="hidden" name="no_telp" value="<?= $data['perbaikan']->no_telp?>">
                                       <div class="row mb-3">
                                         <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Apakah semua perbaikan telah terkonfirmasi selesai?')">Konfirmasi perbaikan selesai</button>
                                       </div>

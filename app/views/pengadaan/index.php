@@ -46,31 +46,31 @@
                                                     echo '<span class="text-danger">Ditolak kasubag tu '.$row->waktu_validasi2.'</span>';
                                                 }
                                             elseif(!$row->waktu_validasi3){
-                                                        echo '<span class="text-success">Disetujui kasubag tu '.$row->waktu_validasi2.'</span>';
+                                                    echo '<span class="text-success">Disetujui kasubag tu '.$row->waktu_validasi2.'</span>';
                                                     }
                                             elseif(!$row->disposisi && $row->alasan3){
-                                                    echo '<span class="text-danger">Ditolak kepala balai '.$row->waktu_validasi3.'</span>';
-                                                }
-                                            elseif($row->waktu_validasi3 && !$row->alasan_dispo){
-                                                    echo '<span class="text-success">Disetujui kepala balai '.$row->waktu_validasi3.'</span>';
-                                                }
+                                                    echo '<span class="text-danger">Ditolak Kepala balai '.$row->waktu_validasi3.'</span>';
+                                                    }
+                                            elseif(!$row->disposisi && !$row->alasan_dispo){
+                                                    echo '<span class="text-success">Disetujui Kepala balai '.$row->waktu_validasi3.'</span>';
+                                                    }
                                             elseif(!$row->penugasan && $row->alasan_dispo){
-                                                    echo '<span class="text-danger">Ditolak PPK '.$row->waktu_disposisi.'</span>';
-                                                }
+                                                    echo '<span class="text-danger">Ditolak ppk '.$row->waktu_disposisi.'</span>';
+                                                    }
                                             elseif(!$row->penugasan){
-                                                    echo '<span class="text-success">Didisposisikan PPK '.$row->waktu_disposisi.'</span>';
+                                                    echo '<span class="text-success">Didisposisikan ppk '.$row->waktu_disposisi.'</span>';
                                                 }
                                                 elseif(!$row->waktu_diterima){
                                                     echo '<span class="text-success">Pengadaan telah ditugaskan Pejabat Pengadaan '.($row->waktu_penugasan).'</span>';
                                                 }
                                             elseif(!$row->verifikasi_selesai){
-                                                    echo '<span class="text-success">Sebagian pengadaan telah diterima petugas '.$row->waktu_diterima.'</span>';
+                                                    echo '<span class="text-success">Sebagian pengadaan telah diterima Petugas '.$row->waktu_diterima.'</span>';
                                                 }
                                             elseif(!$row->hasil){
                                                     echo '<span class="text-success">Sebagian pengadaan telah selesai diadakan '.$row->waktu_selesai.'</span>';
                                                 }
                                                 else{
-                                                    echo '<span class="text-success">Hasil diterima pemohon '.$row->waktu_hasil.'</span>';
+                                                    echo '<span class="text-success">Hasil diterima Pemohon '.$row->waktu_hasil.'</span>';
                                                 }
                                             ?>
                                         <?= "<br/>";
