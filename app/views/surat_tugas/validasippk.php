@@ -138,7 +138,9 @@
                                       <input type="text" name="anggaran"  class="form-control" id="anggaran" value="" placeholder="masukkan anggaran perjalanan dinas.." >
                                     </div>
                                   </div>
-                                <?php } ?>
+                                <?php }else{
+                                  echo '<input type="hidden" name="anggaran" value="NULL">';
+                                } ?>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Validasi</button>

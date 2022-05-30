@@ -43,6 +43,18 @@
                                       <input type="file" name="file_spd" required class="form-control" onchange="return fileValidation2()" id="file2" placeholder=".......">
                                     </div>
                                   </div>
+                                  <div class="form-group row">
+                                    <label for="file" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-6">
+                                      <input type="file" name="file_spd2" required class="form-control" onchange="return fileValidation2()" id="file2" placeholder=".......">
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label for="file" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-6">
+                                      <input type="file" name="file_spd3" required class="form-control" onchange="return fileValidation2()" id="file2" placeholder=".......">
+                                    </div>
+                                  </div>
                                 <?php } ?>
                                 <div class="row mb-3 text-center border-bottom-light">
                                   <label for="pengusul" class="col-sm-2 col-form-label"></label>

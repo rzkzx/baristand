@@ -129,6 +129,20 @@
                       <th scope="row">:</th>
                       <td>
                         <a href="<?= URLROOT ?>/public/files/surat_pd/<?= $data['laporan']->file_spd; ?>" style="background-color:#2980b9;color:white;border-radius:5px;padding:5px 10px;"><?= $data['laporan']->file_spd ?></a>
+                  </td> 
+                    </tr>
+                    <tr>
+                      <th scope="row"></th>
+                      <th scope="row"></th>
+                      <td>
+                        <a href="<?= URLROOT ?>/public/files/surat_pd/<?= $data['laporan']->file_spd2; ?>" style="background-color:#2980b9;color:white;border-radius:5px;padding:5px 10px;"><?= $data['laporan']->file_spd2 ?></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row"></th>
+                      <th scope="row"></th>
+                      <td>
+                        <a href="<?= URLROOT ?>/public/files/surat_pd/<?= $data['laporan']->file_spd3; ?>" style="background-color:#2980b9;color:white;border-radius:5px;padding:5px 10px;"><?= $data['laporan']->file_spd3 ?></a>
                       </td>
                     </tr>
                   <?php } ?>

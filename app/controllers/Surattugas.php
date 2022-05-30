@@ -166,7 +166,7 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
                 //validate error free
-                if(empty($_POST['validasi'])){
+                if(empty($_POST['validasi']) && empty($_POST['anggaran'])){
                     //load view with error
                     setFlash('Form input tidak boleh kosong','danger');
                     return redirect('surattugas/validasippk/'.$_POST['id']);
@@ -175,10 +175,6 @@
                     if($st && $st->validasi_atasan_langsung && $st->nip_ppk == $_SESSION['nip']){
                         if($this->suratTugasModel->validasiPPK($_POST)){
                             if($_POST['validasi'] == 'Disetujui'){
-                                if(empty($_POST['anggaran'])){
-                                    setFlash('Form input tidak boleh kosong','danger');
-                                    return redirect('surattugas/validasippk/'.$_POST['id']);
-                                }
                                 //get atasan data
                                 $kb = $this->jabatanModel->getPegawai('kepala_balai');
                                 // send notification to whatsapp atasan

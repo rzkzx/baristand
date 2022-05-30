@@ -142,17 +142,24 @@ class SuratTugasModel
   public function validasiPPK($data)
   {
       $waktu_validasi = date('Y-m-d H:i');
+      $anggaran = NULL;
+      if($data['anggaran']){
+        $anggaran = $data['anggaran'];
+      }
 
       $query = "UPDATE ".$this->table." SET validasi_ppk=:validasi_ppk,waktu_validasi_ppk=:waktu_validasi_ppk,anggaran=:anggaran,alasan_ditolak=:alasan_ditolak WHERE id=:id";
       $this->db->query($query);
       $this->db->bind('id',$data['id']);
       $this->db->bind('validasi_ppk',$data['validasi']);
       $this->db->bind('waktu_validasi_ppk',$waktu_validasi);
-      $this->db->bind('anggaran',$data['anggaran']);
+      $this->db->bind('anggaran',$anggaran);
       $this->db->bind('alasan_ditolak', $data['alasan_ditolak']);
 
-      $this->db->execute();
-      return $this->db->rowCount();
+      if($this->db->execute()){
+        return true;
+      }else{
+        return false;
+      }
   }
 
   
@@ -186,16 +193,28 @@ class SuratTugasModel
         move_uploaded_file($file_spd['tmp_name'], "../public/files/surat_pd/". $file_spd['name']);
         $nama_file_spd = $file_spd['name'];
       }
+      if($file['file_spd2']){
+        $file_spd2 = $file['file_spd2'];
+        move_uploaded_file($file_spd2['tmp_name'], "../public/files/surat_pd/". $file_spd2['name']);
+        $nama_file_spd2 = $file_spd2['name'];
+      }
+      if($file['file_spd3']){
+        $file_spd3 = $file['file_spd3'];
+        move_uploaded_file($file_spd3['tmp_name'], "../public/files/surat_pd/". $file_spd3['name']);
+        $nama_file_spd3 = $file_spd3['name'];
+      }
 
       $nomor_surat = join('',$data['nomor_surat']);
 
-      $query = "UPDATE ".$this->table." SET nomor_surat=:nomor_surat,disahkan=:disahkan,file_st=:file_st,file_spd=:file_spd WHERE id=:id";
+      $query = "UPDATE ".$this->table." SET nomor_surat=:nomor_surat,disahkan=:disahkan,file_st=:file_st,file_spd=:file_spd,file_spd2=:file_spd2,file_spd3=:file_spd3 WHERE id=:id";
       $this->db->query($query);
       $this->db->bind('id',$data['id']);
       $this->db->bind('nomor_surat',$nomor_surat);
       $this->db->bind('disahkan',TRUE);
       $this->db->bind('file_st',$nama_file_st);
       $this->db->bind('file_spd',$nama_file_spd);
+      $this->db->bind('file_spd2',$nama_file_spd2);
+      $this->db->bind('file_spd3',$nama_file_spd3);
   
       if($this->db->execute()){
         return true;
