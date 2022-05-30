@@ -157,7 +157,24 @@
             <div id="collapseSuratTugas" class="collapse <?php if($data['menu'] == 'Surat Tugas') echo  'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">FEATURES</h6>
-                <a class="collapse-item <?php if(stripos($data['title'],'Pengajuan Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas">Pengajuan Surat Tugas</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Pengajuan Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas">
+                Pengajuan Surat Tugas
+                <?php  
+                        $atasan = 0; $kb = 0; $ppk = 0; $kp = 0;
+                        $atasan = count($this->model('SuratTugasModel')->getByAtasanNotValidate());
+                        $ppk = count($this->model('SuratTugasModel')->getByPPKNotValidate());
+                        if(Middleware::jabatan('kepala_balai')){
+                            $kb = count($this->model('SuratTugasModel')->getByKBNotValidate());
+                        }
+                        if(Middleware::admin('surat_tugas')){
+                            $kp = count($this->model('SuratTugasModel')->getByNomorNotInput());
+                        }
+                        $total = $atasan + $kb + $ppk + $kp;
+                        if($total > 0){
+                            echo '<span class="badge badge-danger badge-counter">'.$total.'</span>';
+                        }
+                        ?>
+                </a>
                 <?php if($_SESSION['role'] == 'ADMIN' || Middleware::admin('surat_tugas') || Middleware::admin('sekretariat') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Rekap Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas/rekap">Rekap Surat Tugas</a>
                 <?php } ?>

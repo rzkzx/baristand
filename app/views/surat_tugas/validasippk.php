@@ -135,11 +135,11 @@
                                   <div class="form-group row">
                                     <label for="anggaran" class="col-sm-2 col-form-label">Anggaran</label>
                                     <div class="col-sm-6">
-                                      <input type="text" name="anggaran"  class="form-control" id="anggaran" value="" placeholder="masukkan anggaran perjalanan dinas.." >
+                                      <input type="text" name="anggaran"  class="form-control" id="anggaran" value="" placeholder="masukkan anggaran perjalanan dinas.." required>
                                     </div>
                                   </div>
                                 <?php }else{
-                                  echo '<input type="hidden" name="anggaran" value="NULL">';
+                                  echo '<input type="hidden" name="anggaran" value="0">';
                                 } ?>
                                 <!-- /.card-body -->
                                 <div class="card-footer">

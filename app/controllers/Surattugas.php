@@ -166,7 +166,7 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
                 //validate error free
-                if(empty($_POST['validasi']) && empty($_POST['anggaran'])){
+                if(empty($_POST['validasi'])){
                     //load view with error
                     setFlash('Form input tidak boleh kosong','danger');
                     return redirect('surattugas/validasippk/'.$_POST['id']);

@@ -255,6 +255,43 @@ class SuratTugasModel
 
       return $this->db->resultSet();
   }
+  
+  public function getByAtasanNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE pengusul=:nip_user AND validasi_atasan_langsung IS NULL";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+
+    return $this->db->resultSet();
+  }
+
+  public function getByPPKNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE nip_ppk=:nip_user AND validasi_atasan_langsung=:disetujui AND validasi_ppk IS NULL";
+    $this->db->query($query);
+    $this->db->bind('nip_user',$_SESSION['nip']);
+    $this->db->bind('disetujui','Disetujui');
+
+    return $this->db->resultSet();
+  }
+
+  public function getByKBNotValidate()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE validasi_ppk=:disetujui AND validasi_kepala_balai IS NULL";
+    $this->db->query($query);
+    $this->db->bind('disetujui','Disetujui');
+
+    return $this->db->resultSet();
+  }
+
+  public function getByNomorNotInput()
+  {
+    $query = "SELECT * FROM ".$this->table." WHERE validasi_kepala_balai=:disetujui AND nomor_surat IS NULL";
+    $this->db->query($query);
+    $this->db->bind('disetujui','Disetujui');
+
+    return $this->db->resultSet();
+  }
 }
 
 ?>
