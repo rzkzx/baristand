@@ -19,4 +19,4 @@
   // App Version
   define('APPVERSION', '1.5.0');
   // API Key Whatsapp Sender Device
-  define('API_WA', 'tVjVzdnjoXJi1urV2yKg4yc8X6FTWHbpoBC75BEzuSKTExUjJp');
+  define('API_WA', '2d42fd455d3330ff7fe27cb3795a09652845ae29');
