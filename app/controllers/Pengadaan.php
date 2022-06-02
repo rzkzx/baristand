@@ -21,17 +21,28 @@ class Pengadaan extends Controller
     // delete bahan
     $this->tBahanModel->deleteAll();
 
-
+    $pengadaanAll = $this->pengadaanModel->getAll();
     if(Middleware::jabatan('kepala_balai') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('ppk') || Middleware::admin('pengadaan') || $_SESSION['role'] == 'ADMIN'){
-      $pengadaan = $this->pengadaanModel->getAll();
+      $pengadaan = $pengadaanAll;
     }else{
-      $pengadaan = $this->pengadaanModel->getByNIP($_SESSION['nip']);
+      $pengadaanNIP = $this->pengadaanModel->getByNIP($_SESSION['nip']);
+      $no=0;
+      foreach ($pengadaanAll as $k) {
+        $petugas = explode(',',$k->nip_petugas_pengadaan);
+        if(in_array($_SESSION['nip'],$petugas)){
+        }else{
+          $pengadaanAll[$no] = NULL;
+        }
+        $no++;
+      }
+      $pengadaanPetugas = array_filter($pengadaanAll); // menghapus value array yang kosong
+      $pengadaan = array_merge($pengadaanNIP,$pengadaanPetugas);
     }
 
     $data = [
       'title' => 'Daftar Pengadaan',
       'menu' => 'Pengadaan',
-      'pengadaan' => $pengadaan
+      'pengadaan' => $pengadaan,
     ];
 
     $this->view('pengadaan/index', $data);

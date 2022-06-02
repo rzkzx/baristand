@@ -14,7 +14,7 @@ Class PengadaanModel
 
   public function getAll()
   {
-      $query = "SELECT pengadaan.*,users.nama FROM ".$this->table. " JOIN users ON users.nip=pengadaan.nip_pemohon";
+      $query = "SELECT pengadaan.*,users.nama FROM ".$this->table. " LEFT JOIN users ON users.nip=pengadaan.nip_pemohon";
       $this->db->query($query);
 
       return $this->db->resultSet();
@@ -22,8 +22,8 @@ Class PengadaanModel
 
   public function getByNIP($nip)
   {
-    $query = "SELECT pengadaan.*,users.nama,bahan_pengadaan.nip_petugas FROM ".$this->table." LEFT JOIN users ON users.nip=pengadaan.nip_pemohon LEFT JOIN bahan_pengadaan ON bahan_pengadaan.seri_pengadaan=pengadaan.serial_number 
-    WHERE pengadaan.user=:nip_user or pengadaan.nip_pemohon=:nip_user or pengadaan.nip_atasan=:nip_user or pengadaan.nip_penanggung=:nip_user or bahan_pengadaan.nip_petugas=:nip_user ORDER BY id DESC";
+    $query = "SELECT pengadaan.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=pengadaan.nip_pemohon
+    WHERE pengadaan.user=:nip_user or pengadaan.nip_pemohon=:nip_user or pengadaan.nip_atasan=:nip_user or pengadaan.nip_penanggung=:nip_user or pengadaan.nip_petugas_pengadaan=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$nip);
 

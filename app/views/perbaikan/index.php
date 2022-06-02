@@ -123,7 +123,7 @@
                                                 if($row->disposisi){
                                                     if(!$row->penugasan){
                                                         if($_SESSION['nip'] == $row->nip_penanggung){
-                                                         echo '<br/>Penugasan : <u><a href="'.URLROOT.'/perbaikan/penugasan/'.$row->serial_number.'">Pilih Petugas</a></u>';
+                                                            echo '<br/>Penugasan : <u><a href="'.URLROOT.'/perbaikan/penugasan/'.$row->serial_number.'">Pilih Petugas</a></u>';
                                                         }
                                                     }else{
 
@@ -149,7 +149,7 @@
                                 //      
                                         if($row->penugasan){
                                             if($row->hasil){
-                                              echo '<br/>Validasi Hasil : <span class="text-success">Diterima</span>';
+                                                echo '<br/>Validasi Hasil : <span class="text-success">Diterima</span>';
                                             }else{
                                                 if($row->nip_pemohon == $_SESSION['nip']){
                                                     echo '<br/>Validasi hasil diterima : <u><a href="'.URLROOT.'/perbaikan/hasil/'.$row->serial_number.'">Validasi</a></u>';
