@@ -21,10 +21,22 @@ class Perbaikan extends Controller
     //delete barang
     $this->tBarangModel->deleteAll();
 
+    $perbaikanAll = $this->perbaikanModel->getAll();
     if(Middleware::jabatan('kepala_balai') || Middleware::jabatan('kasubag_tu') || Middleware::jabatan('ppk') || Middleware::admin('perbaikan') || $_SESSION['role'] == 'ADMIN'){
-      $perbaikan = $this->perbaikanModel->getAll();
+      $perbaikan = $perbaikanAll;
     }else{
-      $perbaikan = $this->perbaikanModel->getByNIP($_SESSION['nip']);
+      $perbaikanNIP = $this->perbaikanModel->getByNIP($_SESSION['nip']);
+      $no=0;
+      foreach ($perbaikanAll as $k) {
+        $petugas = explode(',',$k->nip_petugas_perbaikan);
+        if(in_array($_SESSION['nip'],$petugas)){
+        }else{
+          $perbaikanAll[$no] = NULL;
+        }
+        $no++;
+      }
+      $perbaikanPetugas = array_filter($perbaikanAll); // menghapus value array yang kosong
+      $perbaikan = array_merge($perbaikanNIP,$perbaikanPetugas);
     }
 
     $data = [
