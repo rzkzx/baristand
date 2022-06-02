@@ -13,9 +13,6 @@
           <span>Dashboard</span></a>
       </li>
       <hr class="sidebar-divider">
-      <div class="sidebar-heading">
-        Features
-      </div>
         <?php if($_SESSION['role'] == 'ADMIN'){ ?>
         <li class="nav-item <?php if($data['menu'] == 'Admin') echo 'active'?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true"
@@ -63,7 +60,6 @@
             </a>
             <div id="collapseWhistle" class="collapse <?php if($data['menu'] == 'Whistleblowing') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Laporan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/whistle">Input Laporan</a>
                 <?php if(Middleware::jabatan('kepala_balai') || Middleware::jabatan('kasubag_tu') || $_SESSION['role'] == 'ADMIN'){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Daftar Laporan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/whistle/laporan">Daftar Laporan</a>
@@ -80,7 +76,6 @@
             </a>
             <div id="collapseGratifikasi" class="collapse <?php if($data['menu'] == 'Gratifikasi') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Laporan Anti Gratifikasi') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/gratifikasi">Input Laporan</a>
                 <?php if(Middleware::jabatan('koordinator') || Middleware::jabatan('kasubag_tu')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Daftar Laporan Anti Gratifikasi') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/gratifikasi/laporan">Daftar Laporan</a>
@@ -100,7 +95,6 @@
             </a>
             <div id="collapseIjinKeluar" class="collapse <?php if($data['menu'] == 'Ijin Keluar') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar">Input Ijin Keluar</a>
                 <?php if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Keluar') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinkeluar/listvalidasi">Validasi Ijin Keluar <span class="badge badge-danger badge-counter"><?php if($ijin_keluar = $this->model('IjinKeluarModel')->getByAtasanNotValidate()) echo count($ijin_keluar) ?></span></a>
@@ -120,7 +114,6 @@
             </a>
             <div id="collapseIjinLembur" class="collapse <?php if($data['menu'] == 'Ijin Lembur') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Input Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur">Input Ijin Lembur</a>
                 <?php if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::jabatan('kepala_balai') || Middleware::admin('kepegawaian')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Validasi Ijin Lembur') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/ijinlembur/listvalidasi">
@@ -156,7 +149,6 @@
             </a>
             <div id="collapseSuratTugas" class="collapse <?php if($data['menu'] == 'Surat Tugas') echo  'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <a class="collapse-item <?php if(stripos($data['title'],'Pengajuan Surat Tugas') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/surattugas">
                 Pengajuan Surat Tugas
                 <?php  
@@ -190,7 +182,6 @@
             </a>
             <div id="collapsePengadaan" class="collapse <?php if($data['menu'] == 'Pengadaan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <?php if($_SESSION){ ?>
                 <a class="collapse-item <?php if(stripos($data['title'],'Daftar Pengadaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/pengadaan">
                 Pengajuan Pengadaan
@@ -234,7 +225,6 @@
             </a>
             <div id="collapsePerbaikan" class="collapse <?php if($data['menu'] == 'Perbaikan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">FEATURES</h6>
                 <?php if($_SESSION){ ?>
                 <a class="collapse-item <?php if(stripos($data['title'],'Daftar Perbaikan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/perbaikan">
                 Pengajuan Perbaikan
