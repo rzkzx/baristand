@@ -23,7 +23,7 @@ Class PengadaanModel
   public function getByNIP($nip)
   {
     $query = "SELECT pengadaan.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=pengadaan.nip_pemohon
-    WHERE pengadaan.user=:nip_user or pengadaan.nip_pemohon=:nip_user or pengadaan.nip_atasan=:nip_user or pengadaan.nip_penanggung=:nip_user or pengadaan.nip_petugas_pengadaan=:nip_user ORDER BY id DESC";
+    WHERE pengadaan.user=:nip_user or pengadaan.nip_pemohon=:nip_user or pengadaan.nip_atasan=:nip_user or pengadaan.nip_penanggung=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$nip);
 
