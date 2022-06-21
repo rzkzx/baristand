@@ -40,9 +40,9 @@ Class PerbaikanModel
 
   public function getAllSelesai()
   {
-      $query = "SELECT perbaikan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:hasil)";
+      $query = "SELECT perbaikan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:verifikasi_selesai)";
       $this->db->query($query);
-      $this->db->bind('hasil',"Perbaikan selesai");
+      $this->db->bind('verifikasi_selesai',"Perbaikan selesai");
 
       return $this->db->resultSet();
   }
@@ -51,11 +51,11 @@ Class PerbaikanModel
   {
     $dateOne = date("Y-m-d", strtotime($date1));
     $dateTwo = date("Y-m-d", strtotime($date2));
-    $query= "SELECT perbaikan.*,users.nama FROM ".$this->table." JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:hasil) AND perbaikan.tanggal BETWEEN :start_date AND :end_date ORDER BY id DESC";
+    $query= "SELECT perbaikan.*,users.nama FROM ".$this->table." JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:verifikasi_selesai) AND perbaikan.tanggal BETWEEN :start_date AND :end_date ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('start_date',$dateOne);
     $this->db->bind('end_date',$dateTwo);
-    $this->db->bind('hasil',"Perbaikan selesai");
+    $this->db->bind('verifikasi_selesai',"Perbaikan selesai");
 
     return $this->db->resultSet();
   }

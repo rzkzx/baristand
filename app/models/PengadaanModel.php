@@ -40,9 +40,9 @@ Class PengadaanModel
 
   public function getAllSelesai()
   {
-      $query = "SELECT pengadaan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.nip_pemohon AND hasil IN (:hasil)";
+      $query = "SELECT pengadaan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.nip_pemohon AND hasil IN (:verifikasi_selesai)";
       $this->db->query($query);
-      $this->db->bind('hasil',"Hasil diterima");
+      $this->db->bind('verifikasi_selesai',"Pengadaan selesai");
 
       return $this->db->resultSet();
   }
@@ -51,11 +51,11 @@ Class PengadaanModel
   {
     $dateOne = date("Y-m-d", strtotime($date1));
     $dateTwo = date("Y-m-d", strtotime($date2));
-    $query= "SELECT pengadaan.*,users.nama FROM ".$this->table." JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.nip_pemohon AND hasil IN (:hasil) AND pengadaan.tanggal BETWEEN :start_date AND :end_date ORDER BY id DESC";
+    $query= "SELECT pengadaan.*,users.nama FROM ".$this->table." JOIN users ON users.nip=pengadaan.nip_pemohon WHERE pengadaan.nip_pemohon AND hasil IN (:verifikasi_selesai) AND pengadaan.tanggal BETWEEN :start_date AND :end_date ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('start_date',$dateOne);
     $this->db->bind('end_date',$dateTwo);
-    $this->db->bind('hasil',"Pengadaan selesai");
+    $this->db->bind('verifikasi_selesai',"Pengadaan selesai");
 
     return $this->db->resultSet();
   }

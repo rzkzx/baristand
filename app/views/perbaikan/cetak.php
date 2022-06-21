@@ -75,6 +75,10 @@
       line-height: 130%;
     }
 
+    .teks b {
+      font-size: 14px;
+    }
+
     .isi p {
       text-indent: 40px;
       text-align: justify;
@@ -101,7 +105,7 @@
     <table style="width: 100%">
       <tr>
         <td rowspan="2">
-          <b>BARISTAND INDUSTRI BANJARBARU</b>
+          <b>BALAI STANDARDISASI DAN PELAYANAN JASA INDUSTRI BANJARBARU</b>
           <p></p> Panglima Batur Barat No.2 Banjarbaru
           <p></p> Telp (0511)4774861, 4772461 Fax. 4772115
         </td>
@@ -120,7 +124,7 @@
         </td>
         <td rowspan="2">
           <p>Kepada</p>
-          <p>Yth. Bapak Kepala Baristand Banjarbaru</p>
+          <p>Yth. Bapak Kepala BSPJI Banjarbaru</p>
           <p>Di</p>
           <p style="padding-left: 1em">Banjarbaru</p>
         </td>
