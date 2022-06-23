@@ -27,21 +27,21 @@
                                 <div class="row mb-3">
                                   <label for="inputNama" class="col-sm-2 col-form-label">Nama Barang</label>
                                   <div class="col-sm-6">
-                                    <input type="text" name="nbarang" required class="form-control" id="inputNama" placeholder="Masukkan nama barang...">
+                                    <input type="text" name="nbarang" required class="form-control input-filter" id="inputNama" placeholder="Masukkan nama barang...">
                                   </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                  <label for="inputNama" class="col-sm-2 col-form-label">jumlah</label>
+                                  <label for="inputNama" class="col-sm-2 col-form-label">Jumlah</label>
                                   <div class="col-sm-6">
-                                    <input type="number" name="jumlah" required class="form-control" id="inputNama" placeholder="Masukkan jumlah barang...">
+                                    <input type="number" name="jumlah" required class="form-control input-filter" id="inputNama" placeholder="Masukkan jumlah barang...">
                                   </div>
                                 </div>
 
                                 <div class="row mb-3">
                                   <label for="inputUraian" class="col-sm-2 col-form-label">Keterangan</label>
                                   <div class="col-sm-6">
-                                    <textarea type="text" name="keterangan" required class="form-control" id="inputUraian" placeholder="Masukan keterangan..."></textarea>
+                                    <textarea type="text" name="keterangan" required class="form-control input-filter" id="inputUraian" placeholder="Masukan keterangan..."></textarea>
                                     <button type="submit" class="btn btn-primary mt-3 float:right">Tambah</button>
                                     <a href="<?= URLROOT; ?>/perbaikan/deleteSemuaBarang/" class="btn btn-danger mt-3">Hapus Semua</a>
                                   </div>
