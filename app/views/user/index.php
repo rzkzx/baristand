@@ -10,6 +10,20 @@
             <?php flash(); ?>
           </div>
           <form action="<?= URLROOT; ?>/user/changeProfile" method="POST" enctype="multipart/form-data">
+          <div class="form-group row">
+            <div class="col-sm-12 avatar">
+              <div class="avatar-upload">
+                  <div class="avatar-edit">
+                      <input type="file" id="imageUpload" name="avatar" onchange="return avatarUpload()" accept=".png, .jpg, .jpeg" />
+                      <label for="imageUpload"><i class="fa fa-pen"></i></label>
+                  </div>
+                  <div class="avatar-preview">
+                      <div id="imagePreview" style="background-image: url(<?= URLROOT; ?>/img/avatar/<?php echo ($_SESSION['avatar']) ? $_SESSION['avatar'] : 'boy.png'; ?>);">
+                      </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
             <div class="form-group row">
               <label for="nip" class="col-sm-3 col-form-label">NIP</label>
               <div class="col-sm-9">
@@ -91,4 +105,5 @@
       </div>
   </div>
 </div>
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>

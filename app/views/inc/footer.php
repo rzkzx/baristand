@@ -27,9 +27,6 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
     <div class="copyright text-center my-auto">
-        <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
-        <b>BSPJI Banjarbaru</b>
-        </span>
     </div>
     </div>
 </footer>
@@ -65,6 +62,7 @@
 <!-- Page level custom scripts -->
 <script>
 $(document).ready(function () {
+
     $('.select2-pegawai-pejabat').select2({
         placeholder: "Pilih Pegawai",
         allowClear: true
@@ -141,6 +139,33 @@ function fileValidation2(){
             var reader = new FileReader();
             reader.onload = function(e) {
                 // document.getElementById('previewGambar').innerHTML = '<img src="'+e.target.result+'"/>';
+            };
+            reader.readAsDataURL(inputFile.files[0]);
+        }
+    }
+}
+
+function avatarUpload(){
+    var inputFile = document.getElementById('imageUpload');
+    var pathFile = inputFile.value;
+    var ekstensiOk = /(\.png|\.jpg|\.jpeg)$/i;
+    if(inputFile.files[0].size > 2000 * 1000){ // ini untuk ukuran1000000 untuk 1 MB.
+        alert("Maaf. Foto Terlalu Besar ! Maksimal Upload 2mb");
+        inputFile.value = '';
+        return false;
+    };
+    if(!ekstensiOk.exec(pathFile)){
+        alert('Silakan upload file yang memiliki ekstensi .png/.jpg/.jpeg');
+        inputFile.value = '';
+        return false;
+    }else{
+        //Pratinjau gambar
+        if (inputFile.files && inputFile.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
             };
             reader.readAsDataURL(inputFile.files[0]);
         }

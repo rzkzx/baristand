@@ -95,9 +95,33 @@ class UserModel {
         }
     }
 
-    public function changeProfile($data)
+    public function changeProfile($data,$files)
     {
-        $query = "UPDATE users SET username=:username,nama=:nama,no_telp=:no_telp,email=:email,golongan=:golongan,jabatan=:jabatan WHERE nip=:nip";
+        $newAvatarName = $_SESSION['avatar'];
+        if($files['avatar']['size'] > 0){
+            $file_extension = pathinfo($files['avatar']['name'], PATHINFO_EXTENSION);
+            $allowed_extension = array(
+                "png",
+                "jpg",
+                "jpeg"
+            );
+
+            if(!in_array($file_extension, $allowed_extension)) {
+                return false;
+            }
+
+            $newAvatarName = $_SESSION['nip'] . '.' . $file_extension;
+
+            if($files['avatar']['size'] < 2000 * 1000){
+                if(unlink("../public/img/avatar/". $_SESSION['avatar'])){
+                    move_uploaded_file($files['avatar']['tmp_name'], "../public/img/avatar/". $newAvatarName);
+                }
+            }else{
+                return false;
+            }
+        }
+
+        $query = "UPDATE users SET username=:username,nama=:nama,no_telp=:no_telp,email=:email,golongan=:golongan,jabatan=:jabatan,avatar=:avatar WHERE nip=:nip";
         $this->db->query($query);
         $this->db->bind(':nip', $_SESSION['nip']);
         $this->db->bind(':username', $data['username']);
@@ -106,12 +130,17 @@ class UserModel {
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':golongan', $data['golongan']);
         $this->db->bind(':jabatan', $data['jabatan']);
+        $this->db->bind(':avatar', $newAvatarName);
     
-        $this->db->execute();
-        $_SESSION['username'] = $data['username'];
-        $_SESSION['nama'] = $data['nama'];
-        $_SESSION['email'] = $data['email'];
-        $_SESSION['jabatan'] = $data['jabatan'];
-        return $this->db->rowCount();
+        if($this->db->execute()){
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['nama'] = $data['nama'];
+            $_SESSION['email'] = $data['email'];
+            $_SESSION['jabatan'] = $data['jabatan'];
+            $_SESSION['avatar'] = $newAvatarName;
+            return true;
+        }else{
+            return false;
+        }
     }
 }

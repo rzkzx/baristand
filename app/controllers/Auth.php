@@ -157,6 +157,7 @@ class Auth extends Controller{
         $_SESSION['jabatan'] = $user->jabatan;
         $_SESSION['role'] = $user->role;
         $_SESSION['waktu_login'] = date('Y-m-d H:i:s');
+        $_SESSION['avatar'] = $user->avatar;
         return redirect('dashboard');
     }
 

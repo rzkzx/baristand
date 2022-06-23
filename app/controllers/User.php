@@ -51,7 +51,7 @@ class User extends Controller{
           setFlash('Form input tidak boleh kosong', 'danger');
           return redirect('user');
         }
-        if ($this->userModel->changeProfile($_POST) > 0) {
+        if ($this->userModel->changeProfile($_POST,$_FILES)) {
           setFlash('Berhasil memperbarui profile anda', 'success');
           return redirect('user');
         }else{
