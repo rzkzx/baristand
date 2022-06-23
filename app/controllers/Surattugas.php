@@ -40,6 +40,7 @@
                         'laporan' => $laporan
                     ];
                     $data['pengikut'] = $this->pegawaiModel->getAllNIP($data['laporan']->pengikut);
+                    $data['ditugaskan'] = $this->suratTugasModel->getTugasById($id);
                     $data['ppk'] = $this->suratTugasModel->getPPKById($id);
     
                     $this->view('surat_tugas/detail', $data);

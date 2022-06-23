@@ -32,7 +32,7 @@
                   <tr>
                     <th scope="row">Nama yang Ditugaskan</th>
                     <th scope="row">:</th>
-                    <td><?= $data['laporan']->nip_ditugaskan ?></td>
+                    <td><?= $data['ditugaskan']->nama ?></td>
                   </tr>
                   <tr>
                     <th scope="row">Tujuan Tugas</th>
