@@ -256,6 +256,22 @@
             </div>
         </li>
 
+        <li class="nav-item <?php if($data['menu'] == 'persediaan') echo 'active'; ?>">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsepersediaan" aria-expanded="true"
+            aria-controls="collapsepersediaan">
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            <span>Persediaan</span>
+            </a>
+            <div id="collapsepersediaan" class="collapse <?php if($data['menu'] == 'persediaan') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <?php if($_SESSION){ ?>
+                <a class="collapse-item <?php if(stripos($data['title'],'Daftar persediaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/persediaan">
+                Daftar Persediaan</a>
+                <?php } ?>
+            </div>
+            </div>
+        </li>
+
         <li class="nav-item <?php if($data['menu'] == 'Kendi') echo 'active'; ?>">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKendi" aria-expanded="true"
             aria-controls="collapseKendi">
