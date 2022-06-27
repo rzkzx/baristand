@@ -255,6 +255,26 @@
             </div>
             </div>
         </li>
+
+        <li class="nav-item <?php if($data['menu'] == 'Kendi') echo 'active'; ?>">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKendi" aria-expanded="true"
+            aria-controls="collapseKendi">
+            <i class="fas fa-motorcycle"></i>
+            <span>Kendaraan Dinas</span> 
+            </a>
+            <div id="collapseKendi" class="collapse <?php if($data['menu'] == 'Kendi') echo 'show'; ?>" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <?php if($_SESSION['role'] == 'ADMIN' ||  Middleware::admin('bmn')){ ?>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Data Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi/kendaraan">Data Kendaraan</a>
+                <?php } ?>
+                <a class="collapse-item <?php if(stripos($data['title'],'Peminjaman Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi">Peminjaman Kendaraan</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Peminjaman Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi">Penggunaan Kendaraan</a>
+                <?php if($_SESSION['role'] == 'ADMIN' || Middleware::admin('kendi')){ ?>
+                    <a class="collapse-item <?php if(stripos($data['title'],'Kondisi Harian') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi/kondisi">Kondisi Harian</a>
+                <?php } ?>
+            </div>
+            </div>
+        </li>
         
         <hr class="sidebar-divider">
         <div class="version">BSPJI - VERSION <?= APPVERSION; ?></div>
