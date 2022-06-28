@@ -81,7 +81,7 @@ class IjinKeluar extends Controller{
                     $ats = $this->pegawaiModel->getByNIP($_POST['pejabat_validasi']);
                     // send notification to whatsapp atasan
                     $data['no_telp'] = $ats->no_telp;
-                    $data['isi_pesan'] = "[BRSBB:SIP-IjinKeluar] Harap Ditindaklanjuti";
+                    $data['isi_pesan'] = "[BSPJI:SIP-IjinKeluar] Harap Ditindaklanjuti";
                     notifWA($data);
 
                     //redirect and set notif flash

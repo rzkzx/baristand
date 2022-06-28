@@ -32,27 +32,27 @@ class Kendi extends Controller{
       $this->view('kendi/kendaraan', $data);
     }
      //add new jp
-     public function addkendaraan(){
-      $data['title'] = 'Tambah Kendaraan';
-      $data['menu'] = 'Kendi';
-      if($_SERVER['REQUEST_METHOD'] == 'POST'){
-          $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-          //validate error free
-          if(empty($data['jenis_pelanggaran'])){
-              //load view with error
-              setFlash('Form input tidak boleh kosong','danger');
-              $this->view('jenis_pelanggaran/add', $data);
-          }else{
-              if($this->jenisPelanggaranModel->add($data)){
-                  setFlash('Jenis Pelanggaran berhasil ditambahkan.','success');
-                  return redirect('jenispelanggaran');
-              }else{
-                  die('something went wrong');
-              }
-          }
-      }else{
-          $this->view('kendi/add_kendaraan', $data);
-      }
+    public function addkendaraan(){
+        $data['title'] = 'Tambah Kendaraan';
+        $data['menu'] = 'Kendi';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            //validate error free
+            if(empty($_POST['merk']) || empty($_POST['tipe']) || empty($_POST['nopol']) || empty($_POST['tgl_pajak'])){
+                //load view with error
+                setFlash('Form input tidak boleh kosong','danger');
+                $this->view('kendi/add_kendaraan', $data);
+            }else{
+                if($this->kendiModel->add($_POST)){
+                    setFlash('Kendaraan Dinas berhasil ditambahkan.','success');
+                    return redirect('kendi/kendaraan');
+                }else{
+                    die('something went wrong');
+                }
+            }
+        }else{
+            $this->view('kendi/add_kendaraan', $data);
+        }
     }
 
     //edit

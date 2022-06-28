@@ -86,7 +86,7 @@ class Perbaikan extends Controller
                 $ats = $this->pegawaiModel->getByNIP($_POST['nip_atasan']);
                 // send notification to whatsapp atasan
                 $data['no_telp'] = $ats->no_telp;
-                $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Validasi Atasan - Harap Ditindaklanjuti";
+                $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Validasi Atasan - Harap Ditindaklanjuti";
                 notifWA($data);
 
                 //redirect and set notif flash
@@ -187,7 +187,7 @@ class Perbaikan extends Controller
                     //get atasan data
                     $kb = $this->jabatanModel->getPegawai('kepala_balai');
                     // send notification to whatsapp atasan
-                    $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Validasi Kepala Balai - Harap Ditindaklanjuti";
+                    $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Validasi Kepala Balai - Harap Ditindaklanjuti";
                     foreach ($kb as $k) {
                         $data['no_telp'] = $k->no_telp;
                         notifWA($data);
@@ -236,7 +236,7 @@ class Perbaikan extends Controller
                     //get atasan data
                     $ks = $this->jabatanModel->getPegawai('kasubag_tu');
                     // send notification to whatsapp atasan
-                    $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Validasi Kasubag - Harap Ditindaklanjuti";
+                    $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Validasi Kasubag - Harap Ditindaklanjuti";
                     foreach ($ks as $k) {
                         $data['no_telp'] = $k->no_telp;
                         notifWA($data);
@@ -328,7 +328,7 @@ class Perbaikan extends Controller
         $png = $this->pegawaiModel->getByNIP($_POST['nip_penanggung']);
         // send notification to whatsapp atasan
         $data['no_telp'] = $png->no_telp;
-        $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Penugasan Petugas - Harap Ditindaklanjuti";
+        $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Penugasan Petugas - Harap Ditindaklanjuti";
         notifWA($data);
         setFlash('Penanggung jawab dipilih.', 'success');
         return redirect('perbaikan');
@@ -403,7 +403,7 @@ class Perbaikan extends Controller
         $ptg = $this->pegawaiModel->getByNIP(end($_POST['nip_petugas']));
         // send notification to whatsapp
         $data['no_telp'] = $ptg->no_telp;
-        $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Penugasan Perbaikan - Harap Ditindaklanjuti";
+        $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Penugasan Perbaikan - Harap Ditindaklanjuti";
         notifWA($data);
         setFlash('Petugas berhasil ditambahkan.', 'success');
         return redirect('/perbaikan/penugasan/'.$_POST['seri_perbaikan']);
@@ -452,14 +452,14 @@ public function konfirmasiPenugasan($serial_number = ''){
       if ($this->perbaikanModel->konfirmasiSelesai($_POST)) {
         // send notification to whatsapp
         $data['no_telp'] = $_POST['no_telp'];
-        $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Perbaikan Selesasi - Harap Ditindaklanjuti";
+        $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Perbaikan Selesasi - Harap Ditindaklanjuti";
         notifWA($data);
           setFlash('Perbaikan selesai dikerjakan', 'success');
           return redirect('perbaikan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);
       }else{
         // send notification to whatsapp
         $data['no_telp'] = $_POST['no_telp'];
-        $data['isi_pesan'] = "[BRSBB:SIP-Perbaikan] Perbaikan Selesasi - Harap Ditindaklanjuti";
+        $data['isi_pesan'] = "[BSPJI:SIP-Perbaikan] Perbaikan Selesasi - Harap Ditindaklanjuti";
         notifWA($data);
           setFlash('Perbaikan selesai dikerjakan ', 'success');
           return redirect('perbaikan/konfirmasiPenugasan/'.$_POST['seri_perbaikan']);

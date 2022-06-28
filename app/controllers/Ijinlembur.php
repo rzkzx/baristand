@@ -127,7 +127,7 @@ class IjinLembur extends Controller{
                     $ats = $this->pegawaiModel->getByNIP($_POST['pejabat_validasi']);
                     // send notification to whatsapp atasan
                     $data['no_telp'] = $ats->no_telp;
-                    $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Harap Ditindaklanjuti";
+                    $data['isi_pesan'] = "[BSPJI:SIP-IjinLembur] Harap Ditindaklanjuti";
                     notifWA($data);
 
                     //redirect and set notif flash
@@ -173,7 +173,7 @@ class IjinLembur extends Controller{
                             //get atasan data
                             $kb = $this->jabatanModel->getPegawai('kepala_balai');
                             // send notification to whatsapp atasan
-                            $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Harap Ditindaklanjuti";
+                            $data['isi_pesan'] = "[BSPJI:SIP-IjinLembur] Harap Ditindaklanjuti";
                             foreach ($kb as $k) {
                                 $data['no_telp'] = $k->no_telp;
                                 notifWA($data);
@@ -227,7 +227,7 @@ class IjinLembur extends Controller{
                             //get atasan data
                             $kb = $this->adminModel->getPegawai('kepegawaian');
                             // send notification to whatsapp atasan
-                            $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Harap Ditindaklanjuti";
+                            $data['isi_pesan'] = "[BSPJI:SIP-IjinLembur] Harap Ditindaklanjuti";
                             foreach ($kb as $k) {
                                 $data['no_telp'] = $k->no_telp;
                                 notifWA($data);
@@ -282,7 +282,7 @@ class IjinLembur extends Controller{
                         $ats = $this->pegawaiModel->getByNIP($_POST['penginput']);
                         // send notification to whatsapp atasan
                         $data['no_telp'] = $ats->no_telp;
-                        $data['isi_pesan'] = "[BRSBB:SIP-IjinLembur] Surat Ijin Telah Diterbitkan";
+                        $data['isi_pesan'] = "[BSPJI:SIP-IjinLembur] Surat Ijin Telah Diterbitkan";
                         notifWA($data);
 
                         // redirect after success validate

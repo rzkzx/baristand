@@ -17,8 +17,11 @@ class KendiModel {
     }
 
     public function add($data){
-        $this->db->query('INSERT INTO '.$this->table.' (jenis_penerimaan) VALUES (:jenis_penerimaan)');
-        $this->db->bind(':jenis_penerimaan', $data['jenis_penerimaan']);
+        $this->db->query('INSERT INTO '.$this->kendaraan.' (merk,tipe,nopol,tgl_pajak) VALUES (:merk,:tipe,:nopol,:tgl_pajak)');
+        $this->db->bind(':merk', $data['merk']);
+        $this->db->bind(':tipe', $data['tipe']);
+        $this->db->bind(':nopol', $data['nopol']);
+        $this->db->bind(':tgl_pajak', $data['tgl_pajak']);
 
         //execute 
         if($this->db->execute()){

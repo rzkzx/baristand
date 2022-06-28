@@ -11,27 +11,27 @@
             </div>
             <form action="<?= URLROOT; ?>/kendi/addkendaraan" method="POST" enctype="multipart/form-data">
             <div class="form-group row">
-                <label for="jenis_pelanggaran" class="col-sm-2 col-form-label">Merk :</label>
+                <label for="merk" class="col-sm-2 col-form-label">Merk :</label>
                 <div class="col-sm-6">
-                <input type="text" class="form-control" id="merk" name="merk">
+                <input type="text" class="form-control" id="merk" name="merk" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="jenis_pelanggaran" class="col-sm-2 col-form-label">Tipe :</label>
+                <label for="tipe" class="col-sm-2 col-form-label">Tipe :</label>
                 <div class="col-sm-6">
-                <input type="text" class="form-control" id="tipe" name="tipe">
+                <input type="text" class="form-control" id="tipe" name="tipe" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="jenis_pelanggaran" class="col-sm-2 col-form-label">Nomor Polisi :</label>
+                <label for="nopol" class="col-sm-2 col-form-label">Nomor Polisi :</label>
                 <div class="col-sm-6">
-                <input type="text" class="form-control" id="nopol" name="nopol" >
+                <input type="text" class="form-control" id="nopol" name="nopol" required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="jenis_pelanggaran" class="col-sm-2 col-form-label">Tgl. Bayar Pajak :</label>
+                <label for="tgl_pajak" class="col-sm-2 col-form-label">Tgl. Bayar Pajak :</label>
                 <div class="col-sm-6">
-                <input type="date" class="form-control" id="tgl_pajak" name="tgl_pajak" >
+                <input type="date" class="form-control" id="tgl_pajak" name="tgl_pajak" required>
                 </div>
             </div>
             <div class="pb-4"></div>

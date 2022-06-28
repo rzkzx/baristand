@@ -27,6 +27,7 @@
                 <a class="collapse-item <?php if(stripos($data['title'],'Jenis Penerimaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/jenispenerimaan">Jenis Penerimaan</a>
                 <a class="collapse-item <?php if(stripos($data['title'],'Jenis Peristiwa') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/jenisperistiwa">Jenis Peristiwa</a>
                 <a class="collapse-item <?php if(stripos($data['title'],'Formulir') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/formulir">Formulir</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Kirim Pesan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kirimpesan">Kirim Pesan</a>
             </div>
             </div>
         </li>

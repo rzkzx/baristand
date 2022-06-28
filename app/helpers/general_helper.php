@@ -31,7 +31,11 @@
       $response = curl_exec($curl);
 
       curl_close($curl);
-      echo $response;
+      if($response){
+        return true;
+      }else{
+        return false;
+      }
   }
 
   function qrcode($size,$content)

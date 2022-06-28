@@ -70,7 +70,7 @@
                         $ats = $this->pegawaiModel->getByNIP($_POST['pengusul']);
                         // send notification to whatsapp atasan
                         $data['no_telp'] = $ats->no_telp;
-                        $data['isi_pesan'] = "[BRSBB:SIP-SuratTugas] Harap Ditindaklanjuti";
+                        $data['isi_pesan'] = "[BSPJI:SIP-SuratTugas] Harap Ditindaklanjuti";
                         notifWA($data);
     
                         //redirect and set notif flash
@@ -123,7 +123,7 @@
                                 //get atasan data
                                 $kb = $this->pegawaiModel->getByNIP($_POST['nip_ppk']);
                                 // send notification to whatsapp atasan
-                                $data['isi_pesan'] = "[BRSBB:SIP-SuratTugas] Harap Ditindaklanjuti";
+                                $data['isi_pesan'] = "[BSPJI:SIP-SuratTugas] Harap Ditindaklanjuti";
                                 $data['no_telp'] = $kb->no_telp;
                                 notifWA($data);
                             }
@@ -179,7 +179,7 @@
                                 //get atasan data
                                 $kb = $this->jabatanModel->getPegawai('kepala_balai');
                                 // send notification to whatsapp atasan
-                                $data['isi_pesan'] = "[BRSBB:SIP-SuratTugas] Harap Ditindaklanjuti";
+                                $data['isi_pesan'] = "[BSPJI:SIP-SuratTugas] Harap Ditindaklanjuti";
                                 foreach ($kb as $k) {
                                     $data['no_telp'] = $k->no_telp;
                                     notifWA($data);
@@ -237,7 +237,7 @@
                                 //get atasan data
                                 $kb = $this->adminModel->getPegawai('surat_tugas');
                                 // send notification to whatsapp atasan
-                                $data['isi_pesan'] = "[BRSBB:SIP-SuratTugas] Harap Ditindaklanjuti";
+                                $data['isi_pesan'] = "[BSPJI:SIP-SuratTugas] Harap Ditindaklanjuti";
                                 foreach ($kb as $k) {
                                     $data['no_telp'] = $k->no_telp;
                                     notifWA($data);
@@ -292,7 +292,7 @@
                             //get atasan data
                             $kb = $this->pegawaiModel->getByNIP($st->pemohon);
                             // send notification to whatsapp atasan
-                            $data['isi_pesan'] = "[BRSBB:SIP-SuratTugas] Surat Tugas sudah diterbitkan";
+                            $data['isi_pesan'] = "[BSPJI:SIP-SuratTugas] Surat Tugas sudah diterbitkan";
                             $data['no_telp'] = $kb->no_telp;
                             notifWA($data);
                             
