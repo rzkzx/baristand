@@ -10,17 +10,18 @@ class Kendi extends Controller{
         $this->kendiModel = $this->model('KendiModel');
     }
 
-    public function index(){
-      $jenis_pelanggaran = $this->jenisPelanggaranModel->get();
-      $data = [
-          'title' => 'Daftar Jenis Pelanggaran',
-          'menu' => 'Admin',
-          'jenis_pelanggaran' => $jenis_pelanggaran
-      ];
+    // public function index(){
+    //   $kendiModel = $this->kendiModel->get();
+    //   $data = [
+    //       'title' => 'Daftar Jenis Pelanggaran',
+    //       'menu' => 'Admin',
+    //       'kendi' => $kendiModel
+    //   ];
 
-      $this->view('jenis_pelanggaran/index', $data);
-    }
+    //   $this->view('kendi/index', $data);
+    // }
 
+    //Data Kendaraan Controller
     public function kendaraan(){
       $kendi = $this->kendiModel->getKendaraan();
       $data = [
@@ -29,9 +30,9 @@ class Kendi extends Controller{
           'kendi' => $kendi
       ];
 
-      $this->view('kendi/kendaraan', $data);
+      $this->view('kendi/kendaraan/index', $data);
     }
-     //add new jp
+
     public function addkendaraan(){
         $data['title'] = 'Tambah Kendaraan';
         $data['menu'] = 'Kendi';
@@ -41,9 +42,9 @@ class Kendi extends Controller{
             if(empty($_POST['merk']) || empty($_POST['tipe']) || empty($_POST['nopol']) || empty($_POST['tgl_pajak'])){
                 //load view with error
                 setFlash('Form input tidak boleh kosong','danger');
-                $this->view('kendi/add_kendaraan', $data);
+                $this->view('kendi/kendaraan/add', $data);
             }else{
-                if($this->kendiModel->add($_POST)){
+                if($this->kendiModel->addKendaraan($_POST)){
                     setFlash('Kendaraan Dinas berhasil ditambahkan.','success');
                     return redirect('kendi/kendaraan');
                 }else{
@@ -51,59 +52,53 @@ class Kendi extends Controller{
                 }
             }
         }else{
-            $this->view('kendi/add_kendaraan', $data);
+            $this->view('kendi/kendaraan/add', $data);
         }
     }
 
     //edit
-    public function edit($id = ''){
-        $data['title'] = 'Edit Jenis Pelanggaran';
-        $data['menu'] = 'Admin';
+    public function editkendaraan($id = ''){
+        $data['title'] = 'Edit Data Kendaraan';
+        $data['menu'] = 'Kendi';
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
-                'title' => 'Edit Jenis Pelanggaran',
-                'menu' => 'Admin',
-                'id' => $_POST['id'],
-                'jenis_pelanggaran' => trim($_POST['jenis_pelanggaran']),
-            ];
 
-            //validate error free
-            if(empty($_POST['jenis_pelanggaran'])){
+        //validate error free
+            if(empty($_POST['merk']) || empty($_POST['tipe']) || empty($_POST['nopol']) || empty($_POST['tgl_pajak'])){
                 //load view with error
                 setFlash('Form input tidak boleh kosong','danger');
-                $this->view('jenis_pelanggaran/edit', $data);
+                $this->view('kendi/kendaraan/edit', $data);
             }else{
-                if($this->jenisPelanggaranModel->update($data)){
-                    setFlash('Jenis Pelanggaran berhasil diperbarui.','success');
-                    return redirect('jenispelanggaran');
+                if($this->kendiModel->updateKendaraan($_POST)){
+                    setFlash('Data Kendaraan berhasil diperbarui.','success');
+                    return redirect('kendi/kendaraan');
                 }else{
                     die('something went wrong');
                 }
             }
         }else{
-            $jp = $this->jenisPelanggaranModel->getById($id);
-            if($jp){
+            $kend = $this->kendiModel->getKendaraanById($id);
+            if($kend){
                 $data['id'] = $id;
-                $data['jenis_pelanggaran'] = $jp->pelanggaran;
+                $data['kend'] = $kend;
                 
-                $this->view('jenis_pelanggaran/edit', $data);
+                $this->view('kendi/kendaraan/edit', $data);
             }else{
-                return redirect('jenispelanggaran');
+                return redirect('kendi/kendaraan');
             }
         }
     }
   
     //delete
-    public function delete($id = ''){
+    public function deletekendaraan($id = ''){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if($this->jenisPelanggaranModel->delete($id)){
-                setFlash('Jenis Pelanggaran berhasil dihapus.','success');
+            if($this->kendiModel->deleteKendaraan($id)){
+                setFlash('Data Kendaraan berhasil dihapus.','success');
             }else{
                 die('something went wrong');
             }
         }else{
-            return redirect('jenispelanggaran');
+            return redirect('kendi/kendaraan');
         }
     }
 

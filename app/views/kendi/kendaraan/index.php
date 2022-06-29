@@ -15,7 +15,7 @@
                 <th>Tipe</th>
                 <th>Nomor Polisi</th>
                 <th>Tgl. Bayar Pajak</th>
-                <th>Status</th>
+                <!-- <th>Status</th> -->
                 <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,9 +30,9 @@
                         <td><?= $row->tipe ?></td>
                         <td><?= $row->nopol ?></td>
                         <td><?= $row->tgl_pajak ?></td>
-                        <td><?php echo ($row->tersedia) ? '<span class="badge badge-success">Tersedia</span>' : '<span class="badge badge-danger">Tidak Tersedia</span>'; ?></td>
+                        <!-- <td><?php echo ($row->tersedia) ? '<span class="badge badge-success">Tersedia</span>' : '<span class="badge badge-danger">Tidak Tersedia</span>'; ?></td> -->
                         <td>
-                            <a href="<?= URLROOT; ?>/jenispelanggaran/edit/<?= $row->id ?>"
+                            <a href="<?= URLROOT; ?>/kendi/editkendaraan/<?= $row->id ?>"
                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                             <button class='btn btn-sm btn-danger btn-delete' data-id='<?= $row->id ?>' typle='button'><i class="fa fa-trash"></i></button>
                         </td>
@@ -68,7 +68,7 @@ function del()
 		  	// Ajax config
 			$.ajax({
 		        type: "POST", //we are using GET method to get data from server side
-		        url: '<?= URLROOT; ?>/jenispelanggaran/delete/'+id, // get the route value
+		        url: '<?= URLROOT; ?>/kendi/deletekendaraan/'+id, // get the route value
 		        beforeSend: function () {//We add this before send to disable the button once we submit it so that we prevent the multiple click
 		            
 		        },
