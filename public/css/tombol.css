@@ -1,0 +1,45 @@
+.tombol button.btn-floating {
+  position: fixed;
+  background-color: #0d6efd;
+  right: 25px;
+  top: 100;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  border: 2px solid white;
+  z-index: 9999;
+  color: white;
+  transition: .2s;
+}
+
+.tombol button.btn-floating:hover {
+  background-color: #0c54bf;
+  width: auto;
+  padding:  0 20px;
+  cursor: pointer;
+}
+
+.tombol button.btn-floating span {
+  font-size: 16px;
+  margin-left: 5px;
+  transition: 2s;
+  line-height: 0px;
+  display: none;
+}
+
+.tombol button.btn-floating:hover span {
+  display: inline-block;
+}
+
+.tombol button.btn-floating i {
+  margin-top: 6px;
+}
+
+.tombol button.btn-floating:hover i {
+  margin-top: 6px;
+}
+
+.tombol button.btn-floating.riwayat {
+  top: 220px;
+}

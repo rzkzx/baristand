@@ -268,6 +268,10 @@
                 <?php if($_SESSION){ ?>
                 <a class="collapse-item <?php if(stripos($data['title'],'Daftar persediaan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/persediaan">
                 Daftar Persediaan</a>
+                <a class="collapse-item <?php if (stripos($data['title'], 'Master gudang') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/persediaan/gudang">
+                Master Gudang</a>
+                <a class="collapse-item <?php if (stripos($data['title'], 'Master barang') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/persediaan/barang">
+                Master Barang</a>
                 <?php } ?>
             </div>
             </div>
