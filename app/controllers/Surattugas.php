@@ -59,8 +59,7 @@
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
                 //validate error free
-                foreach($_POST['pengikut'] as $value) if(empty($value)) $_POST['pengikut'] = '';
-                if(empty($_POST['pengikut']) || empty($_POST['nip_ditugaskan']) || empty($_POST['pengusul']) || empty($_POST['tujuan_tugas']) || empty($_POST['keperluan_tugas'])){
+                if(empty($_POST['nip_ditugaskan']) || empty($_POST['pengusul']) || empty($_POST['tujuan_tugas']) || empty($_POST['keperluan_tugas'])){
                     //load view with error
                     setFlash('Form input tidak boleh kosong','danger');
                     return redirect('surattugas/add');
