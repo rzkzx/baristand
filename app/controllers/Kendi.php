@@ -8,6 +8,10 @@ class Kendi extends Controller{
         }
         //new model instance
         $this->kendiModel = $this->model('KendiModel');
+
+        $this->pegawaiModel = $this->model('PegawaiModel');
+        $this->jabatanModel = $this->model('JabatanModel');
+        $this->adminModel = $this->model('AdminModel');
     }
 
     // Peminjaman Kendaraan Controller
@@ -42,6 +46,13 @@ class Kendi extends Controller{
             }
         }else{
             $data['kend'] = $this->kendiModel->getKendaraan();
+            $data['pemohon'] = $this->pegawaiModel->get();
+
+            // Atasan Langsung Koordinator,Kasubag TU dan Kepala Balai
+            $kepalabalai = $this->jabatanModel->getPegawai('kepala_balai');
+            $kasubag_tu = $this->jabatanModel->getPegawai('kasubag_tu');
+            $koordinator = $this->jabatanModel->getPegawai('koordinator');
+            $data['atasan'] = array_merge($kepalabalai,$kasubag_tu,$koordinator);
 
             $this->view('kendi/peminjaman/add', $data);
         }

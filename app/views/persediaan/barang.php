@@ -28,7 +28,7 @@
                                     <td>
                                         <span style="color:#2980b9;"> <?= timeFilter($row->jam), " - ", dateID($row->tanggal) ?> </span>
                                         <?=
-                                        "<br/>", $row->nip_pegawai,
+                                        "<br/>", $row->nama," (",$row->nip_pegawai,")",
                                         "<br/>",
                                         "<br/>", "<b>" . $row->namabarang . "</b>",
                                         "<br/>", "Rp. " . $row->harga . " / " . $row->satuan,
@@ -42,8 +42,7 @@
                                         <?= $row->stock ?>
                                     </td>
                                     <td>
-                                        <a href="<?= URLROOT; ?>/persediaan/barang" class="btn btn-success"><i class="fa fa-plus"></i></a>
-                                        <a href="<?= URLROOT; ?>/persediaan/barang" class="btn btn-warning"><i class="fa fa-minus"></i></a>
+                                        <a href="<?= URLROOT; ?>/persediaan/barang" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Stock</a>
                                     </td>
                                 </tr>
                             <?php } ?>

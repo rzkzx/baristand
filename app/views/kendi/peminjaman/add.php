@@ -2,9 +2,6 @@
 <div class="row">
     <div class="col-lg-12">
     <div class="card mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary"><?= $data['title']; ?></h6>
-        </div>
         <div class="card-body">
             <div class="col-md-12">
                 <?php flash(); ?>
@@ -54,21 +51,78 @@
                         <label class="form-check-label" for="jam">
                         Jam
                         </label>
-                        <textarea type="text" name="keterangan" required class="form-control" id="keterangan" placeholder="Masukkan keterangan"></textarea>
+                        <div class="jam-form" id="jam-form" style="margin-top: 10px;">
+                            <div class="form-group row">
+                                <label for="tanggal" class="col-sm-3 col-form-label">Tanggal</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="tanggal" required class="form-control" id="tanggal" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jam_mulai" class="col-sm-3 col-form-label">Jam Mulai</label>
+                                <div class="col-sm-9">
+                                    <input type="time" name="jam_mulai" required class="form-control" id="jam_mulai" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="jam_selesai" class="col-sm-3 col-form-label">Jam Selesai</label>
+                                <div class="col-sm-9">
+                                    <input type="time" name="jam_selesai" required class="form-control" id="jam_selesai" >
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_peminjaman" value="harian" id="harian" onchange="hideHarian()">
+                        <input class="form-check-input" type="radio" name="jenis_peminjaman" value="harian" id="harian" onchange="showHarian()">
                         <label class="form-check-label" for="harian">
                         Harian
                         </label>
+                        <div class="harian-form" id="harian-form" style="margin-top: 10px;display:none;">
+                            <div class="form-group row">
+                                <label for="tgl_mulai" class="col-sm-3 col-form-label">Mulai Tanggal</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="tgl_mulai" required class="form-control" id="tgl_mulai" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tgl_selesai" class="col-sm-3 col-form-label">Sampai Mulai</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="tgl_selesai" required class="form-control" id="tgl_selesai" >
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="tgl_pajak" class="col-sm-2 col-form-label">Tgl. Bayar Pajak :</label>
-                <label for="col-sm-2">:</label>
+                <label for="select2" class="col-lg-2 col-form-label">Nama Pemohon<span class="text-danger">*</span></label>
                 <div class="col-sm-6">
-                <input type="date" class="form-control" id="tgl_pajak" name="tgl_pajak" required>
+                    <select class="select2-pemohon form-control" name="pemohon" id="select2">
+                    <option value=""></option>
+                    <?php 
+                        foreach ($data['pemohon'] as $k) {
+                        ?>
+                            <option value="<?= $k->nip ?>"><?= $k->nama ?> / <?= $k->nip ?></option>
+                        <?php
+                        }
+                    ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="select2SinglePlaceholder" class="col-lg-2 col-form-label">Nama Atasan<span class="text-danger">*</span></label>
+                <div class="col-sm-6">
+                    <select class="select2-atasan form-control" name="atasan" id="selectSinglePlaceholder">
+                        <option value=""></option>
+                    <?php 
+                        foreach ($data['atasan'] as $k) {
+                        ?>
+                            <option value="<?= $k->nip ?>"><?= $k->nama ?> / <?= $k->nip ?></option>
+                        <?php
+                        }
+                    ?>
+                    </select>
                 </div>
             </div>
             <div class="pb-4"></div>
@@ -94,5 +148,14 @@
     document.getElementById("keterangan").readOnly = true;
     document.getElementById("keterangan").value = "";
     document.getElementById("keterangan").style.display = 'none';
+  }
+
+  function showJam(){
+    document.getElementById("jam-form").style.display = 'block';
+    document.getElementById("harian-form").style.display = 'none';
+  }
+  function showHarian(){
+    document.getElementById("jam-form").style.display = 'none';
+    document.getElementById("harian-form").style.display = 'block';
   }
 </script>
