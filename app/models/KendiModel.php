@@ -2,13 +2,20 @@
 
 class KendiModel {
     private $kendaraan = 'data_kendaraan';
-    private $peminjaman = 'peminjaman_kenadaraan';
+    private $peminjaman = 'peminjaman_kendaraan';
     private $db;
     public function __construct()
     {
         $this->db = new Database;
     }
 
+    // Peminjaman Kendaraan Model
+    public function getPeminjaman(){
+        $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon ORDER BY id DESC');
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
 
     // Data Kendaraan Model
     public function getKendaraan(){
@@ -61,6 +68,21 @@ class KendiModel {
         $this->db->query('DELETE FROM '.$this->kendaraan.' WHERE id = :id');
         $this->db->bind(':id', $id);
 
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    //Kondisi harian Model
+    public function pemeriksaanKendaraan($id,$layak){
+        $this->db->query('UPDATE '.$this->kendaraan.' SET layak=:layak WHERE id=:id');
+        $this->db->bind(':id', $id);
+        $this->db->bind(':layak', $layak);
+
+        //execute 
         if($this->db->execute()){
             return true;
         }else{

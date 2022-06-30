@@ -98,6 +98,10 @@ $(document).ready(function () {
         placeholder: "Pilih Pemohon",
         allowClear: true
     }); 
+    $('.select2-kend').select2({
+        placeholder: "Pilih Kendaraan",
+        allowClear: true
+    }); 
     // Select2 Multiple
     $('.select2-multiple').select2();
 
