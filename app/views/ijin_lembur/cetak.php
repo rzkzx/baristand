@@ -105,7 +105,7 @@
 
     <div class="sign">
       <div class="top" style="text-align: left;">
-        <p>Banjarbaru, <?= $data['ijinlembur']->tanggal_ijin ?></p>
+        <p>Banjarbaru, <?= $data['ijinlembur']->tanggal_surat ?></p>
         <p>Kepala</p>
       </div>
       <div class="ttd">
