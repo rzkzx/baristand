@@ -1,11 +1,13 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<link rel="stylesheet" href="<?= URLROOT; ?>/css/tombol.css">
 <div class="row">
     <div class="col-lg-12">
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <a href="<?= URLROOT; ?>/perbaikan/+gudang" class="btn float-right btn-xs btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Barang</a>
+                    <a href="<?= URLROOT; ?>/persediaan/tambahbarang" class="btn float-right btn-xs btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Barang</a>
+                    <a href="<?= URLROOT; ?>/persediaan/tambahbarang" class="btn float-left btn-xs btn btn-primary"><i class="fa fa-table"></i> Riwayat Tambah Stock</a>
                 </div>
                 <div class="card-body">
                     <?php flash(); ?>
@@ -42,7 +44,7 @@
                                         <?= $row->stock ?>
                                     </td>
                                     <td>
-                                        <a href="<?= URLROOT; ?>/persediaan/barang" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Stock</a>
+                                        <a href="<?= URLROOT; ?>/persediaan/barang" class="btn btn-success"><i class="fa fa-table"></i> Edit Stock</a>
                                     </td>
                                 </tr>
                             <?php } ?>

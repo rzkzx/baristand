@@ -289,7 +289,7 @@
                     <a class="collapse-item <?php if(stripos($data['title'],'Data Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi/kendaraan">Data Kendaraan</a>
                 <?php } ?>
                 <a class="collapse-item <?php if(stripos($data['title'],'Peminjaman Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi">Peminjaman Kendaraan</a>
-                <a class="collapse-item <?php if(stripos($data['title'],'Peminjaman Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi">Penggunaan Kendaraan</a>
+                <a class="collapse-item <?php if(stripos($data['title'],'Penggunaan Kendaraan') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi">Penggunaan Kendaraan</a>
                 <?php if($_SESSION['role'] == 'ADMIN' || Middleware::admin('kendi')){ ?>
                     <a class="collapse-item <?php if(stripos($data['title'],'Kondisi Harian') !== FALSE) echo 'active'; ?>" href="<?= URLROOT; ?>/kendi/kondisi">Kondisi Harian</a>
                 <?php } ?>

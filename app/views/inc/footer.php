@@ -90,6 +90,10 @@ $(document).ready(function () {
         placeholder: "Pilih Penanggung Jawab",
         allowClear: true
     });
+    $('.select2-gudang').select2({
+        placeholder: "Pilih Gudang",
+        allowClear: true
+    });
     $('.select2-ppk').select2({
         placeholder: "Pilih PPK",
         allowClear: true
