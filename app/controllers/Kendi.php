@@ -16,13 +16,23 @@ class Kendi extends Controller{
 
     // Peminjaman Kendaraan Controller
     public function index(){
-        $kendiModel = $this->kendiModel->getPeminjaman();
+        if(Middleware::jabatan('kasubag_tu') || Middleware::jabatan('koordinator') || Middleware::admin('kendi')){
+            $kendiModel = $this->kendiModel->getPeminjaman();
+        }else{
+            $kendiModel = $this->kendiModel->getPeminjamanByNIP();
+        }
         $data = [
             'title' => 'Peminjaman Kendaraan',
             'menu' => 'Kendi',
-            'kendi' => $kendiModel
+            'peminjaman' => $kendiModel
         ];
 
+        $index=1;
+        foreach ($kendiModel as $k) {
+            $data['kend'][$index] = $this->kendiModel->getKendaraanById($k->id_kendaraan);
+            $index++;
+        }
+        
         $this->view('kendi/peminjaman/index', $data);
     }
 
@@ -32,20 +42,27 @@ class Kendi extends Controller{
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             //validate error free
-            if(empty($_POST['merk']) || empty($_POST['tipe']) || empty($_POST['nopol']) || empty($_POST['tgl_pajak'])){
+            if(empty($_POST['kendaraan']) || empty($_POST['keperluan']) || empty($_POST['jenis_peminjaman']) || empty($_POST['pemohon']) || empty($_POST['atasan'])){
                 //load view with error
                 setFlash('Form input tidak boleh kosong','danger');
                 $this->view('kendi/peminjaman/add', $data);
             }else{
-                if($this->kendiModel->addKendaraan($_POST)){
-                    setFlash('Kendaraan Dinas berhasil ditambahkan.','success');
-                    return redirect('kendi/kendaraan');
+                if($this->kendiModel->addPeminjaman($_POST)){
+                    // get atasan data
+                    $ats = $this->pegawaiModel->getByNIP($_POST['atasan']);
+                    // send notification to whatsapp atasan
+                    $data['no_telp'] = $ats->no_telp;
+                    $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Mohon Validasi";
+                    notifWA($data);
+
+                    setFlash('Permohonan Peminjaman berhasil ditambahkan.','success');
+                    return redirect('kendi');
                 }else{
                     die('something went wrong');
                 }
             }
         }else{
-            $data['kend'] = $this->kendiModel->getKendaraan();
+            $data['kend'] = $this->kendiModel->getKendaraanNotPinjam();
             $data['pemohon'] = $this->pegawaiModel->get();
 
             // Atasan Langsung Koordinator,Kasubag TU dan Kepala Balai
@@ -58,17 +75,134 @@ class Kendi extends Controller{
         }
     }
 
+    public function validasial($id = ''){
+        $data['title'] = 'Peminjaman Kendaraan - Validasi Atasan Langsung';
+        $data['menu'] = 'Kendi';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        //validate error free
+            if(empty($_POST['validasi'])){
+                //load view with error
+                setFlash('Form input tidak boleh kosong','danger');
+                $this->view('kendi/peminjaman/validasi_al', $data);
+            }else{
+                if($this->kendiModel->validasiAtasan($_POST)){
+                    if($_POST['validasi'] == 'Diterima'){
+                        //get atasan data
+                        $kb = $this->jabatanModel->getPegawai('kasubag_tu');
+                        // send notification to whatsapp atasan
+                        $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Mohon Persetujuan";
+                        foreach ($kb as $k) {
+                            $data['no_telp'] = $k->no_telp;
+                            notifWA($data);
+                        }
+                    }else{
+                        $ats = $this->pegawaiModel->getByNIP($_POST['pemohon']);
+                        // send notification to whatsapp atasan
+                        $data['no_telp'] = $ats->no_telp;
+                        $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Mohon Maaf, Kendaraan tidak dapat dipergunakan";
+                        notifWA($data);
+                    }
+
+                    setFlash('Peminjaman Kendaraan berhasil divalidasi.','success');
+                    return redirect('kendi');
+                }else{
+                    die('something went wrong');
+                }
+            }
+        }else{
+            $pmj = $this->kendiModel->getPeminjamanById($id);
+            if($pmj && $pmj->atasan == $_SESSION['nip'] && !$pmj->validasi_atasan){
+                $data['id'] = $id;
+                $data['peminjaman'] = $pmj;
+                $data['kend'] = $this->kendiModel->getKendaraanById($pmj->id_kendaraan);
+                
+                $this->view('kendi/peminjaman/validasi_al', $data);
+            }else{
+                return redirect('kendi');
+            }
+        }
+    }
+
+    public function validasitu($id = ''){
+        $data['title'] = 'Peminjaman Kendaraan - Validasi Kasubag TU';
+        $data['menu'] = 'Kendi';
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //validate error free
+            if(empty($_POST['validasi'])){
+                //load view with error
+                setFlash('Form input tidak boleh kosong','danger');
+                $this->view('kendi/peminjaman/validasi_tu', $data);
+            }else{
+                if($this->kendiModel->validasiKasubagTU($_POST)){
+                    if($_POST['validasi'] == 'Diterima'){
+                        //pemohon notif wa
+                        $ats = $this->pegawaiModel->getByNIP($_POST['pemohon']);
+                        $data['no_telp'] = $ats->no_telp;
+                        $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Kendaraan dapat dipergunakan";
+                        notifWA($data);
+
+                        // admin kendi notif wa
+                        $kb = $this->adminModel->getPegawai('kendi');
+                        $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Kendaraan harap dipersiapkan";
+                        foreach ($kb as $k) {
+                            $data['no_telp'] = $k->no_telp;
+                            notifWA($data);
+                        }
+                    }else{
+                        $ats = $this->pegawaiModel->getByNIP($_POST['pemohon']);
+                        // send notification to whatsapp atasan
+                        $data['no_telp'] = $ats->no_telp;
+                        $data['isi_pesan'] = "[BSPJI:SIP-Kendi] Mohon Maaf, Kendaraan tidak dapat dipergunakan";
+                        notifWA($data);
+                    }
+
+                    setFlash('Peminjaman Kendaraan berhasil divalidasi.','success');
+                    return redirect('kendi');
+                }else{
+                    die('something went wrong');
+                }
+            }
+        }else{
+            $pmj = $this->kendiModel->getPeminjamanById($id);
+            if($pmj && Middleware::jabatan('kasubag_tu') && $pmj->validasi_atasan == 'Diterima' && !$pmj->validasi_kasubagtu){
+                $data['id'] = $id;
+                $data['peminjaman'] = $pmj;
+                $data['kend'] = $this->kendiModel->getKendaraanById($pmj->id_kendaraan);
+                
+                $this->view('kendi/peminjaman/validasi_tu', $data);
+            }else{
+                return redirect('kendi');
+            }
+        }
+    }
+
+    public function serahkankendaraan($id = ''){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($this->kendiModel->serahkan($id)){
+                setFlash('Jenis Penerimaan berhasil dihapus.','success');
+            }else{
+                die('something went wrong');
+            }
+        }else{
+            return redirect('jenispenerimaan');
+        }
+    }
+
 
     //Data Kendaraan Controller
     public function kendaraan(){
-      $kendi = $this->kendiModel->getKendaraan();
-      $data = [
-          'title' => 'Data Kendaraan',
-          'menu' => 'Kendi',
-          'kendi' => $kendi
-      ];
+        $kendi = $this->kendiModel->getKendaraan();
+        $data = [
+            'title' => 'Data Kendaraan',
+            'menu' => 'Kendi',
+            'kendi' => $kendi
+        ];
 
-      $this->view('kendi/kendaraan/index', $data);
+        $this->view('kendi/kendaraan/index', $data);
     }
 
     public function addkendaraan(){

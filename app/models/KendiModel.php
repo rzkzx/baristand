@@ -17,21 +17,99 @@ class KendiModel {
         return $result;
     }
 
-    public function addPeminjaman($data){
-        $tanggal = date('Y-m-d');
+    public function getPeminjamanByNIP(){
+        $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon WHERE pemohon=:user OR user=:user');
+        $this->db->bind('user',$_SESSION['nip']);
+        $result = $this->db->resultSet();
 
+        return $result;
+    }
+
+    public function getPeminjamanById($id){
+    $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon WHERE peminjaman_kendaraan.id=:id');
+        $this->db->bind(':id',$id);
+        $row = $this->db->single();
+
+        return $row;
+    }
+
+    public function addPeminjaman($data){
         $waktu = date('H:i').' - '.dateID(date('Y-m-d'));
     
-        $query = "INSERT INTO ".$this->table." (user,id_kendaraan,waktu,keperluan,keterangan,jenis_peminjaman,tanggal,jam_mulai,jam_selesai,tgl_mulai,tgl_selesai,pemohon,atasan) VALUES 
-        (:user,:id_kendaraan,waktu,:keperluan,:keterangan,:jenis_peminjaman,:tanggal,:jam_mulai,:jam_selesai,:tgl_mulai,:tgl_selesai,:pemohon,:atasan)";
+        $query = "INSERT INTO ".$this->peminjaman." (user,id_kendaraan,waktu,keperluan,keterangan,jenis_peminjaman,tanggal,jam_mulai,jam_selesai,tgl_mulai,tgl_selesai,pemohon,atasan) VALUES 
+        (:user,:id_kendaraan,:waktu,:keperluan,:keterangan,:jenis_peminjaman,:tanggal,:jam_mulai,:jam_selesai,:tgl_mulai,:tgl_selesai,:pemohon,:atasan)";
         $this->db->query($query);
         $this->db->bind('user',$_SESSION['nip']);
         $this->db->bind('id_kendaraan',$data['kendaraan']);
         $this->db->bind('waktu',$waktu);
-        $this->db->bind('keperluan',$data['jam_kembali']);
-        $this->db->bind('keterangan',$data['tanggal_ijin']);
-        $this->db->bind('pejabat_validasi',$data['pejabat_validasi']);
-        $this->db->bind('tanggal_dibuat',$tanggal);
+        $this->db->bind('keperluan',$data['keperluan']);
+        $this->db->bind('keterangan',$data['keterangan']);
+        $this->db->bind('jenis_peminjaman',$data['jenis_peminjaman']);
+        $this->db->bind('tanggal',$data['tanggal']);
+        $this->db->bind('jam_mulai',$data['jam_mulai']);
+        $this->db->bind('jam_selesai',$data['jam_selesai']);
+        $this->db->bind('tgl_mulai',$data['tgl_mulai']);
+        $this->db->bind('tgl_selesai',$data['tgl_selesai']);
+        $this->db->bind('pemohon',$data['pemohon']);
+        $this->db->bind('atasan',$data['atasan']);
+        //execute 
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function validasiAtasan($data)
+    {
+        $waktu_validasi = date('Y-m-d').', '.date('H:i');
+        $alasan_ditolak = $data['alasan_ditolak'];
+        if($data['validasi'] == 'Diterima'){
+            $alasan_ditolak = '';
+        }
+
+        $query = "UPDATE ".$this->peminjaman." SET validasi_atasan=:validasi_atasan,waktu_validasi_atasan=:waktu_validasi_atasan,alasan_ditolak=:alasan_ditolak WHERE id=:id";
+        $this->db->query($query);
+        $this->db->bind('id',$data['id']);
+        $this->db->bind('validasi_atasan',$data['validasi']);
+        $this->db->bind('waktu_validasi_atasan',$waktu_validasi);
+        $this->db->bind('alasan_ditolak', $alasan_ditolak);
+    
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function validasiKasubagTU($data)
+    {
+        $waktu_validasi = date('Y-m-d').', '.date('H:i');
+        $alasan_ditolak = $data['alasan_ditolak'];
+        if($data['validasi'] == 'Diterima'){
+            $alasan_ditolak = '';
+        }
+
+        $this->db->query('UPDATE '.$this->kendaraan.' SET dipinjam=:dipinjam WHERE id=:id');
+        $this->db->bind(':id', $data['id_kendaraan']);
+        $this->db->bind(':dipinjam', TRUE);
+        $this->db->execute();
+
+        $query = "UPDATE ".$this->peminjaman." SET validasi_kasubagtu=:validasi_kasubagtu,waktu_validasi_kasubagtu=:waktu_validasi_kasubagtu,alasan_ditolak=:alasan_ditolak WHERE id=:id";
+        $this->db->query($query);
+        $this->db->bind('id',$data['id']);
+        $this->db->bind('validasi_kasubagtu',$data['validasi']);
+        $this->db->bind('waktu_validasi_kasubagtu',$waktu_validasi);
+        $this->db->bind('alasan_ditolak', $alasan_ditolak);
+    
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function serahkan($id){
+        $waktu = date('Y-m-d').', '.date('H:i');
+        $this->db->query('UPDATE '.$this->peminjaman.' SET diserahkan=:diserahkan,waktu_diserahkan=:waktu_diserahkan WHERE id=:id');
+        $this->db->bind(':id', $id);
+        $this->db->bind(':diserahkan', TRUE);
+        $this->db->bind(':waktu_diserahkan', $waktu);
+        
         //execute 
         if($this->db->execute()){
             return true;
@@ -43,6 +121,14 @@ class KendiModel {
     // Data Kendaraan Model
     public function getKendaraan(){
         $this->db->query('SELECT * FROM '.$this->kendaraan.' ORDER BY id ASC');
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
+    public function getKendaraanNotPinjam(){
+        $this->db->query('SELECT * FROM '.$this->kendaraan.' WHERE dipinjam=:dipinjam');
+        $this->db->bind(':dipinjam', FALSE);
         $result = $this->db->resultSet();
 
         return $result;

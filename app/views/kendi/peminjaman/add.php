@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <?php flash(); ?>
             </div>
-            <form action="<?= URLROOT; ?>/kendi/addkendaraan" method="POST" enctype="multipart/form-data">
+            <form action="<?= URLROOT; ?>/kendi/addpeminjaman" method="POST" enctype="multipart/form-data">
             <div class="form-group row">
                 <label for="atasan" class="col-sm-2 col-form-label">Kendaraan</label>
                 <label for="col-sm-2">:</label>
@@ -32,7 +32,7 @@
                         <label class="form-check-label" for="kedinasan">
                         Kedinasan
                         </label>
-                        <textarea type="text" name="keterangan" required class="form-control" id="keterangan" placeholder="Masukkan keterangan"></textarea>
+                        <textarea type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan keterangan"></textarea>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="keperluan" value="Pemeliharaan/Perbaikan" id="pemeliharaan" onchange="hideKeterangan()">
@@ -47,7 +47,7 @@
                 <label for="col-sm-2">:</label>
                 <div class="col-sm-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_peminjaman" id="jam" value="jam" onchange="showJam()" checked>
+                        <input class="form-check-input" type="radio" name="jenis_peminjaman" id="jam" value="Jam" onchange="showJam()" checked>
                         <label class="form-check-label" for="jam">
                         Jam
                         </label>
@@ -55,25 +55,25 @@
                             <div class="form-group row">
                                 <label for="tanggal" class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tanggal" required class="form-control" id="tanggal" >
+                                    <input type="date" name="tanggal" class="form-control" id="tanggal" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="jam_mulai" class="col-sm-3 col-form-label">Jam Mulai</label>
                                 <div class="col-sm-9">
-                                    <input type="time" name="jam_mulai" required class="form-control" id="jam_mulai" >
+                                    <input type="time" name="jam_mulai" class="form-control" id="jam_mulai" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="jam_selesai" class="col-sm-3 col-form-label">Jam Selesai</label>
                                 <div class="col-sm-9">
-                                    <input type="time" name="jam_selesai" required class="form-control" id="jam_selesai" >
+                                    <input type="time" name="jam_selesai" class="form-control" id="jam_selesai" >
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_peminjaman" value="harian" id="harian" onchange="showHarian()">
+                        <input class="form-check-input" type="radio" name="jenis_peminjaman" value="Harian" id="harian" onchange="showHarian()">
                         <label class="form-check-label" for="harian">
                         Harian
                         </label>
@@ -81,13 +81,13 @@
                             <div class="form-group row">
                                 <label for="tgl_mulai" class="col-sm-3 col-form-label">Mulai Tanggal</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tgl_mulai" required class="form-control" id="tgl_mulai" >
+                                    <input type="date" name="tgl_mulai" class="form-control" id="tgl_mulai" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="tgl_selesai" class="col-sm-3 col-form-label">Sampai Mulai</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tgl_selesai" required class="form-control" id="tgl_selesai" >
+                                    <input type="date" name="tgl_selesai" class="form-control" id="tgl_selesai" >
                                 </div>
                             </div>
                         </div>
@@ -128,8 +128,8 @@
             <div class="pb-4"></div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= URLROOT; ?>/kendi/kendaraan" class="btn btn-danger">Kembali</a>
+                <button type="submit" class="btn btn-primary">Buat Permohonan</button>
+                <a href="<?= URLROOT; ?>/kendi" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
             </form>
