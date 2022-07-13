@@ -18,26 +18,20 @@
                             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th>No.</th>
                                         <th>Tanggal Ijin / Pemohon</th>
                                         <th>Jam Ijin</th>
                                         <th>Keperluan</th>
                                         <th class="col-4">Detail / Atasan</th>
                                     </tr>
                                 </thead>
-                                <tfoot class="thead-light">
-                                    <tr>
-                                        <th>Tanggal Ijin / Pemohon</th>
-                                        <th>Jam Ijin</th>
-                                        <th>Keperluan</th>
-                                        <th class="col-4">Detail / Atasan</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     <?php 
                                     $index = 0;
                                     foreach ($data['ijin_keluar'] as $row) {
                                     ?>
                                     <tr>
+                                        <td><?= $index+1; ?></td>
                                         <td>
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                             <?= '<p>'.$row->nama.'</p>'?>

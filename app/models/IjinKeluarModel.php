@@ -44,7 +44,7 @@ class IjinKeluarModel
   }
   public function getByUserLogin()
   {
-    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pemohon=:nip_user ORDER BY ijin_keluar.tanggal_ijin DESC";
+    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pemohon=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$_SESSION['nip']);
 
@@ -52,7 +52,7 @@ class IjinKeluarModel
   }
   public function getByAtasan()
   {
-    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pejabat_validasi=:nip_user ORDER BY ijin_keluar.tanggal_ijin DESC";
+    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pejabat_validasi=:nip_user ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$_SESSION['nip']);
 
@@ -60,7 +60,7 @@ class IjinKeluarModel
   }
   public function getByAtasanNotValidate()
   {
-    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pejabat_validasi=:nip_user AND ijin_keluar.validasi IS NULL ORDER BY ijin_keluar.tanggal_ijin DESC";
+    $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pemohon WHERE ijin_keluar.pejabat_validasi=:nip_user AND ijin_keluar.validasi IS NULL ORDER BY id DESC";
     $this->db->query($query);
     $this->db->bind('nip_user',$_SESSION['nip']);
 
@@ -68,7 +68,7 @@ class IjinKeluarModel
   }
   public function getPejabatValidasi()
   {
-      $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pejabat_validasi WHERE ijin_keluar.pemohon=:nip_user ORDER BY ijin_keluar.tanggal_ijin DESC";
+      $query = "SELECT ijin_keluar.*,users.nama FROM ".$this->table." LEFT JOIN users ON users.nip=ijin_keluar.pejabat_validasi WHERE ijin_keluar.pemohon=:nip_user ORDER BY id DESC";
       $this->db->query($query);
       $this->db->bind('nip_user',$_SESSION['nip']);
 

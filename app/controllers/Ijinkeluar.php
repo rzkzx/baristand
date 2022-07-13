@@ -9,6 +9,7 @@ class IjinKeluar extends Controller{
         //new model instance
         $this->ijinKeluarModel = $this->model('IjinKeluarModel');
         $this->jabatanModel = $this->model('JabatanModel');
+        $this->adminModel = $this->model('AdminModel');
         $this->pegawaiModel = $this->model('PegawaiModel');
     }
 
@@ -122,12 +123,23 @@ class IjinKeluar extends Controller{
                 $ijk = $this->ijinKeluarModel->getById($_POST['id']);
                 if($ijk && !$ijk->validasi && $ijk->pejabat_validasi == $_SESSION['nip']){
                     if($this->ijinKeluarModel->update($_POST)){
-                        // send notification to whatsapp pegawai
-                        // // '%0a' new line in whatsapp
-                        $data['no_telp'] = $ijk->no_telp;
-                        $data['isi_pesan'] = 
-                        "*Ijin Keluar Disetujui*%0aNama : ".$ijk->nama."%0aJam Keluar : ".timeID($ijk->jam_keluar)."%0aJam Kembali : ".timeID($ijk->jam_kembali)."%0aTanggal Ijin : ".dayID($ijk->tanggal_ijin).", ".dateID($ijk->tanggal_ijin)."%0aKeperluan : ".$ijk->keperluan;
-                        notifWA($data);
+                        if($_POST['validasi'] == 'Diterima'){
+                            // send notification to whatsapp pemohon
+                            // // '%0a' new line in whatsapp
+                            $data['no_telp'] = $ijk->no_telp;
+                            $data['isi_pesan'] = 
+                            "*Ijin Keluar Disetujui*%0aNama : ".$ijk->nama."%0aJam Keluar : ".timeID($ijk->jam_keluar)."%0aJam Kembali : ".timeID($ijk->jam_kembali)."%0aTanggal Ijin : ".dayID($ijk->tanggal_ijin).", ".dateID($ijk->tanggal_ijin)."%0aKeperluan : ".$ijk->keperluan;
+                            notifWA($data);
+
+                            //send notif wa satpam
+                            $kb = $this->adminModel->getPegawai('satpam');
+                            // send notification to whatsapp atasan
+                            foreach ($kb as $k) {
+                                $data['no_telp'] = $k->no_telp;
+                                notifWA($data);
+                            }
+                        }
+                        
 
                         // redirect after success validate
                         setFlash('Berhasil validasi ijin keluar.','success');

@@ -11,6 +11,7 @@
                             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th>No</th>
                                         <th>Tanggal Ijin</th>
                                         <th>Jam Ijin</th>
                                         <th>Keperluan</th>
@@ -24,6 +25,7 @@
                                     foreach ($data['ijin_keluar'] as $row) {
                                     ?>
                                     <tr>
+                                        <td><?= $index+1; ?></td>
                                         <td>
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                         </td>

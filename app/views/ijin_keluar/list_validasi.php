@@ -8,6 +8,7 @@
                             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th>No.</th>
                                         <th>Tanggal Ijin / Pemohon</th>
                                         <th>Jam Ijin</th>
                                         <th>Keperluan</th>
@@ -17,9 +18,11 @@
                                 <tbody>
                                     
                                     <?php 
+                                    $no=1;
                                     foreach ($data['ijin_keluar'] as $row) {
                                     ?>
                                     <tr <?php if(!$row->validasi) echo 'style="background-color:#fff5f5;"'; ?>>
+                                        <td><?= $no; ?></td>
                                         <td>
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                             <?= '<p>'.$row->nama.'</p>'; ?>
@@ -48,6 +51,7 @@
                                         </td>
                                     </tr>
                                     <?php 
+                                    $no++;
                                     }
                                     ?>
                                 </tbody>
