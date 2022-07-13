@@ -51,26 +51,17 @@
   }
 
   function dayID($tanggal){
-    $hari = date('l', strtotime($tanggal));
-
-    switch ($hari) {
-      case 'Sunday':
-        return 'Minggu';
-      case 'Monday':
-        return 'Senin';
-      case 'Tuesday':
-        return 'Selasa';
-      case 'Wednesday':
-        return 'Rabu';
-      case 'Thursday':
-        return 'Kamis';
-      case 'Friday':
-        return 'Jumat';
-      case 'Saturday':
-        return 'Sabtu';
-      default:
-        return 'hari tidak valid';
-    }
+    $day = date('D', strtotime($tanggal));
+    $dayList = array(
+        'Sun' => 'Minggu',
+        'Mon' => 'Senin',
+        'Tue' => 'Selasa',
+        'Wed' => 'Rabu',
+        'Thu' => 'Kamis',
+        'Fri' => 'Jumat',
+        'Sat' => 'Sabtu'
+    );
+    return $dayList[$day];
   }
 
   function dateDiff($date1, $date2)

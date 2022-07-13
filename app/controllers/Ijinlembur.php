@@ -94,13 +94,14 @@ class IjinLembur extends Controller{
                 'ijinlembur' => $ijn,
                 'pemohon' => $pemohon
             ];
+            $data['hari'] = dayID($data['ijinlembur']->tanggal_ijin);
             $data['kepala_balai'] = $this->jabatanModel->getOnlyPegawai('kepala_balai');
             
             $nomor = explode('/',$ijn->nomor_surat);
             $data['sign'] = $nomor[0].'/'.$ijn->tanggal_ijin.'/'.$data['kepala_balai']->nama;
 
             $data['ijinlembur']->tanggal_ijin = dateID($data['ijinlembur']->tanggal_ijin);
-            $data['hari'] = dayID($data['ijinlembur']->tanggal_ijin);
+            
             
             $this->view('ijin_lembur/cetak', $data);
         }else{

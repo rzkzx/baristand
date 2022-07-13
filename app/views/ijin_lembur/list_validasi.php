@@ -8,10 +8,11 @@
                             <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Tanggal Ijin / Pemohon</th>
+                                        <th width="10">No</th>
+                                        <th class="col-3">Tanggal Ijin / Pemohon</th>
                                         <th class="col-2">Jam Ijin</th>
                                         <th class="col-4">Keperluan</th>
-                                        <th class="col-4">Validasi</th>
+                                        <th class="col-3">Validasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -20,6 +21,7 @@
                     foreach ($data['ijin_lembur'] as $row) {
                     ?>
                                     <tr>
+                                        <td><?= $index+1; ?></td>
                                         <td>
                                             <span style="color:#2980b9;"><?= $row->tanggal_ijin ?></span>
                                             <br/>
