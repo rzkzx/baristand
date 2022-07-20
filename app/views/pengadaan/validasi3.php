@@ -89,6 +89,21 @@
                                     <textarea type="text" name="alasan3" required class="form-control" id="alasan3" placeholder="Tulis Alasan ditolak..." readonly></textarea>
                                   </div>
                                 </div>
+                                <div class="form-group row">
+                                <label for="nip_ppk" class="col-lg-2 col-form-label">Nama PPK :<span class="text-danger">*</span> :</label>
+                                <div class="col-sm-6">
+                                  <select class="select2-ppk form-control" style="width:100%;" name="nip_ppk">
+                                        <option></option>
+                                    <?php 
+                                      foreach ($data['ppk'] as $k) {
+                                      ?>
+                                          <option value="<?= $k->nip ?>"><?= $k->nama ?> / <?= $k->nip ?></option>
+                                      <?php
+                                      }
+                                    ?>
+                                  </select>
+                                </div>
+                              </div>
                                 <!-- /.card-body -->
                                 <div class="row mb-3">
                                   <label for="inputUraian" class="col-sm-2 col-form-label"></label>

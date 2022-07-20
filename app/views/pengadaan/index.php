@@ -29,7 +29,6 @@
                                         <td>
                                         <span style="color:#2980b9;"> <?= timeFilter($row->jam) , " - ", dateID($row->tanggal)?> </span> <?=
                                         "<br/>", $row->nama," (",$row->nip_pemohon,")",
-                                        "<br/>", $row->serial_number,
                                         "<br/>",
                                         "<br/>","<b>Status : </b>"?>
                                         <?php 
@@ -76,7 +75,7 @@
                                         <?= "<br/>";
                                         ?>
                                         <?php 
-                                                if(!$row->waktu_validasi1){
+                                                if(!$row->validasi1){
                                                     if($row->nip_atasan == $_SESSION['nip']){
                                                         echo '<br/>Validasi AL : <u><a href="'.URLROOT.'/pengadaan/validasi1/'.$row->serial_number.'">Validasi</a></u>';
                                                     }else{
@@ -85,7 +84,7 @@
 
                                                 }else{
                                                     if($row->alasan1){
-                                                        echo '<br/>Validasi AL : <span class="text-danger">Ditolak</span> karena '.$row->alasan1.'  <span style="color:#2980b9;">'.$row->waktu_validasi1.'</span>';
+                                                        echo '<br/>Validasi AL : <span class="text-danger">Ditolak</span> karena '.$row->alasan1.'  <span style="color:#2980b9;">'.$row->validasi1.'</span>';
                                                     }else{
                                                         echo '<br/>Validasi AL : <span class="text-success">Diterima</span>';
                                                     }
@@ -93,7 +92,7 @@
                                                 }
 
                                          //
-                                                  if(!$row->waktu_validasi1){
+                                                  if(!$row->validasi1){
                                                     echo '<br/>Validasi Kasubag TU : <span class="text-warning">Menunggu validasi</span>';
                                                 }else{
                                                     if($row->waktu_validasi2){
@@ -137,7 +136,7 @@
                                                     }elseif($row->disposisi){
                                                         echo '<br/>Validasi PPK : <span class="text-success">Diterima</span>';
                                                     }else{
-                                                        if(Middleware::jabatan('ppk') && !$row->alasan3){
+                                                        if($row->nip_ppk == $_SESSION['nip'] && !$row->alasan3){
                                                             echo '<br/>Disposisi PPK : <u><a href="'.URLROOT.'/pengadaan/validasippk/'.$row->serial_number.'">Disposisikan</a></u>';
                                                         }else{
                                                             echo '<br/>Validasi PPK : <span class="text-warning">Menunggu validasi</span>';

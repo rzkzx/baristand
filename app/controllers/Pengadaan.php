@@ -242,7 +242,9 @@ class Pengadaan extends Controller
             $data['pengadaan'] = $png;
             $data['serial'] = $serial;
             $data['atasan'] = $this->pengadaanModel->getBySerialAtasan($serial);
-
+            $ppk = $this->jabatanModel->getPegawai('ppk');
+            $data['ppk'] = $ppk;  
+            
             $this->view('pengadaan/validasi3', $data);
         }else{
             return redirect('pengadaan');
@@ -338,13 +340,13 @@ public function penugasan($serial = ''){
         //validate error free
         //get data
         $pb = $this->pengadaanModel->getBySerial($_POST['serial_number']);
-        $barang = $this->pengadaanModel->getBahanBySerial($_POST['serial_number']);
+        $bahan = $this->pengadaanModel->getBahanBySerial($_POST['serial_number']);
 
         $array = (explode(",",$pb->nip_petugas_pengadaan));
         $jumlah_petugas = count($array);
-        $jumlah_barang = count($barang);
+        $jumlah_bahan = count($bahan);
         
-        if(empty($_POST['penugasan']) || $jumlah_petugas != $jumlah_barang){
+        if(empty($_POST['penugasan']) || $jumlah_petugas != $jumlah_bahan){
             //load view with error
             setFlash('Semua petugas wajib diisi','danger');
             return redirect('pengadaan/penugasan/'.$_POST['serial_number']);
