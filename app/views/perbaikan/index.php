@@ -29,7 +29,6 @@
                                         <td>
                                         <span style="color:#2980b9;"> <?= timeFilter($row->jam) , " - ", dateID($row->tanggal)?> </span> <?=
                                         "<br/>", $row->nama," (",$row->nip_pemohon,")",
-                                        "<br/>", $row->serial_number,
                                         "<br/>",
                                         "<br/>","<b>Status : </b>"?>
                                         <?php 
