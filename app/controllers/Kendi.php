@@ -183,13 +183,46 @@ class Kendi extends Controller{
     public function serahkankendaraan($id = ''){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if($this->kendiModel->serahkan($id)){
-                setFlash('Jenis Penerimaan berhasil dihapus.','success');
+                setFlash('Kendaraan Berhasil diserahkan Kepada Pegawai','success');
             }else{
                 die('something went wrong');
             }
         }else{
-            return redirect('jenispenerimaan');
+            return redirect('kendi');
         }
+    }
+
+    public function kendaraankembali($id = ''){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $pmj = $this->kendiModel->getPeminjamanById($id);
+            $data['id'] = $id;
+            $data['id_kendaraan'] = $pmj->id_kendaraan;
+            if($this->kendiModel->kembalikan($data)){
+                setFlash('Kendaraan telah dikembalikan dan peminjaman selesai','success');
+            }else{
+                die('something went wrong');
+            }
+        }else{
+            return redirect('kendi');
+        }
+    }
+
+    // Pengunaan Kendaraan Controller
+    public function penggunaan(){
+        $kendiModel = $this->kendiModel->getPeminjamanPenggunaan();
+        $data = [
+            'title' => 'Penggunaan Kendaraan',
+            'menu' => 'Kendi',
+            'peminjaman' => $kendiModel
+        ];
+
+        $index=1;
+        foreach ($kendiModel as $k) {
+            $data['kend'][$index] = $this->kendiModel->getKendaraanById($k->id_kendaraan);
+            $index++;
+        }
+        
+        $this->view('kendi/penggunaan/index', $data);
     }
 
 

@@ -20,12 +20,12 @@
                 $index = 1;
                 foreach ($data['peminjaman'] as $row) :
                 ?>
-                    <tr>
+                    <tr <?php if($row->selesai) echo 'style="background-color:#F9FFF7;"' ?>>
                         <td width="25"><?= $index ?></td>
                         <td>
                             <span style="color:#2980b9;"><?= $row->waktu ?></span>
                             <br>
-                            <?= $row->nama ?> (<?= $row->pemohon ?>)
+                            <?= $row->nama ?> / <?= $row->pemohon ?>
                             <br><br>
                             <b>Status : </b> 
                             <?php 
@@ -47,6 +47,8 @@
                                 }
                             }elseif($row->diserahkan && !$row->selesai){
                                 echo 'Kendaraan telah diserahkan pada<span class="text-success"> '.$row->waktu_diserahkan.'</span>';
+                            }elseif($row->selesai){
+                                echo 'Peminjaman telah selesai pada<span class="text-success"> '.$row->waktu_selesai.'</span>';
                             }
                             ?>
                             <br><br>
@@ -99,7 +101,7 @@
                             <?php 
                             if($row->validasi_atasan && $row->validasi_kasubagtu == 'Diterima' && $row->diserahkan && $_SESSION['nip'] == $row->pemohon){
                                 if(!$row->selesai){
-                                    echo '<br><button class="btn btn-sm btn-success btn-serah" data-id="'.$row->id.'" typle="button"><i class="fa fa-motorcycle"></i> Kendaraan Kembali</button>';
+                                    echo '<br><button class="btn btn-sm btn-success btn-kembalikan" data-id="'.$row->id.'" typle="button"><i class="fa fa-motorcycle"></i> Kendaraan Kembali</button>';
                                 }
                             }
                             ?>
@@ -122,11 +124,9 @@
                             <br>
                             <?php if($row->jenis_peminjaman == 'Jam'){ ?>
                                 Tanggal : <b><?= dateID($row->tanggal) ?></b><br>
-                                Jam Mulai : <b><?= timeID($row->jam_mulai) ?></b><br>
-                                Jam Selesai : <b><?= timeID($row->jam_selesai) ?></b><br>
+                                Jam : <b><?= timeID($row->jam_mulai) ?> - <?= timeID($row->jam_selesai) ?></b><br>
                             <?php }else{ ?>
-                                Tanggal Mulai : <b><?= dateID($row->tgl_mulai) ?></b><br>
-                                Tanggal Selesai : <b><?= dateID($row->tgl_selesai) ?></b><br>
+                                Tanggal : <b><?= dateID($row->tgl_mulai) ?> - <?= dateID($row->tgl_selesai) ?></b><br>
                             <?php } ?>
                         </td>
                     </tr>
@@ -167,7 +167,7 @@ function del()
 		        },
 		        success: function (response) {//once the request successfully process to the server side it will return result here
 		            // Reload lists of employees
-                    Swal.fire('Kendaan telah diserahkan.', response, 'success').then((result)=>{
+                    Swal.fire('Kendaraan telah diserahkan.', response, 'success').then((result)=>{
                         if(result.isConfirmed){
                             location.reload();
                         }
@@ -179,8 +179,43 @@ function del()
 		    Swal.fire('Perubahan tidak disimpan', '', 'info')
 		  }
 		});
+	});
 
-		
+    $(document).delegate(".btn-kembalikan", "click", function() {
+		Swal.fire({
+			icon: 'warning',
+		  	title: 'Kendaraan sudah dikembalikan?',
+		  	showDenyButton: false,
+		  	showCancelButton: true,
+		  	confirmButtonText: 'Sudah',
+            cancelButtonText: 'Belum'
+		}).then((result) => {
+		  /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+
+                var id = $(this).attr('data-id');
+
+		  	// Ajax config
+			$.ajax({
+		        type: "POST", //we are using GET method to get data from server side
+		        url: '<?= URLROOT; ?>/kendi/kendaraankembali/'+id, // get the route value
+		        beforeSend: function () {//We add this before send to disable the button once we submit it so that we prevent the multiple click
+		            
+		        },
+		        success: function (response) {//once the request successfully process to the server side it will return result here
+		            // Reload lists of employees
+                    Swal.fire('Kendaan telah dikembalikan.', response, 'success').then((result)=>{
+                        if(result.isConfirmed){
+                            location.reload();
+                        }
+                    });
+		        }
+		    });
+		    
+		  } else if (result.isDenied) {
+		    Swal.fire('Perubahan tidak disimpan', '', 'info')
+		  }
+		});
 	});
 }
 </script>

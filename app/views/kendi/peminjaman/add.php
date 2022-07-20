@@ -28,18 +28,18 @@
                 <label for="col-sm-2">:</label>
                 <div class="col-sm-6">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="keperluan" id="kedinasan" value="Kedinasan" onchange="showKeterangan()" checked>
+                        <input class="form-check-input" type="radio" name="keperluan" id="kedinasan" value="Kedinasan" checked>
                         <label class="form-check-label" for="kedinasan">
                         Kedinasan
                         </label>
-                        <textarea type="text" name="keterangan" class="form-control" id="keterangan" placeholder="Masukkan keterangan"></textarea>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="keperluan" value="Pemeliharaan/Perbaikan" id="pemeliharaan" onchange="hideKeterangan()">
+                        <input class="form-check-input" type="radio" name="keperluan" value="Pemeliharaan/Perbaikan" id="pemeliharaan">
                         <label class="form-check-label" for="pemeliharaan">
                         Pemeliharaan / Perbaikan
                         </label>
                     </div>
+                    <textarea type="text" name="keterangan" class="form-control mt-2" id="keterangan" placeholder="Masukkan keterangan"></textarea>
                 </div>
             </div>
             <div class="row mb-3">
@@ -139,16 +139,6 @@
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 <script>
-  function showKeterangan(){
-    document.getElementById("keterangan").value = "";
-    document.getElementById("keterangan").readOnly = false;
-    document.getElementById("keterangan").style.display = 'block';
-  }
-  function hideKeterangan(){
-    document.getElementById("keterangan").readOnly = true;
-    document.getElementById("keterangan").value = "";
-    document.getElementById("keterangan").style.display = 'none';
-  }
 
   function showJam(){
     document.getElementById("jam-form").style.display = 'block';

@@ -18,8 +18,15 @@ class KendiModel {
     }
 
     public function getPeminjamanByNIP(){
-        $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon WHERE pemohon=:user OR user=:user');
+        $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon WHERE pemohon=:user OR user=:user ORDER BY id DESC');
         $this->db->bind('user',$_SESSION['nip']);
+        $result = $this->db->resultSet();
+
+        return $result;
+    }
+
+    public function getPeminjamanPenggunaan(){
+        $this->db->query('SELECT peminjaman_kendaraan.*,users.nama FROM '.$this->peminjaman.' LEFT JOIN users ON users.nip=peminjaman_kendaraan.pemohon WHERE alasan_ditolak IS NULL ORDER BY id DESC');
         $result = $this->db->resultSet();
 
         return $result;
@@ -109,6 +116,26 @@ class KendiModel {
         $this->db->bind(':id', $id);
         $this->db->bind(':diserahkan', TRUE);
         $this->db->bind(':waktu_diserahkan', $waktu);
+        
+        //execute 
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function kembalikan($data){
+        $this->db->query('UPDATE '.$this->kendaraan.' SET dipinjam=:dipinjam WHERE id=:id');
+        $this->db->bind(':id', $data['id_kendaraan']);
+        $this->db->bind(':dipinjam', FALSE);
+        $this->db->execute();
+
+        $waktu = date('Y-m-d').', '.date('H:i');
+        $this->db->query('UPDATE '.$this->peminjaman.' SET selesai=:selesai,waktu_selesai=:waktu_selesai WHERE id=:id');
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':selesai', TRUE);
+        $this->db->bind(':waktu_selesai', $waktu);
         
         //execute 
         if($this->db->execute()){
