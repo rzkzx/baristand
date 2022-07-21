@@ -299,6 +299,11 @@
         
         <hr class="sidebar-divider">
         <div class="version">BSPJI - VERSION <?= APPVERSION; ?></div>
+        <li class="nav-item <?php if($data['title'] == 'Help') echo 'active'; ?>">
+            <a class="nav-link" href="<?= URLROOT; ?>/help">
+            <i class="fa fa-question-circle"></i>
+            <span>Help Desk</span></a>
+        </li>
         </ul>
         <!-- Sidebar -->
         <div id="content-wrapper" class="d-flex flex-column">
