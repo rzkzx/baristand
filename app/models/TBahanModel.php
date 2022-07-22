@@ -12,8 +12,9 @@ Class TBahanModel
 
   public function getAll()
   {
-      $query = "SELECT tbahan.*, nbahan, jumlah, keterangan FROM ".$this->table;
+      $query = "SELECT tbahan.*, nbahan, jumlah, keterangan FROM ".$this->table." WHERE nip=:nip";
       $this->db->query($query);
+      $this->db->bind('nip',$_SESSION['nip']);
 
       return $this->db->resultSet();
   }
@@ -21,13 +22,14 @@ Class TBahanModel
   public function add($data)
   {
 
-      $query = "INSERT INTO ".$this->table." (nbahan, jumlah, keterangan) 
-      VALUES (:nbahan, :jumlah, :keterangan)";
+      $query = "INSERT INTO ".$this->table." (nbahan, jumlah, keterangan, nip) 
+      VALUES (:nbahan, :jumlah, :keterangan, :nip)";
 
       $this->db->query($query);
       $this->db->bind('nbahan',$data['nbahan']);
       $this->db->bind('jumlah',$data['jumlah']);
       $this->db->bind('keterangan',$data['keterangan']);
+      $this->db->bind('nip',$_SESSION['nip']);
       $this->db->execute();
 
       return $this->db->rowCount();
@@ -43,9 +45,9 @@ Class TBahanModel
   }
 
   public function deleteAll(){
-    $query = "DELETE FROM ".$this->table;
+    $query = "DELETE FROM ".$this->table." WHERE nip=:nip";
     $this->db->query($query);
-    $this->db->execute();
+    $this->db->bind('nip',$_SESSION['nip']);
 
     return $this->db->rowCount();
   }

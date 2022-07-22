@@ -30,7 +30,6 @@ Class PengadaanModel
     return $this->db->resultSet();
   }
 
-
   public function getPenugasanAll()
   {
       $query = "SELECT * FROM ".$this->tablebp;
@@ -92,6 +91,26 @@ public function getBahanBySerial($serial_number){
           $this->db->bind('nip',$k->nip_petugas);
           $petugas = $this->db->single();
           $pengadaan[$no]->petugas_pengadaan = $petugas->nama;
+        }
+        $no++;
+      }
+      return $pengadaan;
+}
+
+public function getByPetugass($nip){
+  $query = "SELECT bahan_pengadaan.*, pengadaan.nip_penanggung, pengadaan.waktu_penugasan, pengadaan.penugasan FROM ".$this->tablebp." RIGHT JOIN pengadaan ON pengadaan.serial_number=bahan_pengadaan.seri_pengadaan WHERE nip_petugas=:nip_petugas";
+  $this->db->query($query);
+  $this->db->bind('nip_petugas', $nip);
+  $pengadaan = $this->db->resultSet();
+
+  $no = 0;
+      foreach ($pengadaan as $k) {
+        if($k->nip_penanggung){
+          $query2 = "SELECT * FROM users WHERE nip=:nip";
+          $this->db->query($query2);
+          $this->db->bind('nip',$k->nip_penanggung);
+          $petugas = $this->db->single();
+          $pengadaan[$no]->penanggung = $petugas->nama;
         }
         $no++;
       }
@@ -240,12 +259,11 @@ public function getBySerialPenanggung($serial_number){
   {
     $waktu_validasi3 = date('Y-m-d H:i');
 
-    $query = "UPDATE ".$this->table." SET  alasan3=:alasan3, waktu_validasi3=:waktu_validasi3, nip_ppk=:nip_ppk WHERE serial_number=:serial_number";
+    $query = "UPDATE ".$this->table." SET  alasan3=:alasan3, waktu_validasi3=:waktu_validasi3 WHERE serial_number=:serial_number";
     $this->db->query($query);
     $this->db->bind('waktu_validasi3',$waktu_validasi3);
     $this->db->bind('serial_number',$data['serial']);
     $this->db->bind('alasan3',$data['alasan3']);
-    $this->db->bind('nip_ppk',$data['nip_ppk']);
 
     if($this->db->execute()){
       return true;
@@ -263,8 +281,6 @@ public function getBySerialPenanggung($serial_number){
     $this->db->bind('serial_number',$data['serial']);
     $this->db->bind('waktu_disposisi',$waktu);
     $this->db->bind('alasan_dispo',$data['alasan_dispo']);
-  
-    
 
     if($this->db->execute()){
       return true;

@@ -14,7 +14,7 @@ Class PerbaikanModel
 
   public function getAll()
   {
-      $query = "SELECT perbaikan.*,users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon";
+      $query = "SELECT perbaikan.*,users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon ORDER BY id DESC";
       $this->db->query($query);
 
       return $this->db->resultSet();
@@ -40,7 +40,7 @@ Class PerbaikanModel
 
   public function getAllSelesai()
   {
-      $query = "SELECT perbaikan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:verifikasi_selesai)";
+      $query = "SELECT perbaikan.*, users.nama FROM ".$this->table. " JOIN users ON users.nip=perbaikan.nip_pemohon WHERE perbaikan.nip_pemohon AND hasil IN (:verifikasi_selesai) ORDER BY id DESC";
       $this->db->query($query);
       $this->db->bind('verifikasi_selesai',"Perbaikan selesai");
 

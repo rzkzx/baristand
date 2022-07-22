@@ -12,8 +12,9 @@ Class TBarangModel
 
   public function getAll()
   {
-      $query = "SELECT tbarang.*, nbarang, jumlah, keterangan FROM ".$this->table;
+      $query = "SELECT tbarang.*, nbarang, jumlah, keterangan FROM ".$this->table." WHERE nip=:nip";
       $this->db->query($query);
+      $this->db->bind('nip',$_SESSION['nip']);
 
       return $this->db->resultSet();
   }
@@ -21,13 +22,14 @@ Class TBarangModel
   public function add($data)
   {
 
-      $query = "INSERT INTO ".$this->table." (nbarang, jumlah, keterangan) 
-      VALUES (:nbarang, :jumlah, :keterangan)";
+      $query = "INSERT INTO ".$this->table." (nbarang, jumlah, keterangan, nip) 
+      VALUES (:nbarang, :jumlah, :keterangan, :nip)";
 
       $this->db->query($query);
       $this->db->bind('nbarang',$data['nbarang']);
       $this->db->bind('jumlah',$data['jumlah']);
       $this->db->bind('keterangan',$data['keterangan']);
+      $this->db->bind('nip',$_SESSION['nip']);
       $this->db->execute();
 
       return $this->db->rowCount();
@@ -43,8 +45,9 @@ Class TBarangModel
   }
 
   public function deleteAll(){
-    $query = "DELETE FROM ".$this->table;
+    $query = "DELETE FROM ".$this->table." WHERE nip=:nip";
     $this->db->query($query);
+    $this->db->bind('nip',$_SESSION['nip']);
     $this->db->execute();
 
     return $this->db->rowCount();
